@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useMemo} from 'react'
 import { Route, Redirect} from 'react-router-dom'
+import { useSelector} from 'react-redux'
 
 const PrivateRoute = props => {
     const { 
@@ -7,7 +8,8 @@ const PrivateRoute = props => {
         ...restProps
     } = props
 
-    const isAuthenticated = false
+    const { loggedUserReducer : loggedUser } = useSelector( state => state)
+    const isAuthenticated = useMemo(()=>loggedUser?.userName, [loggedUser])
 
     return (
         <Route
