@@ -4,10 +4,10 @@ const InputBox = props => {
     const { 
         label = '',
         width = '80%',
-        height = '26px'
+        height = '36px'
 } = props
     return (
-        <div style={{ display : 'flex', height, width, justifyContent : 'space-between', marginTop : '30px'}}>
+        <div style={{ display : 'flex', height, width, justifyContent : 'space-between', marginTop : '30px', alignItems : 'center'}}>
             <Typography>
                 { label || ''}
             </Typography>

@@ -7,8 +7,8 @@ import './index.css'
 const LoginPage = props => {
 
     return(
-        <div className='container'>
-            <div className='content'>
+        <div className='container-login'>
+            <div className='content-login'>
                 <Typography.Title style={{ color : '#0072E5'}}>Login</Typography.Title>
                 <InputBox
                     label = 'User name' 
