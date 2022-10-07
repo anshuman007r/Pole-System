@@ -1,0 +1,20 @@
+const ADD_USER = "ADD_USER"
+const GET_USER_LIST = "GET_USER_LIST"
+const LOG_IN_USER = "LOG_IN_USER"
+const LOG_OUT = "LOG_OUT"
+const ADD_POLE = "ADD_POLE"
+const DELETE_POLE = "DELETE_POLE"
+const MODIFY_POLE = "MODIFY_POLE"
+const GET_POLE_LIST = "GET_POLE_LIST"
+
+
+export {
+    ADD_USER,
+    GET_USER_LIST,
+    LOG_IN_USER,
+    LOG_OUT,
+    ADD_POLE,
+    DELETE_POLE,
+    MODIFY_POLE,
+    GET_POLE_LIST
+}
