@@ -7,13 +7,13 @@ import { store, persistedStore} from './storage/store'
 
 function App() {
   return (
-    <div className="App">
+    // <div className="App">
       <Provider store={store}>
         <PersistGate persistor={persistedStore}>
           <RouterWrapper/>
         </PersistGate>
       </Provider>   
-    </div>
+    // </div>
   );
 }
 
