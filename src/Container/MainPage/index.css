@@ -1,0 +1,12 @@
+.logout-button {
+    width: 108px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #fff;
+    margin: 4px 10px;
+    border-radius: 2px;
+    height: 40px;
+    margin: 8px 12px 0 0;
+    display : flex; 
+    justify-content : space-between
+}
