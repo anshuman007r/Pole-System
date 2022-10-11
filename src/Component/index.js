@@ -1,11 +1,14 @@
 import InputBox from './InputBox'
 import SelectBox from './SelectBox'
-import { Typography, Button } from 'antd'
+import Header from './Header'
+import { Typography, Button, Popover } from 'antd'
 
 
 export {
     InputBox,
     SelectBox,
+    Header,
     Typography,
-    Button
+    Button, 
+    Popover
 }

@@ -5,6 +5,7 @@ const InputBox = props => {
         label = '',
         width = '80%',
         height = '36px',
+        inputWidth = '100%',
         ...rest
 } = props
     return (
@@ -12,7 +13,7 @@ const InputBox = props => {
             <Typography>
                 { label || ''}
             </Typography>
-            <Input { ...rest} style={{ width : 'calc(100% - 100px)'}}/>
+            <Input { ...rest} style={{ width : inputWidth || '100%'}}/>
         </div>
     )
 
