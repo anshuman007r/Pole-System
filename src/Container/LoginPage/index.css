@@ -62,3 +62,8 @@
     font-size : 12px; 
     margin-top : 5px
 }
+
+.error-box{
+    position: absolute;
+    width: 100%
+}

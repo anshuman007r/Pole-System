@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
-import { InputBox, Typography, Button, SelectBox} from '../../Component'
+import { InputBox, Typography, Button, SelectBox, Alert} from '../../Component'
 import './index.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { AddUser } from '../../storage/action'
@@ -18,11 +18,6 @@ const RegisterPage = props => {
     const dispatch = useDispatch()
     const userDetails = useSelector(state => state?.usersReducer || [])
     const [disableButton, setDisableButton] = useState(true)
-
-    useEffect(()=>{
-        console.log('#error', error)
-        if(error) alert(`error:  ${error}`)
-    },[error])
 
     useEffect(()=>{
         if(
@@ -44,73 +39,99 @@ const RegisterPage = props => {
         setState(prevState => ({ ...prevState, [name] : value}))
     }
 
+    const onErrorOccur = (message = '') =>{
+        setError(message)
+        closeErrorAuto()
+    }
+
+    const onClose = () =>{
+        setError('')
+    }
+
+    const closeErrorAuto = () =>{
+        setTimeout(onClose,5000)
+    }
+
     const onRegisterClick = () => {
         const userDetailIndex = userDetails?.findIndex(user => user?.userName === state?.userName)
         console.log(userDetailIndex, userDetails, state )
-        if(state?.password !== state?.confirmPassword) setError('Confirm Password & Password didn\'t match')
+        if(state?.password !== state?.confirmPassword) onErrorOccur('Confirm Password & Password didn\'t match')
         else if(userDetailIndex === -1){
             dispatch(AddUser({
                 ...state
             }))
         }else{
-            setError('User name already exist')
+            onErrorOccur('User name already exist')
         }
     }
 
     return(
-        <div className='container-register'>
-            <div className='content-register'>
-                <Typography.Title className='title'>Register</Typography.Title>
-                <InputBox
-                    label = 'First name' 
-                    name = "firstName"
-                    inputWidth = "calc(100% - 150px)"
-                    onChange={onChange}
+        <>
+            {error &&
+                <Alert
+                    message = {error || 'Something went wrong'}
+                    banner
+                    type = "error"
+                    closable
+                    afterClose={onClose}
+                    className='error-box'
                 />
-                <InputBox
-                    label = 'Last name'
-                    name = "lastName" 
-                    inputWidth = "calc(100% - 150px)"
-                    onChange={onChange}
-                />
-                <InputBox
-                    label = 'User name'
-                    name = "userName" 
-                    inputWidth = "calc(100% - 150px)"
-                    onChange={onChange}
-                />
-                <InputBox
-                    label = 'Password'
-                    name = "password"
-                    type ="password"
-                    inputWidth = "calc(100% - 150px)"
-                    onChange={onChange}
-                />
-                <InputBox
-                    label = 'Confirm password'
-                    name = "confirmPassword"
-                    type ="password"
-                    inputWidth = "calc(100% - 150px)"
-                    onChange={onChange}
-                />
-                <SelectBox
-                    label = 'Role' 
-                    name = "role"
-                    inputWidth = "calc(100% - 150px)"
-                    onChange={select => onChange({ target : { name : 'role', value : select || ''}})}
-                />
-                <div className='register-button-container'>
-                    <Button disabled={disableButton} type="primary"  className='register-button' onClick={onRegisterClick}>Register</Button>
+            }
+            <div className='container-register'>
+                <div className='content-register'>
+                    <Typography.Title className='title'>Register</Typography.Title>
+                    <InputBox
+                        label = 'First name' 
+                        name = "firstName"
+                        inputWidth = "calc(100% - 150px)"
+                        onChange={onChange}
+                    />
+                    <InputBox
+                        label = 'Last name'
+                        name = "lastName" 
+                        inputWidth = "calc(100% - 150px)"
+                        onChange={onChange}
+                    />
+                    <InputBox
+                        label = 'User name'
+                        name = "userName" 
+                        inputWidth = "calc(100% - 150px)"
+                        onChange={onChange}
+                    />
+                    <InputBox
+                        label = 'Password'
+                        name = "password"
+                        type ="password"
+                        inputWidth = "calc(100% - 150px)"
+                        onChange={onChange}
+                    />
+                    <InputBox
+                        label = 'Confirm password'
+                        name = "confirmPassword"
+                        type ="password"
+                        inputWidth = "calc(100% - 150px)"
+                        onChange={onChange}
+                    />
+                    <SelectBox
+                        label = 'Role' 
+                        name = "role"
+                        inputWidth = "calc(100% - 150px)"
+                        onChange={select => onChange({ target : { name : 'role', value : select || ''}})}
+                    />
+                    <div className='register-button-container'>
+                        <Button disabled={disableButton} type="primary"  className='register-button' onClick={onRegisterClick}>Register</Button>
+                    </div>
+                    <Link to= "/login">
+                        <Typography.Text ellipsis className='sub-text'>
+                            Already have an account? Go to login
+                        </Typography.Text> 
+                    </Link> 
+            
                 </div>
-                <Link to= "/login">
-                    <Typography.Text ellipsis className='sub-text'>
-                        Already have an account? Go to login
-                    </Typography.Text> 
-                </Link> 
-          
-            </div>
 
-        </div>
+            </div>
+        </>
+
     )
 }
 

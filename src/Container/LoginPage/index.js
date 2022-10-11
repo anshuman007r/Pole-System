@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { InputBox, Typography, Button} from '../../Component'
+import { InputBox, Typography, Button, Alert } from '../../Component'
 import './index.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { LogInUser } from '../../storage/action'
@@ -15,10 +15,10 @@ const LoginPage = props => {
     const userDetails = useSelector(state => state?.usersReducer || [])
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        console.log('#error', error)
-        if(error) alert(`error:  ${error}`)
-    },[error])
+    // useEffect(()=>{
+    //     console.log('#error', error)
+    //     if(error) alert(`error:  ${error}`)
+    // },[error])
 
     useEffect(()=>{
         if(
@@ -37,11 +37,24 @@ const LoginPage = props => {
                     ...state
                 }))
             }else{
-                setError('Incorrect Password')
+                onErrorOccur('Incorrect Password')
             }
         }else{
-            setError('User name is not valid')
+            onErrorOccur('User name is not valid')
         }
+    }
+
+    const onErrorOccur = (message = '') =>{
+        setError(message)
+        closeErrorAuto()
+    }
+
+    const onClose = () =>{
+        setError('')
+    }
+
+    const closeErrorAuto = () =>{
+        setTimeout(onClose,5000)
     }
 
     const onChange = ({ target = {}})  => {
@@ -50,34 +63,47 @@ const LoginPage = props => {
     }
     
     return(
-        <div className='container-login'>
-            <div className='content-login'>
-                <Typography.Title className='title'>Login</Typography.Title>
-                <InputBox
-                    label = 'User name' 
-                    name = "userName"
-                    inputWidth = "calc(100% - 100px)"
-                    onChange = {onChange}
+        <>
+            {error &&
+                <Alert
+                    message = {error || 'Something went wrong'}
+                    banner
+                    type = "error"
+                    closable
+                    afterClose={onClose}
+                    className='error-box'
                 />
-                <InputBox
-                    name= "password"
-                    type = "password"
-                    label = 'Password'
-                    inputWidth = "calc(100% - 100px)"
-                    onChange = {onChange}
-                />
-                <div className='login-button-container'>
-                    <Button disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>Login</Button>
+            }
+            <div className='container-login'>
+                <div className='content-login'>
+                    <Typography.Title className='title'>Login</Typography.Title>
+                    <InputBox
+                        label = 'User name' 
+                        name = "userName"
+                        inputWidth = "calc(100% - 100px)"
+                        onChange = {onChange}
+                    />
+                    <InputBox
+                        name= "password"
+                        type = "password"
+                        label = 'Password'
+                        inputWidth = "calc(100% - 100px)"
+                        onChange = {onChange}
+                    />
+                    <div className='login-button-container'>
+                        <Button disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>Login</Button>
+                    </div>
+                    <Link to= "/register">
+                        <Typography.Text ellipsis className='sub-text'>
+                            Don't have account? Click to register
+                        </Typography.Text> 
+                    </Link> 
+            
                 </div>
-                <Link to= "/register">
-                    <Typography.Text ellipsis className='sub-text'>
-                        Don't have account? Click to register
-                    </Typography.Text> 
-                </Link> 
-          
-            </div>
 
-        </div>
+            </div>
+        </>
+
     )
 }
 
