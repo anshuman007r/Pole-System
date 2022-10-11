@@ -14,7 +14,10 @@ const RegisterPage = props => {
         confirmPassword : '',
         role : ''
     })
-    const [error, setError] = useState('')
+    const [alertMessage, setAlertMessage] = useState({
+        message : '',
+        type : ''
+    })
     const dispatch = useDispatch()
     const userDetails = useSelector(state => state?.usersReducer || [])
     const [disableButton, setDisableButton] = useState(true)
@@ -39,39 +42,45 @@ const RegisterPage = props => {
         setState(prevState => ({ ...prevState, [name] : value}))
     }
 
-    const onErrorOccur = (message = '') =>{
-        setError(message)
-        closeErrorAuto()
+    const onAlertOccur = (message = '', type = '') =>{
+        setAlertMessage({message, type})
+        closeAlertAuto(type)
     }
 
     const onClose = () =>{
-        setError('')
+        setAlertMessage({ message : '', type : ''})
     }
 
-    const closeErrorAuto = () =>{
-        setTimeout(onClose,5000)
+    const closeAlertAuto = (type = '') =>{
+        setTimeout(type !== 'success' ? onClose : onRedirectToLogin, 5000)
+    }
+
+    const onRedirectToLogin = () =>{
+        setAlertMessage({ message : '', type : ''})
+        props.history.push('/login')
     }
 
     const onRegisterClick = () => {
         const userDetailIndex = userDetails?.findIndex(user => user?.userName === state?.userName)
         console.log(userDetailIndex, userDetails, state )
-        if(state?.password !== state?.confirmPassword) onErrorOccur('Confirm Password & Password didn\'t match')
+        if(state?.password !== state?.confirmPassword) onAlertOccur('Confirm Password & Password didn\'t match', 'error')
         else if(userDetailIndex === -1){
             dispatch(AddUser({
                 ...state
             }))
+            onAlertOccur('User created successfully', 'success')
         }else{
-            onErrorOccur('User name already exist')
+            onAlertOccur('User name already exist', 'error')
         }
     }
 
     return(
         <>
-            {error &&
+            { alertMessage?.message &&
                 <Alert
-                    message = {error || 'Something went wrong'}
+                    message = { alertMessage?.message || 'Something went wrong'}
                     banner
-                    type = "error"
+                    type = {alertMessage?.type}
                     closable
                     afterClose={onClose}
                     className='error-box'
