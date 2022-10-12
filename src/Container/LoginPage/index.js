@@ -15,11 +15,6 @@ const LoginPage = props => {
     const userDetails = useSelector(state => state?.usersReducer || [])
     const dispatch = useDispatch()
 
-    // useEffect(()=>{
-    //     console.log('#error', error)
-    //     if(error) alert(`error:  ${error}`)
-    // },[error])
-
     useEffect(()=>{
         if(
             state?.userName 
@@ -34,7 +29,7 @@ const LoginPage = props => {
             if(userDetail?.password === state?.password){
                 setError('')
                 dispatch(LogInUser({
-                    ...state
+                    ...userDetail
                 }))
             }else{
                 onErrorOccur('Incorrect Password')
@@ -94,8 +89,8 @@ const LoginPage = props => {
                         <Button disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>Login</Button>
                     </div>
                     <Link to= "/register">
-                        <Typography.Text ellipsis className='sub-text'>
-                            Don't have account? Click to register
+                        <Typography.Text ellipsis className='sub-text-login'>
+                            Don't have an account? Click to register
                         </Typography.Text> 
                     </Link> 
             

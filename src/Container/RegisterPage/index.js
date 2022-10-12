@@ -131,7 +131,7 @@ const RegisterPage = props => {
                         <Button disabled={disableButton} type="primary"  className='register-button' onClick={onRegisterClick}>Register</Button>
                     </div>
                     <Link to= "/login">
-                        <Typography.Text ellipsis className='sub-text'>
+                        <Typography.Text ellipsis className='sub-text-register'>
                             Already have an account? Go to login
                         </Typography.Text> 
                     </Link> 

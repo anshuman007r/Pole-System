@@ -30,14 +30,14 @@
 }
 
 .register-button-container {
-    width : 40%; 
+    width : 50%; 
     display : flex
 }
 
 .register-button {
     background : #363636 !important; 
     width : 120px; 
-    margin : 40px 0 0 0px; 
+    margin : 40px 0 0 75px; 
     color : #fff
 }
 
@@ -57,10 +57,10 @@
     opacity : 0.8
 }
 
-.sub-text {
+.sub-text-register {
     color : #363636; 
     font-size : 12px; 
-    margin-top : 5px
+    margin : 5px 0 0 105px
 }
 
 .error-box{

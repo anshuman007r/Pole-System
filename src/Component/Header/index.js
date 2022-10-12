@@ -1,55 +1,63 @@
 import React from "react"
+import { useDispatch } from "react-redux"
+import { LogOutUser } from "../../storage/action"
+import './index.css'
 
 const Header = props => {
 
-    const { onLogoutClick } = props
+    const { page  } = props
 
- return (
-    <nav class="navbar is-dark"  role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <span class="navbar-item navbar-brand is-size-5 has-text-weight-semibold">
-                Pole system
-            </span>
-            {/* <Popover
-                content={<button onClick={onHide}>Close</button>}
-                title="Title"
-                trigger="click"
-                placement='bottom'
-                open={open}
-                onOpenChange={handleOpenChange}
-            > */}
-            <div role="button" class="navbar-burger" aria-label="menu"  aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"> </span>
-            </div>
-            {/* </Popover> */}
-        </div>
+    const dispatch = useDispatch()
+    const onLogoutClick = () =>{
+        dispatch(LogOutUser())
+    }
 
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-end center">
-                <div class="navbar-item">
-                    <div class="buttons">   
-                        <button class="button is-light">
-                            Open list
-                        </button>
-                        <button class="button is-light">
-                            Close list
-                        </button>
-                    </div>
+    const onRedirect = (path = "") =>{
+        props.history.push(path)
+    }
+
+    return (
+        <nav className="navbar is-dark navbar-height"  role="navigation" aria-label="main navigation">
+            <div className="navbar-brand">
+                { page ? <img src={process.env.PUBLIC_URL+"icons/back_arrow_icon.svg"} width = '24px' height="24px"  className="back_image" alt="back_arrow_icon" onClick={()=>props.history.goBack()} />  : null }
+                <span className="navbar-item navbar-brand is-size-5 has-text-weight-semibold">
+                    {page || 'Pole system'}
+                </span>
+                <div role="button" className="navbar-burger" aria-label="menu"  aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"> </span>
                 </div>
-                <button class="navbar-item logout-button" onClick={onLogoutClick}>
-                    <img src={process.env.PUBLIC_URL+"icons/logout_icon.svg"} width = '20px' height="18px" alt="Logout_icon" />
-                    Log out
-                </button>
+                {/* </Popover> */}
             </div>
-        </div>
-    </nav>
- )
+
+            <div id="navbarBasicExample" className="navbar-menu">
+                <div className="navbar-end center">
+                    {
+                        !page ?
+                        <div className="navbar-item">
+                            <div className="buttons">   
+                                <button className="button is-light" onClick={()=>onRedirect('/open_pole')}>
+                                    Open list
+                                </button>
+                                <button className="button is-light" onClick={()=>onRedirect("/close_pole")}>
+                                    Close list
+                                </button>
+                            </div>
+                        </div> : null
+                    }
+                    <button className="navbar-item logout-button" onClick={onLogoutClick}>
+                        <img src={process.env.PUBLIC_URL+"icons/logout_icon.svg"} width = '20px' height="18px" alt="Logout_icon" />
+                        Log out
+                    </button>
+                </div>
+            </div>
+        </nav>
+    )
 }
 
 Header.defaultProps = {
-    onLogoutClick : () => {}
+    page : ''
 }
 
 export default Header

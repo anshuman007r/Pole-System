@@ -57,10 +57,10 @@
     opacity : 0.8
 }
 
-.sub-text {
+.sub-text-login {
     color : #363636; 
     font-size : 12px; 
-    margin-top : 5px
+    margin : 5px 0 0 15px
 }
 
 .error-box{
