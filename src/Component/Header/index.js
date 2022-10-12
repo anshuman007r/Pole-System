@@ -1,16 +1,19 @@
-import React from "react"
-import { useDispatch } from "react-redux"
+import React, { useMemo } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { LogOutUser } from "../../storage/action"
 import './index.css'
 
 const Header = props => {
 
-    const { page  } = props
+    const { page } = props
 
     const dispatch = useDispatch()
     const onLogoutClick = () =>{
         dispatch(LogOutUser())
     }
+    const { loggedUserReducer : loggedUser } = useSelector( state => state)
+    
+    const role = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
 
     const onRedirect = (path = "") =>{
         props.history.push(path)
@@ -40,9 +43,13 @@ const Header = props => {
                                 <button className="button is-light" onClick={()=>onRedirect('/open_pole')}>
                                     Open list
                                 </button>
-                                <button className="button is-light" onClick={()=>onRedirect("/close_pole")}>
-                                    Close list
-                                </button>
+                                {
+                                    role === 'admin' &&
+                                    <button className="button is-light" onClick={()=>onRedirect("/close_pole")}>
+                                        Close list
+                                    </button>
+                                }
+
                             </div>
                         </div> : null
                     }
@@ -57,7 +64,7 @@ const Header = props => {
 }
 
 Header.defaultProps = {
-    page : ''
+    page : '',
 }
 
 export default Header
