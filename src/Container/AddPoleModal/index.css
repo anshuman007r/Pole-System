@@ -1,0 +1,13 @@
+.save-button {
+    background-color: #3E3E3E;
+}
+
+.save-button:hover{
+    background-color: #2e2e2e;
+}
+
+.cancel-button:hover {
+    color : #2e2e2e !important;
+    /* font-size: large; */
+    border : 1px solid #2e2e2e
+}

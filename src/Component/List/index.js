@@ -49,7 +49,7 @@ const List = props => {
         <div className="list_container">
             {
                 poleList?.map(({ pole_name, visted_by_user, closing_date, pole_id}, index)=>(
-                    <div className = "list-item" style={{marginTop : index ? '12px' : 0}} key={index}>
+                    <div className = "list-item" style={{marginTop : index ? '12px' : 0}} key={`$Pole_${index}`}>
                         <div className="list_item_left_content" onClick={()=>onPoleClick(pole_id)}
                         >
                             <span style={{display : 'flex'}}>

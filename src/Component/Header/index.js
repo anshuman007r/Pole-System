@@ -26,7 +26,7 @@ const buttons = [
 
 const Header = props => {
 
-    const { page } = props
+    const { page, onOpenModal } = props
 
     const dispatch = useDispatch()
     const onLogoutClick = () =>{
@@ -52,7 +52,7 @@ const Header = props => {
 
     const onButtonClick = (path) => {
         if(path) onRedirect(path)
-        else console.log('Add Pole')
+        else onOpenModal()
     }
 
     return (
@@ -75,8 +75,8 @@ const Header = props => {
                     <div className="navbar-item">
                         <div className="buttons"> 
                             {
-                                headerButton?.map(({ label, icon, redirect_link})=>(
-                                    <button className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
+                                headerButton?.map(({ label, icon, redirect_link}, index)=>(
+                                    <button key={`action_${index}`} className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
                                         { 
                                             icon && 
                                             <img src={process.env.PUBLIC_URL+`icons/${icon}`} className="button_icon" width = '20px' height="18px" alt="add_icon" />
@@ -99,6 +99,7 @@ const Header = props => {
 
 Header.defaultProps = {
     page : '',
+    onOpenModal : () => {}
 }
 
 export default Header
