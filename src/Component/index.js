@@ -8,7 +8,9 @@ import {
     Popover, 
     Alert, 
     Modal, 
-    Tooltip 
+    Tooltip,
+    Row,
+    Col
 } from 'antd'
 
 
@@ -22,5 +24,7 @@ export {
     Popover, 
     Alert,
     Modal,
-    Tooltip
+    Tooltip,
+    Row,
+    Col
 }

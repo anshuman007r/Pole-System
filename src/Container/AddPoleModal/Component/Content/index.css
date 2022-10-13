@@ -1,0 +1,23 @@
+.horizontal-line {
+    background-color: #D0D0D0;
+    height: 1px;
+}
+
+.horizontal-line-internal {
+    background-color: #D0D0D0;
+    height: 0.5px;
+}
+
+.option-row {
+    padding : 0px !important; 
+    margin : 0px !important;
+    width : 100%
+}
+
+.option-row-left-col {
+    padding : 0 45px 0 0 !important;
+}
+
+.option-row-right-col {
+    padding : 0 0 0 60px !important;
+}

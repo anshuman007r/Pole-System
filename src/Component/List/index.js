@@ -90,8 +90,8 @@ const List = props => {
                                             <>
                                                 {
                                                     actionButton?.map(({ name , Component, color}, actionIndex)=>(
-                                                        <Tooltip placement="bottom" title={name}>
-                                                            <Component key={`action_${actionIndex}`} twoToneColor={color}/>
+                                                        <Tooltip key={`action_${actionIndex}`} placement="bottom" title={name}>
+                                                            <Component  twoToneColor={color}/>
                                                         </Tooltip>
                                                     ))
                                                 }

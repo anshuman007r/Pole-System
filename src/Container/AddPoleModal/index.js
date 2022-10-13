@@ -1,5 +1,6 @@
 import React from 'react'
 import { Modal } from '../../Component'
+import { Content } from './Component'
 import './index.css'
 
 const AddPoleModal = props =>{
@@ -17,12 +18,16 @@ const AddPoleModal = props =>{
             okText="Add"
             cancelButtonProps={{ className : 'cancel-button'}}
             okButtonProps={{ className : 'save-button'}}
+            bodyStyle={{
+                height : '56vh',
+                overflow : 'auto'
+            }}
             onCancel={onClose}
             width={1000}
             // height={10400}
             title="Add Pole"
         >
-            Add Pole Content
+            <Content/>
         </Modal>
     )
 }
