@@ -2,7 +2,14 @@ import InputBox from './InputBox'
 import SelectBox from './SelectBox'
 import Header from './Header'
 import List from './List'
-import { Typography, Button, Popover, Alert, Modal } from 'antd'
+import { 
+    Typography, 
+    Button, 
+    Popover, 
+    Alert, 
+    Modal, 
+    Tooltip 
+} from 'antd'
 
 
 export {
@@ -14,5 +21,6 @@ export {
     Button, 
     Popover, 
     Alert,
-    Modal
+    Modal,
+    Tooltip
 }

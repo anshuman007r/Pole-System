@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
 import './index.css'
 import { useHistory } from "react-router-dom";
+import { Tooltip } from '../../Component'
 import { useSelector } from "react-redux";
-import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
+import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone, } from "@ant-design/icons";
 
 const pole_list = [
     {
@@ -25,6 +26,24 @@ const pole_list = [
     }
 
 
+]
+
+const actionButton = [
+    {
+        name : 'Edit',
+        Component : EditTwoTone,
+        color : '#0072E5'
+    },
+    {
+        name : 'Delete',
+        Component : DeleteTwoTone,
+        color : '#DB3B19'
+    },
+    {
+        name : 'Close',
+        Component : CloseCircleTwoTone,
+        color : '#C70039'
+    }
 ]
 
 const List = props => {
@@ -69,9 +88,13 @@ const List = props => {
                                         {
                                             page === 'Open Poles' ?
                                             <>
-                                                <EditTwoTone twoToneColor="#0072E5"/>
-                                                <DeleteTwoTone twoToneColor="#DB3B19"/>
-                                                <CloseCircleTwoTone twoToneColor="#C70039"/>
+                                                {
+                                                    actionButton?.map(({ name , Component, color}, actionIndex)=>(
+                                                        <Tooltip placement="bottom" title={name}>
+                                                            <Component key={`action_${actionIndex}`} twoToneColor={color}/>
+                                                        </Tooltip>
+                                                    ))
+                                                }
                                             </> : 
                                             <button className="result-button" onClick={()=>onResultClick(pole_id)}>
                                                 <img src={process.env.PUBLIC_URL+'icons/graph_icon.svg'} className="button_icon" width = '20px' height="20px" alt="graph_icon" />
