@@ -13,8 +13,8 @@ const RouteWrapper = props => {
         <Router>
             <Switch>
                 <ProtectedRoute component = {MainPage} path= '/' exact />
-                <ProtectedRoute component = {OpenPole} path = '/open_pole' exact />
-                <ProtectedRoute component = {PoleDetails} path = '/open_pole/:poleId' />
+                <ProtectedRoute component = {OpenPole} path = '/pole' exact />
+                <ProtectedRoute component = {PoleDetails} path = '/pole/:poleId' />
                 <ProtectedRoute component = {ClosePole} path = '/close_pole' exact />
                 <ProtectedRoute component = {PoleResult} path = '/close_pole/:poleId' />
                 <PrivateRoute component = {LoginPage} path= '/login' />

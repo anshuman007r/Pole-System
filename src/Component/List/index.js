@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import './index.css'
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
 
 const pole_list = [
@@ -27,13 +28,20 @@ const pole_list = [
 ]
 
 const List = props => {
-    const { page, role } = props
-    const history = useHistory()
+    const { page} = props
+    const history = useHistory()  
+    const { loggedUserReducer : loggedUser } = useSelector( state => state)
+    
+    const role = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
     const poleList = useMemo(()=>([ ...pole_list, ...pole_list, ...pole_list, ...pole_list]),[])
 
     const onPoleClick = (id = '') =>{
-        console.log('id', id)
-        const path =  '/open_pole' 
+        const path =  '/pole' 
+        history.push(`${path}/${id}`)
+    }
+
+    const onResultClick = (id = '') =>{
+        const path =  '/close_pole' 
         history.push(`${path}/${id}`)
     }
 
@@ -41,7 +49,7 @@ const List = props => {
         <div className="list_container">
             {
                 poleList?.map(({ pole_name, visted_by_user, closing_date, pole_id}, index)=>(
-                    <div className={page === 'Open Poles' ? 'list-item-open-pole' : 'list-item-close-pole'} style={{marginTop : index ? '12px' : 0}} key={index}>
+                    <div className = "list-item" style={{marginTop : index ? '12px' : 0}} key={index}>
                         <div className="list_item_left_content" onClick={()=>onPoleClick(pole_id)}
                         >
                             <span style={{display : 'flex'}}>
@@ -65,7 +73,7 @@ const List = props => {
                                                 <DeleteTwoTone twoToneColor="#DB3B19"/>
                                                 <CloseCircleTwoTone twoToneColor="#C70039"/>
                                             </> : 
-                                            <button className="result-button">
+                                            <button className="result-button" onClick={()=>onResultClick(pole_id)}>
                                                 <img src={process.env.PUBLIC_URL+'icons/graph_icon.svg'} className="button_icon" width = '20px' height="20px" alt="graph_icon" />
                                                 Result
                                             </button>
@@ -93,8 +101,7 @@ const List = props => {
 }
 
 List.defaultProps = {
-    page : '',
-    role : "user"
+    page : ''
 }
 
 export default List

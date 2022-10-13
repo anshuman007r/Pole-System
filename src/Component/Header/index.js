@@ -8,7 +8,7 @@ const buttons = [
         name : 'Open List',
         icon : '',
         label : 'Open List',
-        redirect_link : '/open_pole'
+        redirect_link : '/pole'
     },
     {
         name : 'Close List',
