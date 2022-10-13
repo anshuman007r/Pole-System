@@ -83,12 +83,16 @@ const Content = props =>{
                             <React.Fragment>
                                 { quesIndex ? <hr className='horizontal-line-internal'/> : null}
                                 <InputBox
-                                    label = 'Question 1'
+                                    label = {`Question ${quesIndex + 1}`}
                                     name = "password"
                                     type ="password"
                                     placeholder = "Question"
                                     inputWidth = "calc(100% - 110px)"
                                     width ="100%"
+                                    labelStyle = {{
+                                        fontWeight : '600',
+                                        fontSize : '15px'
+                                    }}
                                     marginTop = "0px"
                                     onChange={onChange}
                                 /> 
@@ -114,6 +118,9 @@ const Content = props =>{
                                                 placeholder = "Option"
                                                 inputWidth = "calc(100% - 120px)"
                                                 width ="100%"
+                                                labelStyle= {{
+                                                    fontSize : '12px'
+                                                }}
                                                 // // marginTop = "0px"
                                                 onChange={onChange}
                                             />

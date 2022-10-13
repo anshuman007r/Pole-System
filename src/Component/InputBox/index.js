@@ -7,11 +7,12 @@ const InputBox = props => {
         height,
         inputWidth,
         marginTop,
+        labelStyle,
         ...rest
 } = props
     return (
         <div style={{ display : 'flex', height, width, justifyContent : 'space-between', marginTop : marginTop || 0, alignItems : 'center'}}>
-            <Typography>
+            <Typography style={{ ...labelStyle}}>
                 { label || ''}
             </Typography>
             <Input { ...rest} style={{ width : inputWidth || '100%'}}/>
@@ -25,7 +26,8 @@ InputBox.defaultProps = {
     width : '80%',
     height : '36px',
     inputWidth : '100%',
-    marginTop : '30px' 
+    marginTop : '30px',
+    labelStyle : {}
 }
 
 export default InputBox
