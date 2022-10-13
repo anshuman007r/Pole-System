@@ -4,4 +4,12 @@
 
 .navbar-height {
     height:  56px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    /* bottom : 100px */
+}
+
+.button_icon {
+    margin : 1px 6px 0 -6px
 }

@@ -9,7 +9,7 @@ const OpenPole = props =>{
                 { ...props}
             />
             <List
-
+                page = "Open Poles"
             />
         </>
     )

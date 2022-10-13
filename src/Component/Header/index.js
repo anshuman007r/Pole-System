@@ -3,6 +3,27 @@ import { useDispatch, useSelector } from "react-redux"
 import { LogOutUser } from "../../storage/action"
 import './index.css'
 
+const buttons = [
+    {
+        name : 'Open List',
+        icon : '',
+        label : 'Open List',
+        redirect_link : '/open_pole'
+    },
+    {
+        name : 'Close List',
+        icon : '',
+        label : 'Close List',
+        redirect_link : '/close_pole'
+    },
+    {
+        name : 'Add Pole',
+        icon : 'add_icon.svg',
+        label : 'Add Pole',
+        redirect_link : ''
+    },
+]
+
 const Header = props => {
 
     const { page } = props
@@ -15,8 +36,23 @@ const Header = props => {
     
     const role = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
 
+    const headerButton  = useMemo(()=>{
+        if(!page){
+            return buttons?.filter(res => role === 'admin' ? (res?.name !== 'Add Pole') : (res?.name === 'Open List') )
+        }else if( page === 'Open Poles'){
+            return role === 'admin' ? buttons?.filter(res => res?.name === 'Add Pole') : []
+        }else{
+            return []
+        }
+    },[page, role])
+
     const onRedirect = (path = "") =>{
         props.history.push(path)
+    }
+
+    const onButtonClick = (path) => {
+        if(path) onRedirect(path)
+        else console.log('Add Pole')
     }
 
     return (
@@ -36,23 +72,21 @@ const Header = props => {
 
             <div id="navbarBasicExample" className="navbar-menu">
                 <div className="navbar-end center">
-                    {
-                        !page ?
-                        <div className="navbar-item">
-                            <div className="buttons">   
-                                <button className="button is-light" onClick={()=>onRedirect('/open_pole')}>
-                                    Open list
-                                </button>
-                                {
-                                    role === 'admin' &&
-                                    <button className="button is-light" onClick={()=>onRedirect("/close_pole")}>
-                                        Close list
+                    <div className="navbar-item">
+                        <div className="buttons"> 
+                            {
+                                headerButton?.map(({ label, icon, redirect_link})=>(
+                                    <button className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
+                                        { 
+                                            icon && 
+                                            <img src={process.env.PUBLIC_URL+`icons/${icon}`} className="button_icon" width = '20px' height="18px" alt="add_icon" />
+                                        }
+                                        {label || ''}
                                     </button>
-                                }
-
-                            </div>
-                        </div> : null
-                    }
+                                ))
+                            }  
+                        </div>
+                    </div>
                     <button className="navbar-item logout-button" onClick={onLogoutClick}>
                         <img src={process.env.PUBLIC_URL+"icons/logout_icon.svg"} width = '20px' height="18px" alt="Logout_icon" />
                         Log out

@@ -8,7 +8,9 @@ const ClosePole = props =>{
                 page = "Close Poles"
                 { ...props}
             />
-            <List/>
+            <List
+                page = "Close Poles"
+            />
         </>
     )
 }
