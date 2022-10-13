@@ -5,6 +5,19 @@ import './index.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { AddUser } from '../../storage/action'
 
+const roleOptions = [
+    {
+        id : 'role_1',
+        label : 'Admin',
+        value : 'admin'
+    },
+    {
+        id : 'role_2',
+        label : 'User',
+        value : 'user'
+    }
+]
+
 const RegisterPage = props => {
     const [state, setState ] = useState({
         firstName : '',
@@ -124,6 +137,7 @@ const RegisterPage = props => {
                     <SelectBox
                         label = 'Role' 
                         name = "role"
+                        options ={roleOptions}
                         inputWidth = "calc(100% - 150px)"
                         onChange={select => onChange({ target : { name : 'role', value : select || ''}})}
                     />
