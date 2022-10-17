@@ -6,16 +6,18 @@ import poleData from './addPole.json'
 import questJSON from './quest.json'
 
 const Content = props =>{
-    // Object.freeze(poleData)
+    const { onDisableAdd } =  props
     const [ state, setState ] = useState(Object.assign({},{ ...poleData}))
-    const { questions } = useMemo(()=>(state), [state])
+    const { questions, pole_name = '' } = useMemo(()=>(state), [state])
     const [disableAddQues, setDisableAddQues] = useState(true)
 
     useEffect(()=>{
         const emptyQuest = questions?.filter(ques => !ques?.question || ques?.options?.find(opt => !opt?.option))
-        setDisableAddQues(emptyQuest?.length ? true : false)
-    },[questions])
-    
+        const isDisableAddQuest = emptyQuest?.length ? true : false
+        setDisableAddQues(isDisableAddQuest)
+        onDisableAdd( !pole_name || isDisableAddQuest)
+    },[questions, pole_name, onDisableAdd])
+
 
     const isDisableAddOpt = (quesIndex = 0) =>{
         const question = { ...questions[quesIndex]}
@@ -163,6 +165,10 @@ const Content = props =>{
             }
         </React.Fragment>
     )
+}
+
+Content.defaultProps = {
+    onDisableAdd : () => {}
 }
 
 export default Content

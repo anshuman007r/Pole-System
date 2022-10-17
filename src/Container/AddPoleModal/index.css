@@ -2,6 +2,18 @@
     background-color: #3E3E3E;
 }
 
+.save-button:disabled {
+    background-color: #363636;
+    color : #fff;
+    opacity : 0.8
+}
+
+.save-button:disabled:hover {
+    background-color: #363636;
+    color : #fff;
+    opacity : 0.8
+}
+
 .save-button:hover{
     background-color: #2e2e2e;
 }
