@@ -23,24 +23,24 @@
 }
 
 .content-button {
-    color : #3E3E3E;
+    color : #3E3E3E !important;
     /* padding : 0px; */
     font-weight: 500;
-    border : 1px solid #3E3E3E
+    border : 1px solid #3E3E3E !important
 }
 
 .content-button:hover {
-    color : #000;
+    color : #000 !important;
     /* padding : 0px; */
     font-weight: 500;
-    border : 1px solid #000
+    border : 1px solid #000 !important
 
 }
 
 .button-font-14px {
-    font-size : 16px
+    font-size : 14px
 }
 
 .button-font-12px {
-    font-size : 14px
+    font-size : 12px
 }

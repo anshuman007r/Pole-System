@@ -1,68 +1,36 @@
 
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { InputBox, Row, Col, Button } from '../../../../Component'
 import './index.css'
+import poleData from './addPole.json'
+import questJSON from './quest.json'
 
 const Content = props =>{
-
+    // Object.freeze(poleData)
     const onChange = () =>{
 
     }
+    const [ state, setState ] = useState(Object.assign({},{ ...poleData}))
+    const { questions } = useMemo(()=>(state), [state])
 
-    const questionsArr = [
-        {
-        question_id : '',
-        question : '',
-        options : [
-            {
-                id : '',
-                option : '',
-                vote : ''
-            },
-            {
-                id : '',
-                option : '',
-                vote : ''
-            },
-            {
-                id : '',
-                option : '',
-                vote : ''
-            },
-            {
-                id : '',
-                option : '',
-                vote : ''
+    const onAddOption = (quesIndex) =>{
+        setState(prevState => {
+            const { questions = []} = prevState || {}
+            let { options = []} = questions[quesIndex]
+             options = [ ...options, { option_id : `option_${options?.length}`, option : '', vote : '' }]
+            questions[quesIndex].options = options
+            return {
+                ...prevState,
+                questions
             }
-        ]
-        },
-        {
-            question_id : '',
-            question : '',
-            options : [
-                // {
-                //     id : '',
-                //     option : '',
-                //     vote : ''
-                // },
-                {
-                    id : '',
-                    option : '',
-                    vote : ''
-                },
-                {
-                    id : '',
-                    option : '',
-                    vote : ''
-                },
-                {
-                    id : '',
-                    option : '',
-                    vote : ''
-                }
-            ]
-            }
-    ]
+        })
+    }
+
+    const onAddQuestion = () =>{
+        setState(prevState => ({ ...prevState, questions: [ ...prevState?.questions, { ...questJSON, question_id : `question_${prevState?.questions?.length}` }  ]}))
+    }
+
+    // console.log('#questions', questions, dataFPole)
 
     return(
         <React.Fragment>
@@ -77,10 +45,10 @@ const Content = props =>{
                 />
             <hr className='horizontal-line'/>
             {
-                questionsArr?.length ? 
+                questions?.length ? 
                 <div style={{  overflow : 'auto', height : 'calc(56vh - 135px)', padding : '0 12px'}}>
                     {
-                        questionsArr?.map(({question, options}, quesIndex)=>(
+                        questions?.map(({question, options}, quesIndex)=>(
                             <React.Fragment>
                                 { quesIndex ? <hr className='horizontal-line-internal'/> : null}
                                 <InputBox
@@ -143,7 +111,7 @@ const Content = props =>{
                                         }}
                                     >
                                         <div style={{ width : '100%',marginTop : '34px', display : 'flex', alignItems : 'center', justifyContent : 'flex-start'}}>
-                                            <Button type = "link" className = "content-button button-font-12px">+ Add option</Button>
+                                            <Button type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesIndex)}>+ Add option</Button>
                                         </div>
                                     </Col>    
                                 </Row>
@@ -151,7 +119,7 @@ const Content = props =>{
                         ))
                     } 
                 <div style={{ width : '100%',marginTop : '30px', display : 'flex', alignItems : 'center', justifyContent : 'flex-end'}}>
-                    <Button type = "link" className = "content-button button-font-16px">+ Add question</Button>
+                    <Button type = "link" className = "content-button button-font-16px" onClick={onAddQuestion}>+ Add question</Button>
                 </div>
             </div> : null
             }

@@ -22,6 +22,7 @@ const AddPoleModal = props =>{
                 height : '56vh',
                 overflow : 'auto'
             }}
+            destroyOnClose
             onCancel={onClose}
             width={1000}
             // height={10400}

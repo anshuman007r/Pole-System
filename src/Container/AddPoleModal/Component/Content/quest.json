@@ -1,0 +1,17 @@
+{
+    "question_id" : "ques_1",
+    "question" : "",
+    "question_visited" : "",
+    "options" : [
+        {
+            "option_id" : "option_1",
+            "option" : "",
+            "vote" : "" 
+        },
+        {
+            "option_id" : "option_2",
+            "option" : "",
+            "vote" : "" 
+        }
+    ]
+}
