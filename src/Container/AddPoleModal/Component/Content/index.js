@@ -1,5 +1,5 @@
 
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect} from 'react'
 import { InputBox, Row, Col, Button } from '../../../../Component'
 import './index.css'
 import poleData from './addPole.json'
@@ -7,11 +7,49 @@ import questJSON from './quest.json'
 
 const Content = props =>{
     // Object.freeze(poleData)
-    const onChange = () =>{
-
-    }
     const [ state, setState ] = useState(Object.assign({},{ ...poleData}))
     const { questions } = useMemo(()=>(state), [state])
+    const [disableAddQues, setDisableAddQues] = useState(true)
+
+    useEffect(()=>{
+        const emptyQuest = questions?.filter(ques => !ques?.question || ques?.options?.find(opt => !opt?.option))
+        setDisableAddQues(emptyQuest?.length ? true : false)
+    },[questions])
+    
+
+    const isDisableAddOpt = (quesIndex = 0) =>{
+        const question = { ...questions[quesIndex]}
+        const { options = []} = question || {}
+        const emptyOption = options?.filter(opt => !opt?.option)
+        return emptyOption?.length ? true : false
+    }
+
+    const onChange = ({ target }, quesIndex = -1, poleIndex = -1) =>{
+        const { value = ''} = target || {}
+        if(quesIndex === -1){
+            setState(prevState => ( { ...prevState, pole_name : value || ''}))
+        }else if( poleIndex === -1){
+            setState(prevState=>{
+                let { questions = []} = prevState
+                questions[quesIndex] = { ...questions[quesIndex], question : value || ''}
+                return {
+                    ...prevState,
+                    questions
+                }
+            })
+        }else {
+            setState(prevState=>{
+                let { questions = []} = prevState
+                let { options = [] } = questions?.[quesIndex] || {} 
+                options[poleIndex] = { ...options[poleIndex], option  : value || ''}
+                questions[quesIndex] = { ...questions[quesIndex], options}
+                return {
+                    ...prevState,
+                    questions : [ ...questions ]
+                }
+            })         
+        }
+    }
 
     const onAddOption = (quesIndex) =>{
         setState(prevState => {
@@ -63,7 +101,7 @@ const Content = props =>{
                                         fontSize : '15px'
                                     }}
                                     marginTop = "0px"
-                                    onChange={onChange}
+                                    onChange={(event)=>onChange(event, quesIndex)}
                                 /> 
                                 <Row key={`option_containergit_${quesIndex}`} className='option-row' gutter={[60, 0]}>
                                     {
@@ -92,7 +130,7 @@ const Content = props =>{
                                                     fontSize : '12px'
                                                 }}
                                                 // // marginTop = "0px"
-                                                onChange={onChange}
+                                                onChange={(event)=>onChange(event, quesIndex, index)}
                                             />
                                         </Col>              
                                         ))
@@ -111,7 +149,7 @@ const Content = props =>{
                                         }}
                                     >
                                         <div style={{ width : '100%',marginTop : '34px', display : 'flex', alignItems : 'center', justifyContent : 'flex-start'}}>
-                                            <Button type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesIndex)}>+ Add option</Button>
+                                            <Button disabled={isDisableAddOpt(quesIndex)} type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesIndex)}>+ Add option</Button>
                                         </div>
                                     </Col>    
                                 </Row>
@@ -119,7 +157,7 @@ const Content = props =>{
                         ))
                     } 
                 <div style={{ width : '100%',marginTop : '30px', display : 'flex', alignItems : 'center', justifyContent : 'flex-end'}}>
-                    <Button type = "link" className = "content-button button-font-16px" onClick={onAddQuestion}>+ Add question</Button>
+                    <Button disabled={disableAddQues} type = "link" className = "content-button button-font-16px" onClick={onAddQuestion}>+ Add question</Button>
                 </div>
             </div> : null
             }

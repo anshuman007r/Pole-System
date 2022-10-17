@@ -37,6 +37,10 @@
 
 }
 
+.content-button:disabled{
+    opacity: 0.6;
+}
+
 .button-font-14px {
     font-size : 14px
 }
