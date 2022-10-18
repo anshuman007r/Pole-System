@@ -2,10 +2,38 @@
 import React, { useMemo, useState, useEffect} from 'react'
 import { InputBox, Row, Col, Button } from '../../../../Component'
 import './index.css'
-import poleData from './addPole.json'
+import moment from 'moment'
+// import poleData from './addPole.json'
 import questJSON from './quest.json'
 
+const getUniqueNumber = ()=>{
+    return Math.random(moment()?.valueOf())*moment().valueOf()
+}
+
 const Content = props =>{
+    const poleData = {
+        "pole_id" : `pole_${getUniqueNumber()}`,
+        "pole_name" : "",
+        "questions" : [
+            {
+                "question_id" : `question_${getUniqueNumber()}`,
+                "question" : "",
+                "question_visited" : "",
+                "options" : [
+                    {
+                        "option_id" : `option_${getUniqueNumber()}`,
+                        "option" : "",
+                        "vote" : "" 
+                    },
+                    {
+                        "option_id" : `option_${getUniqueNumber()}`,
+                        "option" : "",
+                        "vote" : "" 
+                    }
+                ]
+            }
+        ]
+    }  
     const { onDisableAdd } =  props
     const [ state, setState ] = useState({ ...poleData})
     const { questions, pole_name = '' } = useMemo(()=>(state), [state])
@@ -16,7 +44,7 @@ const Content = props =>{
         const isDisableAddQuest = emptyQuest?.length ? true : false
         setDisableAddQues(isDisableAddQuest)
         onDisableAdd( !pole_name || isDisableAddQuest)
-    },[questions, pole_name, onDisableAdd])
+    },[state])
 
 
     const isDisableAddOpt = (quesIndex = 0) =>{
@@ -57,7 +85,7 @@ const Content = props =>{
         setState(prevState => {
             const { questions = []} = prevState || {}
             let { options = []} = questions[quesIndex]
-             options = [ ...options, { option_id : `option_${options?.length}`, option : '', vote : '' }]
+             options = [ ...options, { option_id : `option_${getUniqueNumber()}`, option : '', vote : '' }]
             questions[quesIndex].options = options
             return {
                 ...prevState,
@@ -67,14 +95,37 @@ const Content = props =>{
     }
 
     const onAddQuestion = () =>{
-        setState(prevState => ({ ...prevState, questions: [ ...prevState?.questions, { ...questJSON, question_id : `question_${prevState?.questions?.length}` }  ]}))
+        setState(prevState => ({ ...prevState, questions: [ ...prevState?.questions, { ...questJSON, question_id : `question_${getUniqueNumber()}` }  ]}))
     }
 
-    const onDeleteClick = () =>{
-
+    const onDeleteClick = ({question_id = '', option_id = ''}) =>{
+        // console.log('#param', question_id, option_id, questions?.filter(ques => ques?.question_id !== question_id))
+        if(!option_id){
+            setState(prevState => {
+                const questions =  prevState?.questions?.filter(ques => ques?.question_id !== question_id) || []
+                // console.log('#ques', questions)
+                 return{
+                    ...prevState, 
+                    questions
+                 }
+            })
+        }else{
+            setState(prevState=>{
+                let { questions } = prevState
+                let questionIndex = questions?.findIndex(ques => ques?.question_id === question_id)
+                if(questionIndex !== -1){
+                    let { options = [] } = questions[questionIndex]  || {}
+                    options = options?.filter(opt => opt?.option_id !== option_id) || []
+                    questions[questionIndex] = { ...questions[questionIndex], options}
+                    return { 
+                        ...prevState,
+                        questions
+                    }
+                }
+            })
+        }
     }
-
-    // console.log('#questions', questions, dataFPole)
+    // console.log('#Content', state, questions)
 
     return(
         <React.Fragment>
@@ -83,6 +134,7 @@ const Content = props =>{
                 name = "pole_name"
                 placeholder = "Pole Name"
                 inputWidth = "100%"
+                value={pole_name || ''}
                 width ="100%"
                 marginTop = "0px"
                 onChange={onChange}
@@ -92,14 +144,17 @@ const Content = props =>{
                 questions?.length ? 
                 <div style={{  overflow : 'auto', height : 'calc(56vh - 135px)', padding : '0 12px'}}>
                     {
-                        questions?.map(({question, options}, quesIndex)=>(
+                        questions?.map(({question, options, question_id}, quesIndex)=>(
                             <React.Fragment>
-                                { quesIndex ? <hr className='horizontal-line-internal'/> : null}
+                                { quesIndex ? <hr key={`hr_${question_id}`}  className='horizontal-line-internal'/> : null}
                                 <InputBox
                                     label = {`Question ${quesIndex + 1}`}
-                                    key={`Question_${quesIndex}`}
-                                    name = {`question_${quesIndex}`}
+                                    key={question_id || `Question_${quesIndex}`}
+                                    name = {question_id || `question_${quesIndex}`}
                                     quesIndex = {quesIndex}
+                                    value={question || ''}
+                                    disableDelIcon = {questions?.length > 1 ? false : true}
+                                    deleteParams={{ question_id }}
                                     placeholder = "Question"
                                     inputWidth = "calc(100% - 110px)"
                                     width ="100%"
@@ -112,13 +167,13 @@ const Content = props =>{
                                     marginTop = "0px"
                                     onChange={(event)=>onChange(event, quesIndex)}
                                 /> 
-                                <Row key={`option_containergit_${quesIndex}`} className='option-row' gutter={[60, 0]}>
+                                <Row key={`option_containergit_${question_id || quesIndex}`} className='option-row' gutter={[60, 0]}>
                                     {
-                                        options?.map(({ option, id}, index)=>(
+                                        options?.map(({ option, option_id}, index)=>(
                                         <Col
                                             // key={`option_${index}`}
                                             className='option-row-left-col'
-                                            key={id || `option_${index}`}
+                                            key= {option_id || `option_${index}`}
                                             xs={{
                                                 span: 12,
                                                 // offset: 1,
@@ -133,8 +188,11 @@ const Content = props =>{
                                                 name = {`option_${index}`}
                                                 // type ="password"
                                                 quesIndex = {quesIndex}
+                                                disableDelIcon = {options?.length > 2 ? false : true}
+                                                deleteParams={{ question_id, option_id }}
                                                 optIndex = {index}
-                                                showDelIcon
+                                                value={option || ''}
+                                                showDelIcon 
                                                 onDeleteClick={onDeleteClick}
                                                 placeholder = "Option"
                                                 inputWidth = "calc(100% - 120px)"

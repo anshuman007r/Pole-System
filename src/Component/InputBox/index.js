@@ -21,7 +21,7 @@ const InputBox = props => {
         disableDelIcon,
         onDeleteClick,
         ...rest
-} = props
+    } = props
 
     const paramFDelete = useMemo(()=> checkType(deleteParams) ? deleteParams : {}, [deleteParams])
 
@@ -35,7 +35,7 @@ const InputBox = props => {
                 showDelIcon 
                 ? 
                 <Tooltip  placement="bottom" title="Delete">
-                    <DeleteFilled className={disableDelIcon ? "delete_icon" : ''} disabled={disableDelIcon} onClick={()=>onDeleteClick( ...paramFDelete )}/>
+                    <DeleteFilled className={disableDelIcon ? "delete_icon" : ''} disabled={disableDelIcon} onClick={()=>!disableDelIcon ? onDeleteClick(paramFDelete) : null}/>
                 </Tooltip> 
                 : null 
             }
