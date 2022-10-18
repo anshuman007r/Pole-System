@@ -7,7 +7,7 @@ import questJSON from './quest.json'
 
 const Content = props =>{
     const { onDisableAdd } =  props
-    const [ state, setState ] = useState(Object.assign({},{ ...poleData}))
+    const [ state, setState ] = useState({ ...poleData})
     const { questions, pole_name = '' } = useMemo(()=>(state), [state])
     const [disableAddQues, setDisableAddQues] = useState(true)
 
@@ -70,6 +70,10 @@ const Content = props =>{
         setState(prevState => ({ ...prevState, questions: [ ...prevState?.questions, { ...questJSON, question_id : `question_${prevState?.questions?.length}` }  ]}))
     }
 
+    const onDeleteClick = () =>{
+
+    }
+
     // console.log('#questions', questions, dataFPole)
 
     return(
@@ -95,6 +99,7 @@ const Content = props =>{
                                     label = {`Question ${quesIndex + 1}`}
                                     key={`Question_${quesIndex}`}
                                     name = {`question_${quesIndex}`}
+                                    quesIndex = {quesIndex}
                                     placeholder = "Question"
                                     inputWidth = "calc(100% - 110px)"
                                     width ="100%"
@@ -102,6 +107,8 @@ const Content = props =>{
                                         fontWeight : '500',
                                         fontSize : '15px'
                                     }}
+                                    showDelIcon
+                                    onDeleteClick={onDeleteClick}
                                     marginTop = "0px"
                                     onChange={(event)=>onChange(event, quesIndex)}
                                 /> 
@@ -125,6 +132,10 @@ const Content = props =>{
                                                 label = {`Option ${index + 1}`}
                                                 name = {`option_${index}`}
                                                 // type ="password"
+                                                quesIndex = {quesIndex}
+                                                optIndex = {index}
+                                                showDelIcon
+                                                onDeleteClick={onDeleteClick}
                                                 placeholder = "Option"
                                                 inputWidth = "calc(100% - 120px)"
                                                 width ="100%"
