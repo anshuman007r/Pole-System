@@ -1,6 +1,6 @@
 import React, { useState, useRef} from 'react'
 import { Modal, Alert } from '../../Component'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Content } from './Component'
 import { 
     AddPole, 
@@ -24,10 +24,15 @@ const validateDate = (date = '') =>{
     }
 }
 
+const validatePoleName = (nameFPole, poleDataArr) => {
+    const nameExist = poleDataArr?.find(pole => pole?.pole_name !== nameFPole)
+    return nameExist ?  'Pole name already exist' : false
+}
+
 const AddPoleModal = props =>{
     const { open, onClose, onErrorOccur, error, onCloseError } = props
     const [disableAdd, setDisableAdd] = useState(true)
-
+    const { poleReducer : poles } = useSelector(state => state)
     const dispatch = useDispatch()
     window['contentRef'] = useRef(null)
     const { contentRef } = window
@@ -39,16 +44,15 @@ const AddPoleModal = props =>{
     const onSave = () =>{
         // dispatch(ClearPole())
         const { poleData = {} } = contentRef?.current  || {}
-        const { closing_date = ''} = poleData || {}
-        const dateMessage = validateDate(closing_date)
-        if(dateMessage === 'Valid'){
+        const { closing_date = '', pole_name = ''} = poleData || {}
+        const errorMessage = validatePoleName(pole_name, poles) || validateDate(closing_date)
+
+        if(errorMessage === 'Valid'){
             dispatch(AddPole( poleData ))
             onClose()
         }else{
-            onErrorOccur(dateMessage)
+            onErrorOccur(errorMessage)
         }
-        // console.log(poleData)
-
     }
     
     return(
