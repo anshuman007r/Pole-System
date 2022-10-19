@@ -4,6 +4,7 @@ const LOG_OUT = "LOG_OUT"
 const ADD_POLE = "ADD_POLE"
 const DELETE_POLE = "DELETE_POLE"
 const MODIFY_POLE = "MODIFY_POLE"
+const CLEAR_POLE = "CLEAR_POLE"
 
 
 export {
@@ -13,4 +14,5 @@ export {
     ADD_POLE,
     DELETE_POLE,
     MODIFY_POLE,
+    CLEAR_POLE
 }

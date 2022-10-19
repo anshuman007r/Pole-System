@@ -1,6 +1,8 @@
 {
     "pole_id" : "pole_1",
     "pole_name" : "",
+    "visted_by_user" : "",
+    "closing_date" : "",
     "questions" : [
         {
             "question_id" : "question_1",

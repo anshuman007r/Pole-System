@@ -1,5 +1,5 @@
 
-import React, { useMemo, useState, useEffect} from 'react'
+import React, { useMemo, useState, useEffect, useImperativeHandle, forwardRef} from 'react'
 import { InputBox, Row, Col, Button } from '../../../../Component'
 import './index.css'
 import moment from 'moment'
@@ -10,10 +10,16 @@ const getUniqueNumber = ()=>{
     return Math.random(moment()?.valueOf())*moment().valueOf()
 }
 
-const Content = props =>{
+const autoExpireGen = () => {
+    return moment().add(5, 'days').format('YYYY/MM/DD')
+}
+
+const Content = (props, ref) =>{
     const poleData = {
         "pole_id" : `pole_${getUniqueNumber()}`,
         "pole_name" : "",
+        "visted_by_user" : "0",
+        "closing_date" : autoExpireGen(),
         "questions" : [
             {
                 "question_id" : `question_${getUniqueNumber()}`,
@@ -34,7 +40,7 @@ const Content = props =>{
             }
         ]
     }  
-    const { onDisableAdd } =  props
+    const { onDisableAdd = () => {} } =  props
     const [ state, setState ] = useState({ ...poleData})
     const { questions, pole_name = '' } = useMemo(()=>(state), [state])
     const [disableAddQues, setDisableAddQues] = useState(true)
@@ -125,7 +131,10 @@ const Content = props =>{
             })
         }
     }
-    // console.log('#Content', state, questions)
+
+    useImperativeHandle( ref, ()=> ({
+        poleData : state
+    }))
 
     return(
         <React.Fragment>
@@ -236,8 +245,5 @@ const Content = props =>{
     )
 }
 
-Content.defaultProps = {
-    onDisableAdd : () => {}
-}
 
-export default Content
+export default forwardRef(Content)

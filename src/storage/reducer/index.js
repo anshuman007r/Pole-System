@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { 
     ADD_POLE, 
     ADD_USER, 
+    CLEAR_POLE, 
     DELETE_POLE, 
     LOG_IN_USER, 
     LOG_OUT, 
@@ -34,6 +35,8 @@ const poleReducer = ( state = [], action) =>{
             return [ ...state, action?.payload]
         case MODIFY_POLE : 
             return state[action?.payload?.poleIndex] = action?.payload?.updatedPole
+        case CLEAR_POLE : 
+            return []
         case DELETE_POLE : 
             return state?.filter(pole => pole?.id !== action?.payload?.id) 
         default : 

@@ -5,6 +5,7 @@ import {
     ADD_POLE,
     MODIFY_POLE,
     DELETE_POLE,
+    CLEAR_POLE
 } from '../constant'
 
 const AddUser = payload =>{
@@ -48,11 +49,18 @@ const DeletePole = payload =>{
     }
 }
 
+const ClearPole = payload =>{
+    return{
+        type : CLEAR_POLE,
+    }
+}
+
 export {
     AddUser,
     LogInUser,
     LogOutUser,
     AddPole,
     DeletePole,
-    ModifyPole
+    ModifyPole,
+    ClearPole
 }

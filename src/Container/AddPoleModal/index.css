@@ -1,5 +1,5 @@
 .save-button {
-    background-color: #3E3E3E;
+    background-color: #3E3E3E !important;
 }
 
 .save-button:disabled {

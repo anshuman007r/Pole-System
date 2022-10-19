@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Tooltip } from '../../Component'
 import { useSelector } from "react-redux";
 import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone, } from "@ant-design/icons";
+import moment from 'moment'
 
 const pole_list = [
     {
@@ -28,6 +29,9 @@ const pole_list = [
 
 ]
 
+const dateStoreToLocal = (date = '') =>{
+    return moment(date, 'YYYY/MM/DD').format('DD/MM/YYYY')}
+
 const actionButton = [
     {
         name : 'Edit',
@@ -47,7 +51,7 @@ const actionButton = [
 ]
 
 const List = props => {
-    const { page} = props
+    const { page, list } = props
     const history = useHistory()  
     const { loggedUserReducer : loggedUser } = useSelector( state => state)
     
@@ -64,10 +68,12 @@ const List = props => {
         history.push(`${path}/${id}`)
     }
 
+    console.log(list)
+
     return (
         <div className="list_container">
             {
-                poleList?.map(({ pole_name, visted_by_user, closing_date, pole_id}, index)=>(
+                list?.map(({ pole_name, visted_by_user, closing_date, pole_id}, index)=>(
                     <div className = "list-item" style={{marginTop : index ? '12px' : 0}} key={`$Pole_${index}`}>
                         <div className="list_item_left_content" onClick={()=>onPoleClick(pole_id)}
                         >
@@ -112,7 +118,7 @@ const List = props => {
                                     :
                                     'Expired on '
                                 } 
-                                <strong>{closing_date || new Date().toLocaleDateString()} </strong> 
+                                <strong>{dateStoreToLocal(closing_date) || new Date().toLocaleDateString()} </strong> 
                             </span>
                         </div>
 
@@ -124,7 +130,8 @@ const List = props => {
 }
 
 List.defaultProps = {
-    page : ''
+    page : '',
+    list : []
 }
 
 export default List
