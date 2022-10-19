@@ -1,6 +1,6 @@
 
 import React, { useMemo, useState, useEffect, useImperativeHandle, forwardRef} from 'react'
-import { InputBox, Row, Col, Button } from '../../../../Component'
+import { InputBox, Row, Col, Button, DatePicker } from '../../../../Component'
 import './index.css'
 import moment from 'moment'
 // import poleData from './addPole.json'
@@ -10,16 +10,16 @@ const getUniqueNumber = ()=>{
     return Math.random(moment()?.valueOf())*moment().valueOf()
 }
 
-const autoExpireGen = () => {
-    return moment().add(5, 'days').format('YYYY/MM/DD')
-}
+// const autoExpireGen = () => {
+//     return moment().add(5, 'days').format('YYYY/MM/DD')
+// }
 
 const Content = (props, ref) =>{
     const poleData = {
         "pole_id" : `pole_${getUniqueNumber()}`,
         "pole_name" : "",
         "visted_by_user" : "0",
-        "closing_date" : autoExpireGen(),
+        "closing_date" : '',
         "questions" : [
             {
                 "question_id" : `question_${getUniqueNumber()}`,
@@ -46,11 +46,12 @@ const Content = (props, ref) =>{
     const [disableAddQues, setDisableAddQues] = useState(true)
 
     useEffect(()=>{
-        const emptyQuest = questions?.filter(ques => !ques?.question || ques?.options?.find(opt => !opt?.option))
+        const { questions : queses, pole_name : nameFPole} = state || {}
+        const emptyQuest = queses?.filter(ques => !ques?.question || ques?.options?.find(opt => !opt?.option))
         const isDisableAddQuest = emptyQuest?.length ? true : false
         setDisableAddQues(isDisableAddQuest)
-        onDisableAdd( !pole_name || isDisableAddQuest)
-    },[state])
+        onDisableAdd( !nameFPole || isDisableAddQuest)
+    },[state, onDisableAdd])
 
 
     const isDisableAddOpt = (quesIndex = 0) =>{
@@ -61,9 +62,9 @@ const Content = (props, ref) =>{
     }
 
     const onChange = ({ target }, quesIndex = -1, poleIndex = -1) =>{
-        const { value = ''} = target || {}
+        const { value = '', name = ''} = target || {}
         if(quesIndex === -1){
-            setState(prevState => ( { ...prevState, pole_name : value || ''}))
+            setState(prevState => ( { ...prevState, [name] : value || ''}))
         }else if( poleIndex === -1){
             setState(prevState=>{
                 let { questions = []} = prevState
@@ -147,6 +148,20 @@ const Content = (props, ref) =>{
                 width ="100%"
                 marginTop = "0px"
                 onChange={onChange}
+                />
+                <DatePicker
+                    label = 'Closing Date'
+                    name = "closing_date"
+                    width = "40%"
+                    labelStyle = {{
+                        fontWeight : '500',
+                        fontSize : '15px',
+                        padding : '0 12px'
+                    }}
+                    value={ state?.closing_date ? moment(state?.closing_date , 'YYYY/MM/DD') : ''}
+                    onChange={(date)=>onChange({ target : { name : 'closing_date', value : date }})}
+                    inputWidth = "calc(100% - 140px)"
+
                 />
             <hr className='horizontal-line'/>
             {

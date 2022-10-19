@@ -1,6 +1,7 @@
 import InputBox from './InputBox'
 import SelectBox from './SelectBox'
 import Header from './Header'
+import DatePicker from './DatePicker'
 import List from './List'
 import { 
     Typography, 
@@ -26,5 +27,6 @@ export {
     Modal,
     Tooltip,
     Row,
-    Col
+    Col,
+    DatePicker
 }

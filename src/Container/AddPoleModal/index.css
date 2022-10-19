@@ -23,3 +23,10 @@
     /* font-size: large; */
     border : 1px solid #2e2e2e
 }
+
+.error-box-modal{
+    z-index: 1;
+    position : absolute;
+    width: 100%;
+    margin : -23px
+}

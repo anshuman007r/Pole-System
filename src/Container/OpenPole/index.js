@@ -5,11 +5,26 @@ import AddPoleModal from "../AddPoleModal";
 
 const OpenPole = props =>{
     const [openModal, setOpenModal] = useState(false)
+    const [error, setError] = useState('')
     const { poleReducer : poles } = useSelector(state => state)
 
     const toggleModal = () =>{
         setOpenModal(prevState => !prevState)
     } 
+
+    const onCloseError = () =>{
+        setError('')
+    }
+
+    const onErrorOccur = (err) =>{
+        setError(err || '')
+        closeErrorAuto()
+    }
+
+    const closeErrorAuto = () =>{
+        setTimeout(onCloseError,5000)
+    }
+
     return(
         <>
             <Header
@@ -24,6 +39,9 @@ const OpenPole = props =>{
             <AddPoleModal
                 open={openModal}
                 onClose={toggleModal}
+                error={error}
+                onCloseError={onCloseError}
+                onErrorOccur={onErrorOccur}
             />
 
         </>
