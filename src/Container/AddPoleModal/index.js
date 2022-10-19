@@ -1,10 +1,10 @@
-import React, { useState, useRef} from 'react'
+import React, { useState, useRef, useMemo} from 'react'
 import { Modal, Alert } from '../../Component'
 import { useDispatch, useSelector } from 'react-redux'
 import { Content } from './Component'
 import { 
     AddPole, 
-    // ClearPole 
+    ClearPole 
 } from '../../storage/action'
 
 import './index.css'
@@ -25,7 +25,7 @@ const validateDate = (date = '') =>{
 }
 
 const validatePoleName = (nameFPole, poleDataArr) => {
-    const nameExist = poleDataArr?.find(pole => pole?.pole_name !== nameFPole)
+    const nameExist = poleDataArr?.find(pole => pole?.pole_name === nameFPole)
     return nameExist ?  'Pole name already exist' : false
 }
 
@@ -36,20 +36,21 @@ const AddPoleModal = props =>{
     const dispatch = useDispatch()
     window['contentRef'] = useRef(null)
     const { contentRef } = window
+    const pole = useMemo(()=>open?.poleId ? poles?.find(pole=> pole?.pole_id === open?.poleId) : '',[open, poles])
 
     const onDisableAdd = (value = false)=>{
         setDisableAdd(value)
     }
 
     const onSave = () =>{
-        // dispatch(ClearPole())
+        dispatch(ClearPole())
         const { poleData = {} } = contentRef?.current  || {}
         const { closing_date = '', pole_name = ''} = poleData || {}
         const errorMessage = validatePoleName(pole_name, poles) || validateDate(closing_date)
 
         if(errorMessage === 'Valid'){
-            dispatch(AddPole( poleData ))
-            onClose()
+            // dispatch(AddPole( poleData ))
+            // onClose()
         }else{
             onErrorOccur(errorMessage)
         }
@@ -59,9 +60,9 @@ const AddPoleModal = props =>{
         <React.Fragment>
 
             <Modal
-                open={open}
+                open={open?.state}
                 onOk={onSave}
-                okText="Add"
+                okText={open?.type === 'Add' ? "Add" : 'Edit'}
                 cancelButtonProps={{ className : 'cancel-button'}}
                 okButtonProps={{ className : 'save-button', disabled : disableAdd}}
                 bodyStyle={{
@@ -72,7 +73,7 @@ const AddPoleModal = props =>{
                 onCancel={onClose}
                 width={1000}
                 // height={10400}
-                title="Add Pole"
+                title={open?.type === 'Add' ? "Add Pole" : 'Edit Pole'}
             >
                 {error &&
                     <Alert
@@ -87,6 +88,7 @@ const AddPoleModal = props =>{
                 <Content
                     ref={contentRef}
                     onDisableAdd = {onDisableAdd}
+                    pole = {pole}
                 />
             </Modal>
         </React.Fragment>
@@ -94,7 +96,7 @@ const AddPoleModal = props =>{
 }
 
 AddPoleModal.defaultProps = {
-    open : false,
+    open : { state : false, type : 'Add'},
     onClose : () => {},
     error : '',
     onErrorOccur : () => {},

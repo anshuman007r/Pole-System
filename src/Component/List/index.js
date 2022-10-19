@@ -2,32 +2,33 @@ import React, { useMemo } from "react";
 import './index.css'
 import { useHistory } from "react-router-dom";
 import { Tooltip } from '../../Component'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { DeletePole, ModifyPole } from "../../storage/action";
 import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone, } from "@ant-design/icons";
 import moment from 'moment'
 
-const pole_list = [
-    {
-        pole_id : 1,
-        pole_name : 'Pole  for selecting employee of the year',
-        visted_by_user : '20',
-        closing_date : '19/10/2022'
-    },
-    {
-        pole_id : 2,
-        pole_name : 'Pole to plan workation destination',
-        visted_by_user : '40',
-        closing_date : '20/10/2022'
-    },
-    {
-        pole_id : 3,
-        pole_name : 'Pole to select work mode',
-        visted_by_user : '120',
-        closing_date : '18/10/2022'
-    }
+// const pole_list = [
+//     {
+//         pole_id : 1,
+//         pole_name : 'Pole  for selecting employee of the year',
+//         visted_by_user : '20',
+//         closing_date : '19/10/2022'
+//     },
+//     {
+//         pole_id : 2,
+//         pole_name : 'Pole to plan workation destination',
+//         visted_by_user : '40',
+//         closing_date : '20/10/2022'
+//     },
+//     {
+//         pole_id : 3,
+//         pole_name : 'Pole to select work mode',
+//         visted_by_user : '120',
+//         closing_date : '18/10/2022'
+//     }
 
 
-]
+// ]
 
 const dateStoreToLocal = (date = '') =>{
     return moment(date, 'YYYY/MM/DD').format('DD/MM/YYYY')}
@@ -51,24 +52,35 @@ const actionButton = [
 ]
 
 const List = props => {
-    const { page, list } = props
+    const { page, list, onEdit } = props
     const history = useHistory()  
     const { loggedUserReducer : loggedUser } = useSelector( state => state)
+    const dispatch = useDispatch()
     
     const role = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
-    const poleList = useMemo(()=>([ ...pole_list, ...pole_list, ...pole_list, ...pole_list]),[])
+    // const poleList = useMemo(()=>([ ...pole_list, ...pole_list, ...pole_list, ...pole_list]),[])
 
     const onPoleClick = (id = '') =>{
         const path =  '/pole' 
         history.push(`${path}/${id}`)
     }
 
+    const onActionClick = (type = '', poleId = '') => {
+        if(type === 'Edit'){
+            onEdit(type, poleId)
+        }else if(type === 'Delete'){
+            dispatch(DeletePole({ id : poleId}))
+        }else{
+            const poleIndex = list?.findIndex(pol => pol?.pole_id === poleId)
+            const pole = list?.[poleIndex] || {}
+            if(pole) dispatch(ModifyPole({ updatedPole : {...pole, closing_date : moment().format('YYYY/MM/DD')}, poleIndex}))
+        }
+    }
+
     const onResultClick = (id = '') =>{
         const path =  '/close_pole' 
         history.push(`${path}/${id}`)
     }
-
-    console.log(list)
 
     return (
         <div className="list_container">
@@ -97,7 +109,7 @@ const List = props => {
                                                 {
                                                     actionButton?.map(({ name , Component, color}, actionIndex)=>(
                                                         <Tooltip key={`action_${actionIndex}`} placement="bottom" title={name}>
-                                                            <Component  twoToneColor={color}/>
+                                                            <Component  twoToneColor={color} onClick={()=>onActionClick(name, pole_id)}/>
                                                         </Tooltip>
                                                     ))
                                                 }
@@ -131,7 +143,8 @@ const List = props => {
 
 List.defaultProps = {
     page : '',
-    list : []
+    list : [],
+    onEdit : () => {}
 }
 
 export default List

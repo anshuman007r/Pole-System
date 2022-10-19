@@ -40,8 +40,8 @@ const Content = (props, ref) =>{
             }
         ]
     }  
-    const { onDisableAdd = () => {} } =  props
-    const [ state, setState ] = useState({ ...poleData})
+    const { onDisableAdd = () => {}, pole = '' } =  props
+    const [ state, setState ] = useState(pole || { ...poleData})
     const { questions, pole_name = '' } = useMemo(()=>(state), [state])
     const [disableAddQues, setDisableAddQues] = useState(true)
 
@@ -159,7 +159,7 @@ const Content = (props, ref) =>{
                         padding : '0 12px'
                     }}
                     value={ state?.closing_date ? moment(state?.closing_date , 'YYYY/MM/DD') : ''}
-                    onChange={(date)=>onChange({ target : { name : 'closing_date', value : date }})}
+                    onChange={(date)=>onChange({ target : { name : 'closing_date', value : date ? moment(date)?.format('YYYY/MM/DD') : '' }})}
                     inputWidth = "calc(100% - 140px)"
 
                 />
