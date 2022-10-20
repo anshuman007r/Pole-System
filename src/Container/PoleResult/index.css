@@ -1,0 +1,65 @@
+.pole-detail-container{
+    width : 100%;
+    height: 100%;
+    padding : 70px 20px 10px 20px
+}
+
+.sub-header {
+    display: flex;
+    align-items: center;
+    /* justify-content: center ; */
+    width: 100%;
+}
+
+.sub-header-text {
+    margin : 0 0 0 20px !important;
+}
+
+.horizontal-line-pole_detail {
+    background-color: #E4E4E4;
+    height: 1px;
+}
+
+.label-ellipsis-pole-details {
+    white-space: nowrap; 
+    width: calc(100% - 100px); 
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.pole-detail-ques {
+    font-weight : 500;
+    font-size : 18px
+}
+
+.save-button-pole {
+    margin-left : 12px;
+    color : #fff !important;
+    background-color: #3E3E3E !important;
+    
+}
+
+.save-button-pole:disabled {
+    background-color: #363636 !important;
+    color : #fff;
+    opacity : 0.8
+}
+
+.save-button-pole:disabled:hover {
+    background-color: #363636 !important;
+    color : #fff;
+    opacity : 0.8
+}
+
+.save-button-pole:hover{
+    background-color: #2e2e2e !important;
+}
+
+.pole-detail-footer {
+    width : 100%; 
+    margin-top : 22px; 
+    display : flex; 
+    align-items : center; 
+    justify-content : flex-end
+}

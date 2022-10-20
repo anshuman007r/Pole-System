@@ -6,9 +6,9 @@ import Tooltip from "antd/es/tooltip";
 
 const PoleDetails = props => {
     const { match : { params : { poleId }}} = props
-    const { poleReducer : poles } = useSelector(state => state)
+    const { poleReducer : poles, loggedUserReducer : loggedUser } = useSelector(state => state)
     const pole = useMemo(() =>poles?.find(pol => pol?.pole_id === poleId), [poles, poleId])
-
+    const  role  = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
     return (
         <>
             <Header
@@ -33,7 +33,7 @@ const PoleDetails = props => {
                                     <Tooltip title={question || ''} placement= 'bottomLeft'>
                                         <Typography.Paragraph className="pole-detail-ques label-ellipsis-pole-details">{question || ''}</Typography.Paragraph>
                                     </Tooltip>
-                                    <Row key={`option_containergit_${question_id || quesIndex}`} className='option-row' gutter={[60, 10]}>
+                                    <Row key={`option_containergit_${question_id || quesIndex}`} className='option-row' gutter={[60, 10]} style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
                                             {
                                                 options?.map(({ option, option_id}, index)=>(
                                                 <Col
@@ -62,7 +62,7 @@ const PoleDetails = props => {
                         }    
                     </div> : null
                 }  
-                <div className="pole-detail-footer">
+                <div className="pole-detail-footer" style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
                     <Button disabled={false} type = "link" className = "content-button button-font-16px" onClick={console.log}>Cancel</Button>
                     <Button disabled={false} type = "primary" className = " save-button-pole button-font-16px" onClick={console.log}>Save</Button>
                 </div>   
