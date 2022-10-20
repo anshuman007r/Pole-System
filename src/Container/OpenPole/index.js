@@ -18,7 +18,7 @@ const OpenPole = props =>{
     const [error, setError] = useState('')
     const { poleReducer : poles } = useSelector(state => state)
 
-    const openPoles = useMemo(() => Array.isArray(poles) ? poles?.filter(pole=>!isPoleExpire(pole)) : [],[poles])
+    const openPoles = useMemo(() => Array.isArray(poles) ? poles?.filter(pole=>!isPoleExpire(pole || {})) : [],[poles])
 
     const toggleModal = (type = 'Add', poleId = '') =>{
         setOpenModal(prevState => ({ type, poleId, state : !prevState?.state}))

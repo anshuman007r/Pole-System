@@ -1,4 +1,4 @@
-import React, { useMemo} from "react";
+import React, { useMemo } from "react";
 import { List, Header } from "../../Component";
 import { useSelector } from "react-redux";
 import moment from 'moment'
@@ -13,10 +13,11 @@ const isPoleExpire = ({ closing_date = '', ...rest}) => {
     return true
 }
 
+
 const ClosePole = props =>{
     const { poleReducer : poles } = useSelector(state => state)
-    const closePoles = useMemo(() => Array.isArray(poles) ? poles?.filter(pole=>isPoleExpire(pole)) : [],[poles])
-
+    const closePoles = useMemo(() => Array.isArray(poles) ? poles?.filter(pole=>isPoleExpire(pole || {})) : [],[poles])
+    
     return (
         <>
             <Header

@@ -34,8 +34,9 @@ const poleReducer = ( state = [], action) =>{
         case ADD_POLE : 
             return [ ...state, action?.payload]
         case MODIFY_POLE : 
-            state[action?.payload?.poleIndex] = action?.payload?.updatedPole
-            return [ ...state]
+            let stateCpy = [ ...state]
+            stateCpy[action?.payload?.poleIndex] = action?.payload?.updatedPole
+            return [ ...stateCpy]
         case CLEAR_POLE : 
             return []
         case DELETE_POLE : 

@@ -1,10 +1,10 @@
-import React, { useState, useRef, useMemo} from 'react'
+import React, { useState, useRef, useMemo } from 'react'
 import { Modal, Alert } from '../../Component'
 import { useDispatch, useSelector } from 'react-redux'
 import { Content } from './Component'
 import { 
-    AddPole, 
-    ClearPole 
+    AddPole, ModifyPole, 
+    // ClearPole 
 } from '../../storage/action'
 
 import './index.css'
@@ -24,9 +24,9 @@ const validateDate = (date = '') =>{
     }
 }
 
-const validatePoleName = (nameFPole, poleDataArr) => {
+const validatePoleName = (nameFPole, poleDataArr, type = 'Add') => {
     const nameExist = poleDataArr?.find(pole => pole?.pole_name === nameFPole)
-    return nameExist ?  'Pole name already exist' : false
+    return nameExist && type === 'Add' ?  'Pole name already exist' : false
 }
 
 const AddPoleModal = props =>{
@@ -43,14 +43,19 @@ const AddPoleModal = props =>{
     }
 
     const onSave = () =>{
-        dispatch(ClearPole())
+        // dispatch(ClearPole())
         const { poleData = {} } = contentRef?.current  || {}
         const { closing_date = '', pole_name = ''} = poleData || {}
-        const errorMessage = validatePoleName(pole_name, poles) || validateDate(closing_date)
+        const errorMessage = validatePoleName(pole_name, poles, open?.type) || validateDate(closing_date)
 
         if(errorMessage === 'Valid'){
-            // dispatch(AddPole( poleData ))
-            // onClose()
+        
+            if(!pole) dispatch(AddPole( poleData ))
+            else{
+                const poleIndex = poles?.findIndex(pol => pol?.pole_id === poleData?.pole_id)
+                if(poleIndex !== - 1) dispatch(ModifyPole({ updatedPole : { ...poleData }, poleIndex}))
+            }
+            onClose()
         }else{
             onErrorOccur(errorMessage)
         }
