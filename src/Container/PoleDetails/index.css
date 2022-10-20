@@ -27,3 +27,39 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+
+.pole-detail-ques {
+    font-weight : 500;
+    font-size : 18px
+}
+
+.save-button-pole {
+    margin-left : 12px;
+    color : #fff !important;
+    background-color: #3E3E3E !important;
+    
+}
+
+.save-button-pole:disabled {
+    background-color: #363636 !important;
+    color : #fff;
+    opacity : 0.8
+}
+
+.save-button-pole:disabled:hover {
+    background-color: #363636 !important;
+    color : #fff;
+    opacity : 0.8
+}
+
+.save-button-pole:hover{
+    background-color: #2e2e2e !important;
+}
+
+.pole-detail-footer {
+    width : 100%; 
+    margin-top : 22px; 
+    display : flex; 
+    align-items : center; 
+    justify-content : flex-end
+}
