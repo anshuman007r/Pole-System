@@ -5,13 +5,31 @@ import './index.css'
 import Tooltip from "antd/es/tooltip";
 import PieChart from "echarts-for-react";
 import 'echarts/lib/component/tooltip'
+import moment from "moment";
+
+const colorOpt = ['#1D8348','#9C640C','#9B59B6', '#A93226', '#D2B4DE', '#2471A3', '#5DADE2', '#0E6655', '#F4D03F', '#F39C12', '#935116', '#D35400', '#B3B6B7', '#626567', '#D5DBDB', '#FAD7A0']
+
+const getRandomColorSet = (options = []) => {
+  const colorArr= [] 
+  for(let index = 0; index <options?.length; index++){
+    const randomNum = (Math.round(Math.random(moment().valueOf())*moment().valueOf())) 
+    const modOfNum = randomNum % 16
+    const color = colorOpt[modOfNum]
+    const checkExistence = colorArr?.find(col => col === color)
+    if(!checkExistence) colorArr.push(color)
+    else{
+      const num = (modOfNum + 2) % 16
+      colorArr.push(colorOpt[num])
+    }
+  }
+  return colorArr
+}
 
 const PoleResult = props => {
     const { match : { params : { poleId }}} = props
     const { poleReducer : poles, loggedUserReducer : loggedUser } = useSelector(state => state)
     const pole = useMemo(() =>poles?.find(pol => pol?.pole_id === poleId), [poles, poleId])
     const  role  = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
-    var colorPalette = ['#00b04f', '#ffbf00', '#ff0000', '#2e2e2e']
     const getOption = (options, question) => ({
         // title: {
         //   // text: "某站点用户访问来源",
@@ -25,7 +43,7 @@ const PoleResult = props => {
         legend: {
           orient: "horizontal",
           left: "left",
-          data: [ ...options, ...options]?.map((opt, index) => `pole_${index}`)
+          data: options?.map((opt, index) => opt?.option || index)
         },
         series: [
           {
@@ -34,8 +52,8 @@ const PoleResult = props => {
             radius: "65%",
             center: ["40%", "50%"],
             animationDuration: 5000,
-            data: [ ...options, ...options]?.map((opt, index) => ({ name : `pole_${index}`, value : index + 1})),
-            color : colorPalette,
+            data: options?.map((opt, index) => ({ name : opt?.option || index, value : opt?.vote || 0})),
+            color : getRandomColorSet(options),
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -66,7 +84,7 @@ const PoleResult = props => {
                     <div style={{  overflow : 'auto', height : 'calc(100vh - 195px)'}}>
                         <Row key={`option_containergit_${pole?.pole_id || ''}`} className='option-row' gutter={[60, 10]} style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
                         {
-                            [ ...pole?.questions, ...pole?.questions, ...pole?.questions]?.map(({question, options, question_id}, quesIndex)=>(
+                            pole?.questions?.map(({question, options, question_id}, quesIndex)=>(
                                 <React.Fragment>
                                     <Col
                                         // key={`option_${index}`}
@@ -95,10 +113,6 @@ const PoleResult = props => {
                         </Row>
                     </div> : null
                 }  
-                {/* <div className="pole-detail-footer" style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
-                    <Button disabled={false} type = "link" className = "content-button button-font-16px" onClick={console.log}>Cancel</Button>
-                    <Button disabled={false} type = "primary" className = " save-button-pole button-font-16px" onClick={console.log}>Save</Button>
-                </div>    */}
             </div>    
         </>
     )
