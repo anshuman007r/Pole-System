@@ -11,7 +11,8 @@ import {
     Modal, 
     Tooltip,
     Row,
-    Col
+    Col,
+    Empty
 } from 'antd'
 
 
@@ -28,5 +29,6 @@ export {
     Tooltip,
     Row,
     Col,
-    DatePicker
+    DatePicker,
+    Empty
 }

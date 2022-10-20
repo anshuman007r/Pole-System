@@ -4,7 +4,7 @@ import { InputBox, Row, Col, Button, DatePicker } from '../../../../Component'
 import './index.css'
 import moment from 'moment'
 // import poleData from './addPole.json'
-import questJSON from './quest.json'
+// import questJSON from './quest.json'
 
 const getUniqueNumber = ()=>{
     return Math.random(moment()?.valueOf())*moment().valueOf()
@@ -39,7 +39,25 @@ const Content = (props, ref) =>{
                 ]
             }
         ]
-    }  
+    } 
+    
+    const questJSON = {
+        "question_id" : "ques_1",
+        "question" : "",
+        "question_visited" : "",
+        "options" : [
+            {
+                "option_id" : "option_1",
+                "option" : "",
+                "vote" : "" 
+            },
+            {
+                "option_id" : "option_2",
+                "option" : "",
+                "vote" : "" 
+            }
+        ]
+    }
     const { onDisableAdd = () => {}, pole = '' } =  props
     const [ state, setState ] = useState(pole || { ...poleData})
     const { questions, pole_name = '' } = useMemo(()=>(state), [state])
@@ -166,7 +184,7 @@ const Content = (props, ref) =>{
             <hr className='horizontal-line'/>
             {
                 questions?.length ? 
-                <div style={{  overflow : 'auto', height : 'calc(56vh - 135px)', padding : '0 12px'}}>
+                <div style={{  overflow : 'auto', height : 'calc(56vh - 200px)', padding : '0 12px'}}>
                     {
                         questions?.map(({question, options, question_id}, quesIndex)=>(
                             <React.Fragment>

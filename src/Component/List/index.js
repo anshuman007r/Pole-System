@@ -1,12 +1,11 @@
 import React, { useMemo } from "react";
 import './index.css'
 import { useHistory } from "react-router-dom";
-import { Tooltip } from '../../Component'
+import { Tooltip, Empty } from '../../Component'
 import { useSelector, useDispatch } from "react-redux";
 import { DeletePole, ModifyPole } from "../../storage/action";
 import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone, } from "@ant-design/icons";
 import moment from 'moment'
-import { Empty } from "antd";
 
 // const pole_list = [
 //     {
