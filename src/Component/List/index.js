@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { DeletePole, ModifyPole } from "../../storage/action";
 import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone, } from "@ant-design/icons";
 import moment from 'moment'
+import { Empty } from "antd";
 
 // const pole_list = [
 //     {
@@ -85,6 +86,7 @@ const List = props => {
     return (
         <div className="list_container">
             {
+                list?.length ?
                 list?.map(({ pole_name, visted_by_user, closing_date, pole_id}, index)=>(
                     <div className = "list-item" style={{marginTop : index ? '12px' : 0}} key={`$Pole_${index}`}>
                         <div className="list_item_left_content" onClick={()=>onPoleClick(pole_id)}
@@ -136,6 +138,14 @@ const List = props => {
 
                     </div>
                 ))
+                : 
+                <Empty 
+                    image={Empty.PRESENTED_IMAGE_SIMPLE} 
+                    className = 'empty-container' 
+                    description= "Oops! List is empty"
+                    imageStyle={{ width : '150px', height : '140px'}}
+                >
+                </Empty>
             }
         </div>
     )
