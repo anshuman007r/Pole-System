@@ -4,9 +4,9 @@ import { Typography } from '../../Component'
 import './index.css'
 
 const RadioBox = props => {
-    const { label, value } = props
+    const { label, value, ...rest} = props
     return (
-        <Radio value={value}>
+        <Radio value={value} { ...rest }>
             <Typography className="radio-label">{label || ''}</Typography>
         </Radio>
     )
@@ -14,7 +14,7 @@ const RadioBox = props => {
 
 RadioBox.defaultProps = {
     value : '',
-    label : ''
+    label : '',
 }
 
 export default RadioBox

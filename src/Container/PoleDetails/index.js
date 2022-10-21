@@ -1,14 +1,70 @@
-import React, { useMemo } from "react";
-import { Header, Typography, Button, Row, Col, InputBox, RadioBox, RadioGroup } from "../../Component";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { Header, Typography, Button, Row, Col, RadioBox  } from "../../Component";
+import { useSelector, useDispatch } from "react-redux";
 import './index.css'
 import Tooltip from "antd/es/tooltip";
+import { ModifyPole } from "../../storage/action";
 
 const PoleDetails = props => {
     const { match : { params : { poleId }}} = props
+    const dispatch = useDispatch()
+    const [disableSave, setDisableSave] = useState(true)
+    const [quesArr, setQuesArr] = useState([])
     const { poleReducer : poles, loggedUserReducer : loggedUser } = useSelector(state => state)
     const pole = useMemo(() =>poles?.find(pol => pol?.pole_id === poleId), [poles, poleId])
     const  role  = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
+    Object.freeze(poles)
+
+
+    useEffect(()=>{
+        const checkForUnAttempQues = quesArr?.find(qu => !qu?.optVal)
+        setDisableSave(checkForUnAttempQues ? true : false)
+    },[quesArr])
+
+    useEffect(()=>{
+        setQuesArr(pole?.questions?.map(ques =>({ question : ques?.question, optVal : ''})))
+    },[pole])
+
+    const onSave = () => {
+        // console.log(pole, quesArr)
+        let poleIndex = poles?.findIndex(pol => pol?.pole_id  === poleId)
+        const poleCpy = poleIndex !== -1 ? { ...poles?.[poleIndex] }  : {}
+        let { questions } = poleCpy
+        const questionArr = questions?.map((qu, index) => {
+            let { options = [] } = qu
+            const optIndex = options?.findIndex(op => op?.option === quesArr?.[index]?.optVal)
+            if(optIndex !== -1){
+                options[optIndex] = { ...options[optIndex], vote : options[optIndex]?.vote ? options[optIndex]?.vote + 1 : 1 }
+            }
+            return { 
+                ...qu,
+                options : [ ...options]
+            }
+        })
+        const updatedPole = { 
+            ...poleCpy, 
+            visited_by_user : Array.isArray(poleCpy?.visited_by_user) ? [ ...poleCpy?.visited_by_user, loggedUser?.userName ] : [ loggedUser?.userName ], 
+            questions : [ ...questionArr]
+        }
+        // console.log(poles, updatedPole)
+        dispatch(ModifyPole({ updatedPole, poleIndex }))
+        onCancel()
+        // dispatch(ModifyPole(updatedPoles))
+    }
+
+    const onChange = (question = '', { target = {} }) => {
+        const { value = ''} = target
+        setQuesArr(prevState =>{
+            const question_index = prevState?.findIndex(qu => qu?.question === question)
+            if(question_index !== -1){
+                prevState[question_index] = { ...prevState[question_index], optVal : value}
+                return [ ...prevState]
+            }
+        })
+    }
+
+    const onCancel = () =>props.history.goBack()
+
     return (
         <>
             <Header
@@ -25,7 +81,7 @@ const PoleDetails = props => {
                 <hr className='horizontal-line-pole_detail' />
                 {
                     pole?.questions?.length ? 
-                    <div style={{  overflow : 'auto', height : 'calc(100vh - 235px)'}}>
+                    <div style={{  overflow : 'auto', height : 'calc(100vh - 251px)'}}>
                         {
                             pole?.questions?.map(({question, options, question_id}, quesIndex)=>(
                                 <React.Fragment>
@@ -50,8 +106,11 @@ const PoleDetails = props => {
                                                     }}
                                                 >
                                                     <RadioBox
-                                                        value = "1"
+                                                        key= {`radio_${index}`}
+                                                        checked = {quesArr?.[quesIndex]?.optVal === option ? true  : false}
+                                                        value = {option}
                                                         label= {option}
+                                                        onClick={(event) => onChange(question, event)}
                                                     />
                                                 </Col>              
                                                 ))
@@ -61,12 +120,12 @@ const PoleDetails = props => {
                             ))
                         }    
                     </div> : null
-                }  
-                <div className="pole-detail-footer" style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
-                    <Button disabled={false} type = "link" className = "content-button button-font-16px" onClick={console.log}>Cancel</Button>
-                    <Button disabled={false} type = "primary" className = " save-button-pole button-font-16px" onClick={console.log}>Save</Button>
-                </div>   
-            </div>    
+                }   
+            </div> 
+            <div className="pole-detail-footer" style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
+                <Button type = "link" className = "content-button button-font-16px" onClick={onCancel}>Cancel</Button>
+                <Button disabled={disableSave} type = "primary" className = " save-button-pole button-font-16px" onClick={onSave}>Save</Button>
+            </div>     
         </>
     )
 }

@@ -7,6 +7,11 @@ import { DeletePole, ModifyPole } from "../../storage/action";
 import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone, } from "@ant-design/icons";
 import moment from 'moment'
 
+const checkForAttemptedPole = (visited_by_user , { userName = ''}) => {
+    const checkUserExist = visited_by_user?.find(user => user === userName)
+    return checkUserExist ? true : false
+}
+
 // const pole_list = [
 //     {
 //         pole_id : 1,
@@ -73,7 +78,8 @@ const List = props => {
         }else{
             const poleIndex = list?.findIndex(pol => pol?.pole_id === poleId)
             const pole = list?.[poleIndex] || {}
-            if(pole) dispatch(ModifyPole({ updatedPole : {...pole, closing_date : moment().format('YYYY/MM/DD')}, poleIndex}))
+            console.log(pole, {...pole, closing_date : moment().format('YYYY/MM/DD')}, poleIndex, poleId)
+            // if(pole) dispatch(ModifyPole({ updatedPole : {...pole, closing_date : moment().format('YYYY/MM/DD')}, poleIndex}))
         }
     }
 
@@ -86,16 +92,16 @@ const List = props => {
         <div className="list_container">
             {
                 list?.length ?
-                list?.map(({ pole_name, visted_by_user, closing_date, pole_id}, index)=>(
-                    <div className = "list-item" style={{marginTop : index ? '12px' : 0}} key={`$Pole_${index}`}>
-                        <div className="list_item_left_content" onClick={()=>onPoleClick(pole_id)}
+                list?.map(({ pole_name, visited_by_user, closing_date, pole_id}, index)=>(
+                    <div className = {checkForAttemptedPole(visited_by_user, loggedUser) ? 'list-item-alt' :"list-item"} style={{marginTop : index ? '12px' : 0}} key={`$Pole_${index}`}>
+                        <div className="list_item_left_content" onClick={()=> checkForAttemptedPole(visited_by_user, loggedUser) ? null : onPoleClick(pole_id)}
                         >
                             <span style={{display : 'flex'}}>
                                 <img alt= "pole_image" src= {process.env.PUBLIC_URL+"images/pole_image.png"} width = "40px" height = "40px"/>
                                 <span className="is-capitalized is-size-4 has-text-weight-semibold list-label label-ellipsis">{pole_name || `Pole_${index}` }</span>
                             </span>
                             <div>
-                                <span className="is-size-7 has-text-weight-light">Visited by <strong>{visted_by_user || 0} </strong> users</span>
+                                <span className="is-size-7 has-text-weight-light">Visited by <strong>{visited_by_user?.length || 0} </strong> users</span>
                             </div>
                         </div>
                         <div className="list_item_right_content">

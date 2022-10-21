@@ -17,6 +17,16 @@
     cursor : pointer
 }
 
+.list-item-alt {
+    width : 100%; 
+    min-height : 80px; 
+    border : 1px solid #2E2E2E; 
+    border-radius : 2px;
+    display: flex;
+    padding : 5px 10px;
+    cursor : pointer
+}
+
 .list-item:hover{
     background-color: #fCfCfC;
     box-shadow: 1px 8px 8px #C4C4C4;
