@@ -1,8 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { List, Header } from '../../Component'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AddPoleModal from "../AddPoleModal";
 import moment from 'moment'
+// import { ClearPole } from "../../storage/action";
 
 const isPoleExpire = ({ closing_date = ''}) => {
     if(moment(closing_date)?.isValid){

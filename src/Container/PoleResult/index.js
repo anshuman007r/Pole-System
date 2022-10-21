@@ -89,7 +89,7 @@ const PoleResult = props => {
                                     <Col
                                         // key={`option_${index}`}
                                         className='option-row-left-col'
-                                        key= {question_id|| `option_${question_id}`}
+                                        key= {question_id|| `option_${quesIndex}`}
                                         xs={{
                                             span: 12,
                                             // offset: 1,
@@ -100,7 +100,7 @@ const PoleResult = props => {
                                         }}
                                     >
                                       <Tooltip title={question || ''} placement= 'bottomLeft'>
-                                          <Typography.Paragraph className="pole-detail-ques label-ellipsis-pole-details">{'Who is your favourite team player ?'}</Typography.Paragraph>
+                                          <Typography.Paragraph className="pole-detail-ques label-ellipsis-pole-details">{question || ''}</Typography.Paragraph>
                                       </Tooltip>
                                       <PieChart
                                           option={getOption(options, question)}

@@ -59,7 +59,7 @@ const actionButton = [
 const List = props => {
     const { page, list, onEdit } = props
     const history = useHistory()  
-    const { loggedUserReducer : loggedUser } = useSelector( state => state)
+    const { loggedUserReducer : loggedUser, poleReducer : poles } = useSelector( state => state)
     const dispatch = useDispatch()
     
     const role = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
@@ -76,10 +76,10 @@ const List = props => {
         }else if(type === 'Delete'){
             dispatch(DeletePole({ id : poleId}))
         }else{
-            const poleIndex = list?.findIndex(pol => pol?.pole_id === poleId)
-            const pole = list?.[poleIndex] || {}
-            console.log(pole, {...pole, closing_date : moment().format('YYYY/MM/DD')}, poleIndex, poleId)
-            // if(pole) dispatch(ModifyPole({ updatedPole : {...pole, closing_date : moment().format('YYYY/MM/DD')}, poleIndex}))
+            const poleIndex = poles?.findIndex(pol => pol?.pole_id === poleId)
+            const pole = poles?.[poleIndex] || {}
+            // console.log(pole, {...pole, closing_date : moment().format('YYYY/MM/DD')}, poleIndex, poleId)
+            if(pole) dispatch(ModifyPole({ updatedPole : {...pole, closing_date : moment().format('YYYY/MM/DD')}, poleIndex}))
         }
     }
 
