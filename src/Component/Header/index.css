@@ -13,3 +13,18 @@
 .button_icon {
     margin : 1px 6px 0 -6px
 }
+
+.logout-button {
+    color : #f0f0f0
+}
+
+.end-nav-item{
+    padding : 8px 8px !important
+}
+
+.logout-button-content {
+    width  : 88px; 
+    justify-content : space-between; 
+    display : flex;
+    padding : 2px 4px
+}

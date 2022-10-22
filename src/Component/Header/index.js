@@ -77,25 +77,29 @@ const Header = props => {
 
             <div id="navbarBasicExample" className={`navbar-menu ${isActive ? "is-active" : ""}`}>
                 <div className="navbar-end center">
-                    <div className="navbar-item">
-                        <div className="buttons"> 
+                        {/* <div className="buttons">  */}
                             {
                                 headerButton?.map(({ label, icon, redirect_link}, index)=>(
-                                    <button key={`action_${index}`} className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
-                                        { 
-                                            icon && 
-                                            <img src={process.env.PUBLIC_URL+`icons/${icon}`} className="button_icon" width = '20px' height="18px" alt="add_icon" />
-                                        }
-                                        {label || ''}
-                                    </button>
+                                    <div className="navbar-item end-nav-item"  key={`action_${index}`}>
+                                        <button style={{ width : '100%'}} className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
+                                            { 
+                                                icon && 
+                                                <img src={process.env.PUBLIC_URL+`icons/${icon}`} className="button_icon" width = '20%' height="18px" alt="add_icon" />
+                                            }
+                                            {label || ''}
+                                        </button>
+                                    </div>
                                 ))
                             }  
-                        </div>
+                        {/* </div> */}
+                    <div className="navbar-item end-nav-item" key="logout">
+                        <button  className="logout-button" onClick={onLogoutClick}>
+                            <div className="logout-button-content">
+                                <img src={process.env.PUBLIC_URL+"icons/logout_icon.svg"} width = '20px' height="18px" alt="Logout_icon" />
+                                Log out
+                            </div>
+                        </button>
                     </div>
-                    <button className="navbar-item logout-button" onClick={onLogoutClick}>
-                        <img src={process.env.PUBLIC_URL+"icons/logout_icon.svg"} width = '20px' height="18px" alt="Logout_icon" />
-                        Log out
-                    </button>
                 </div>
             </div>
         </nav>
