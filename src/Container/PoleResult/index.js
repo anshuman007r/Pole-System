@@ -38,7 +38,7 @@ const PoleResult = props => {
         // },
         tooltip: {
           trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
+          formatter: "{b} : {c} ({d}%)"
         },
         legend: {
           orient: "horizontal",
@@ -82,7 +82,7 @@ const PoleResult = props => {
                 {
                     pole?.questions?.length ? 
                     <div style={{  overflow : 'auto', height : 'calc(100vh - 195px)'}}>
-                        <Row key={`option_containergit_${pole?.pole_id || ''}`} className='option-row' gutter={[60, 10]} style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
+                        <Row key={`option_containergit_${pole?.pole_id || ''}`} className='option-row' gutter={[60, 10]}>
                         {
                             pole?.questions?.map(({question, options, question_id}, quesIndex)=>(
                                 <React.Fragment>

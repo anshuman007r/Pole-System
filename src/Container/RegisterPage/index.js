@@ -75,7 +75,7 @@ const RegisterPage = props => {
 
     const onRegisterClick = () => {
         const userDetailIndex = userDetails?.findIndex(user => user?.userName === state?.userName)
-        console.log(userDetailIndex, userDetails, state )
+        // console.log(userDetailIndex, userDetails, state )
         if(state?.password !== state?.confirmPassword) onAlertOccur('Confirm Password & Password didn\'t match', 'error')
         else if(userDetailIndex === -1){
             dispatch(AddUser({
