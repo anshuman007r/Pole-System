@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { LogOutUser } from "../../storage/action"
 import './index.css'
@@ -27,6 +27,7 @@ const buttons = [
 const Header = props => {
 
     const { page, onOpenModal } = props
+    const [isActive, setIsActive] = useState(false)
 
     const dispatch = useDispatch()
     const onLogoutClick = () =>{
@@ -55,6 +56,10 @@ const Header = props => {
         else onOpenModal()
     }
 
+    const toggleBurger = () => {
+        setIsActive(prevState => !prevState)
+    }
+
     return (
         <nav className="navbar is-dark navbar-height"  role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
@@ -62,7 +67,7 @@ const Header = props => {
                 <span className="navbar-item navbar-brand is-size-5 has-text-weight-semibold">
                     {page || 'Pole system'}
                 </span>
-                <div role="button" className="navbar-burger" aria-label="menu"  aria-expanded="false" data-target="navbarBasicExample">
+                <div role="button" className="navbar-burger" aria-label="menu"  aria-expanded="false" data-target="navbarBasicExample" onClick={toggleBurger}>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"> </span>
@@ -70,7 +75,7 @@ const Header = props => {
                 {/* </Popover> */}
             </div>
 
-            <div id="navbarBasicExample" className="navbar-menu">
+            <div id="navbarBasicExample" className={`navbar-menu ${isActive ? "is-active" : ""}`}>
                 <div className="navbar-end center">
                     <div className="navbar-item">
                         <div className="buttons"> 
