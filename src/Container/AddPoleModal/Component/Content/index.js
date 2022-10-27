@@ -3,6 +3,14 @@ import React, { useMemo, useState, useEffect, useImperativeHandle, forwardRef} f
 import { InputBox, Row, Col, Button, DatePicker } from '../../../../Component'
 import './index.css'
 import moment from 'moment'
+import constants from '../../../../Constants'
+const {
+    POLE_NAME,
+    CLOSING_DATE,
+    OPTION,
+    ADD_OPTION,
+    ADD_QUESTION
+ } = constants
 // import poleData from './addPole.json'
 // import questJSON from './quest.json'
 
@@ -160,7 +168,7 @@ const Content = (props, ref) =>{
             <InputBox
                 label = ''
                 name = "pole_name"
-                placeholder = "Pole Name"
+                placeholder = {POLE_NAME}
                 inputWidth = "100%"
                 value={pole_name || ''}
                 width ="100%"
@@ -168,7 +176,7 @@ const Content = (props, ref) =>{
                 onChange={onChange}
                 />
                 <DatePicker
-                    label = 'Closing Date'
+                    label = {CLOSING_DATE}
                     name = "closing_date"
                     width = "40%"
                     labelStyle = {{
@@ -236,7 +244,7 @@ const Content = (props, ref) =>{
                                                 value={option || ''}
                                                 showDelIcon 
                                                 onDeleteClick={onDeleteClick}
-                                                placeholder = "Option"
+                                                placeholder = {OPTION}
                                                 inputWidth = "calc(100% - 120px)"
                                                 width ="100%"
                                                 labelStyle= {{
@@ -262,7 +270,7 @@ const Content = (props, ref) =>{
                                         }}
                                     >
                                         <div className='add-opt-container'>
-                                            <Button disabled={isDisableAddOpt(quesIndex)} type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesIndex)}>+ Add option</Button>
+                                            <Button disabled={isDisableAddOpt(quesIndex)} type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesIndex)}>{ADD_OPTION}</Button>
                                         </div>
                                     </Col>    
                                 </Row>
@@ -270,7 +278,7 @@ const Content = (props, ref) =>{
                         ))
                     } 
                 <div className='add-ques-container'>
-                    <Button disabled={disableAddQues} type = "link" className = "content-button button-font-16px" onClick={onAddQuestion}>+ Add question</Button>
+                    <Button disabled={disableAddQues} type = "link" className = "content-button button-font-16px" onClick={onAddQuestion}>{ADD_QUESTION}</Button>
                 </div>
             </div> : null
             }

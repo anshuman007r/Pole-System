@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
-import { Header, Typography, Button, Row, Col, InputBox, RadioBox, RadioGroup } from "../../Component";
+import { Header, Typography, Row, Col,} from "../../Component";
 import { useSelector } from "react-redux";
 import './index.css'
 import Tooltip from "antd/es/tooltip";
 import PieChart from "echarts-for-react";
 import 'echarts/lib/component/tooltip'
 import moment from "moment";
-
+import constants from "../../Constants";
+const { POLE_RESULT } = constants
 const colorOpt = ['#1D8348','#9C640C','#9B59B6', '#A93226', '#D2B4DE', '#2471A3', '#5DADE2', '#0E6655', '#F4D03F', '#F39C12', '#935116', '#D35400', '#B3B6B7', '#626567', '#D5DBDB', '#FAD7A0']
 
 const getRandomColorSet = (options = []) => {
@@ -27,9 +28,9 @@ const getRandomColorSet = (options = []) => {
 
 const PoleResult = props => {
     const { match : { params : { poleId }}} = props
-    const { poleReducer : poles, loggedUserReducer : loggedUser } = useSelector(state => state)
+    const { poleReducer : poles } = useSelector(state => state)
     const pole = useMemo(() =>poles?.find(pol => pol?.pole_id === poleId), [poles, poleId])
-    const  role  = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
+    // const  role  = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
     const getOption = (options, question) => ({
         // title: {
         //   // text: "某站点用户访问来源",
@@ -68,7 +69,7 @@ const PoleResult = props => {
     return (
         <>
             <Header
-                page = "Pole Result"
+                page = {POLE_RESULT}
                 { ...props}
             />
             <div className="pole-detail-container">

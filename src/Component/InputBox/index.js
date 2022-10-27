@@ -2,6 +2,10 @@ import React, { useMemo } from "react";
 import { Input, Typography, Tooltip } from "antd";
 import './index.css'
 import { DeleteFilled } from '@ant-design/icons'
+import constants from "../../Constants";
+const { 
+    DELETE
+} = constants
 
 
 const checkType = (param) =>{
@@ -34,7 +38,7 @@ const InputBox = props => {
             { 
                 showDelIcon 
                 ? 
-                <Tooltip  placement="bottom" title="Delete">
+                <Tooltip  placement="bottom" title={DELETE}>
                     <DeleteFilled className={disableDelIcon ? "delete_icon" : ''} disabled={disableDelIcon} onClick={()=>!disableDelIcon ? onDeleteClick(paramFDelete) : null}/>
                 </Tooltip> 
                 : null 

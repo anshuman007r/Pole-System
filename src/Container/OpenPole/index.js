@@ -1,9 +1,13 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { List, Header } from '../../Component'
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import AddPoleModal from "../AddPoleModal";
 import moment from 'moment'
-// import { ClearPole } from "../../storage/action";
+import constants from "../../Constants";
+const { 
+    OPEN_POLES,
+    ADD
+} = constants
 
 const isPoleExpire = ({ closing_date = ''}) => {
     if(moment(closing_date)?.isValid){
@@ -15,13 +19,13 @@ const isPoleExpire = ({ closing_date = ''}) => {
 }
 
 const OpenPole = props =>{
-    const [openModal, setOpenModal] = useState({ type : 'Add', state : '', poleId : ''})
+    const [openModal, setOpenModal] = useState({ type : ADD, state : '', poleId : ''})
     const [error, setError] = useState('')
     const { poleReducer : poles } = useSelector(state => state)
 
     const openPoles = useMemo(() => Array.isArray(poles) ? poles?.filter(pole=>!isPoleExpire(pole || {})) : [],[poles])
 
-    const toggleModal = (type = 'Add', poleId = '') =>{
+    const toggleModal = (type = ADD, poleId = '') =>{
         setOpenModal(prevState => ({ type, poleId, state : !prevState?.state}))
     } 
 
@@ -41,12 +45,12 @@ const OpenPole = props =>{
     return(
         <>
             <Header
-                page = "Open Poles"
+                page = {OPEN_POLES}
                 onOpenModal = {toggleModal}
                 { ...props}
             />
             <List
-                page = "Open Poles"
+                page = {OPEN_POLES}
                 list = {openPoles || []} 
                 onEdit = {toggleModal}
             />

@@ -2,6 +2,8 @@ import React, { useMemo } from "react";
 import { List, Header } from "../../Component";
 import { useSelector } from "react-redux";
 import moment from 'moment'
+import constants from "../../Constants";
+const { CLOSE_POLES } = constants
 
 const isPoleExpire = ({ closing_date = '', ...rest}) => {
     if(moment(closing_date)?.isValid){
@@ -22,10 +24,10 @@ const ClosePole = props =>{
         <>
             <Header
                 { ...props}
-                page = "Close Poles"
+                page = {CLOSE_POLES}
             />
             <List
-                page = "Close Poles"
+                page = {CLOSE_POLES}
                 list = {closePoles || []}
             />
         </>

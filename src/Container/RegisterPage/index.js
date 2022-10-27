@@ -4,17 +4,34 @@ import { InputBox, Typography, Button, SelectBox, Alert} from '../../Component'
 import './index.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { AddUser } from '../../storage/action'
+import constants from '../../Constants'
+const { 
+    ADMIN, 
+    USER, 
+    USERNAME, 
+    FIRST_NAME, 
+    LAST_NAME, 
+    PASSWORD, 
+    PASSWORD_MISMATCH_ERROR,
+    CONFIRM_PASSWORD,
+    ROLE,
+    USER_CREATED_MESSAGE,
+    USER_NAME_EXIST,
+    SOMETHING_WENT_WRONG,
+    REDIRECT_TO_LOGIN_MESSAGE,
+    REGISTER
+ } = constants
 
 const roleOptions = [
     {
         id : 'role_1',
         label : 'Admin',
-        value : 'admin'
+        value : ADMIN
     },
     {
         id : 'role_2',
         label : 'User',
-        value : 'user'
+        value : USER
     }
 ]
 
@@ -76,14 +93,14 @@ const RegisterPage = props => {
     const onRegisterClick = () => {
         const userDetailIndex = userDetails?.findIndex(user => user?.userName === state?.userName)
         // console.log(userDetailIndex, userDetails, state )
-        if(state?.password !== state?.confirmPassword) onAlertOccur('Confirm Password & Password didn\'t match', 'error')
+        if(state?.password !== state?.confirmPassword) onAlertOccur(PASSWORD_MISMATCH_ERROR, 'error')
         else if(userDetailIndex === -1){
             dispatch(AddUser({
                 ...state
             }))
-            onAlertOccur('User created successfully', 'success')
+            onAlertOccur(USER_CREATED_MESSAGE, 'success')
         }else{
-            onAlertOccur('User name already exist', 'error')
+            onAlertOccur(USER_NAME_EXIST, 'error')
         }
     }
 
@@ -91,7 +108,7 @@ const RegisterPage = props => {
         <>
             { alertMessage?.message &&
                 <Alert
-                    message = { alertMessage?.message || 'Something went wrong'}
+                    message = { alertMessage?.message || SOMETHING_WENT_WRONG}
                     banner
                     type = {alertMessage?.type}
                     closable
@@ -101,52 +118,52 @@ const RegisterPage = props => {
             }
             <div className='container-register'>
                 <div className='content-register'>
-                    <Typography.Title className='title'>Register</Typography.Title>
+                    <Typography.Title className='title'>{REGISTER}</Typography.Title>
                     <InputBox
-                        label = 'First name' 
+                        label = {FIRST_NAME}
                         name = "firstName"
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <InputBox
-                        label = 'Last name'
+                        label = {LAST_NAME}
                         name = "lastName" 
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <InputBox
-                        label = 'User name'
+                        label = {USERNAME}
                         name = "userName" 
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <InputBox
-                        label = 'Password'
+                        label = {PASSWORD}
                         name = "password"
                         type ="password"
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <InputBox
-                        label = 'Confirm password'
+                        label = {CONFIRM_PASSWORD}
                         name = "confirmPassword"
                         type ="password"
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <SelectBox
-                        label = 'Role' 
+                        label = {ROLE}
                         name = "role"
                         options ={roleOptions}
                         inputWidth = "calc(100% - 150px)"
                         onChange={select => onChange({ target : { name : 'role', value : select || ''}})}
                     />
                     <div className='register-button-container'>
-                        <Button disabled={disableButton} type="primary"  className='register-button' onClick={onRegisterClick}>Register</Button>
+                        <Button disabled={disableButton} type="primary"  className='register-button' onClick={onRegisterClick}>{REGISTER}</Button>
                     </div>
                     <Link to= "/login">
                         <Typography.Text ellipsis className='sub-text-register'>
-                            Already have an account? Go to login
+                            {REDIRECT_TO_LOGIN_MESSAGE}
                         </Typography.Text> 
                     </Link> 
             

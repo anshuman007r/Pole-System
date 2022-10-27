@@ -3,24 +3,35 @@ import { useDispatch, useSelector } from "react-redux"
 import { LogOutUser } from "../../storage/action"
 import { CloseCircleOutlined } from "@ant-design/icons"
 import './index.css'
+import constants from "../../Constants"
+const {
+    ADMIN,
+    USER,
+    CLOSE_LIST,
+    ADD_POLE,
+    OPEN_LIST,
+    OPEN_POLES,
+    POLE_SYSTEM,
+    LOG_OUT
+} = constants
 
 const buttons = [
     {
-        name : 'Open List',
+        name : OPEN_LIST,
         icon : '',
-        label : 'Open List',
+        label : OPEN_LIST,
         redirect_link : '/pole'
     },
     {
-        name : 'Close List',
+        name : CLOSE_LIST,
         icon : '',
-        label : 'Close List',
+        label : CLOSE_LIST,
         redirect_link : '/close_pole'
     },
     {
-        name : 'Add Pole',
+        name : ADD_POLE,
         icon : 'add_icon.svg',
-        label : 'Add Pole',
+        label : ADD_POLE,
         redirect_link : ''
     },
 ]
@@ -36,7 +47,7 @@ const Header = props => {
     }
     const { loggedUserReducer : loggedUser } = useSelector( state => state)
     
-    const role = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
+    const role = useMemo(()=> loggedUser?.role || USER, [loggedUser])
 
     useEffect(()=>{
         function handleWindowResize() {
@@ -51,9 +62,9 @@ const Header = props => {
 
     const headerButton  = useMemo(()=>{
         if(!page){
-            return buttons?.filter(res => role === 'admin' ? (res?.name !== 'Add Pole') : (res?.name === 'Open List') )
-        }else if( page === 'Open Poles'){
-            return role === 'admin' ? buttons?.filter(res => res?.name === 'Add Pole') : []
+            return buttons?.filter(res => role === ADMIN ? (res?.name !== ADD_POLE) : (res?.name === OPEN_LIST) )
+        }else if( page === OPEN_POLES){
+            return role === ADMIN ? buttons?.filter(res => res?.name === ADD_POLE) : []
         }else{
             return []
         }
@@ -77,7 +88,7 @@ const Header = props => {
             <div className="navbar-brand">
                 { page ? <img src={process.env.PUBLIC_URL+"icons/back_arrow_icon.svg"} width = '24px' height="24px"  className="back_image" alt="back_arrow_icon" onClick={()=>props.history.goBack()} />  : null }
                 <span className="navbar-item navbar-brand is-size-5 has-text-weight-semibold">
-                    {page || 'Pole system'}
+                    {page || POLE_SYSTEM}
                 </span>
                 <div role="button" className="navbar-burger" aria-label="menu"  aria-expanded="false" data-target="navbarBasicExample" onClick={toggleBurger}>
                     <span aria-hidden="true"></span>
@@ -113,7 +124,7 @@ const Header = props => {
                         <button  className="logout-button" onClick={onLogoutClick}>
                             <div className="logout-button-content">
                                 <img src={process.env.PUBLIC_URL+"icons/logout_icon.svg"} width = '20px' height="18px" alt="Logout_icon" />
-                                Log out
+                                {LOG_OUT}
                             </div>
                         </button>
                     </div>

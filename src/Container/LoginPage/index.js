@@ -4,6 +4,16 @@ import { InputBox, Typography, Button, Alert } from '../../Component'
 import './index.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { LogInUser } from '../../storage/action'
+import constants from '../../Constants'
+const {
+    INCORRECT_PASSWORD,
+    USERNAME_INVALID_ERROR,
+    SOMETHING_WENT_WRONG,
+    USERNAME,
+    PASSWORD,
+    REDIRECT_TO_REGISTER_MESSAGE,
+    LOGIN
+ } = constants
 
 const LoginPage = props => {
     const [ state, setState] = useState({
@@ -32,10 +42,10 @@ const LoginPage = props => {
                     ...userDetail
                 }))
             }else{
-                onErrorOccur('Incorrect Password')
+                onErrorOccur(INCORRECT_PASSWORD)
             }
         }else{
-            onErrorOccur('User name is not valid')
+            onErrorOccur(USERNAME_INVALID_ERROR)
         }
     }
 
@@ -61,7 +71,7 @@ const LoginPage = props => {
         <>
             {error &&
                 <Alert
-                    message = {error || 'Something went wrong'}
+                    message = {error || SOMETHING_WENT_WRONG}
                     banner
                     type = "error"
                     closable
@@ -71,9 +81,9 @@ const LoginPage = props => {
             }
             <div className='container-login'>
                 <div className='content-login'>
-                    <Typography.Title className='title'>Login</Typography.Title>
+                    <Typography.Title className='title'>{LOGIN}</Typography.Title>
                     <InputBox
-                        label = 'User name' 
+                        label = {USERNAME}
                         name = "userName"
                         inputWidth = "calc(100% - 100px)"
                         onChange = {onChange}
@@ -81,16 +91,16 @@ const LoginPage = props => {
                     <InputBox
                         name= "password"
                         type = "password"
-                        label = 'Password'
+                        label = {PASSWORD}
                         inputWidth = "calc(100% - 100px)"
                         onChange = {onChange}
                     />
                     <div className='login-button-container'>
-                        <Button disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>Login</Button>
+                        <Button disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>{LOGIN}</Button>
                     </div>
                     <Link to= "/register">
                         <Typography.Text ellipsis className='sub-text-login'>
-                            Don't have an account? Click to register
+                            {REDIRECT_TO_REGISTER_MESSAGE}
                         </Typography.Text> 
                     </Link> 
             

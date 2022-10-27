@@ -6,51 +6,42 @@ import { useSelector, useDispatch } from "react-redux";
 import { DeletePole, ModifyPole } from "../../storage/action";
 import { EditTwoTone, DeleteTwoTone, CloseCircleTwoTone, } from "@ant-design/icons";
 import moment from 'moment'
+import constants from "../../Constants";
+const {
+    EDIT,
+    DELETE,
+    CLOSE,
+    USER,
+    OPEN_POLES,
+    ADMIN,
+    RESULT,
+    WILL_EXPIRE_ON,
+    EXPIRED_ON,
+    VISITED_BY,
+    USERS
+} = constants
 
 const checkForAttemptedPole = (visited_by_user , { userName = ''}) => {
     const checkUserExist = visited_by_user?.find(user => user === userName)
     return checkUserExist ? true : false
 }
 
-// const pole_list = [
-//     {
-//         pole_id : 1,
-//         pole_name : 'Pole  for selecting employee of the year',
-//         visted_by_user : '20',
-//         closing_date : '19/10/2022'
-//     },
-//     {
-//         pole_id : 2,
-//         pole_name : 'Pole to plan workation destination',
-//         visted_by_user : '40',
-//         closing_date : '20/10/2022'
-//     },
-//     {
-//         pole_id : 3,
-//         pole_name : 'Pole to select work mode',
-//         visted_by_user : '120',
-//         closing_date : '18/10/2022'
-//     }
-
-
-// ]
-
 const dateStoreToLocal = (date = '') =>{
     return moment(date, 'YYYY/MM/DD').format('DD/MM/YYYY')}
 
 const actionButton = [
     {
-        name : 'Edit',
+        name : EDIT,
         Component : EditTwoTone,
         color : '#0072E5'
     },
     {
-        name : 'Delete',
+        name : DELETE,
         Component : DeleteTwoTone,
         color : '#DB3B19'
     },
     {
-        name : 'Close',
+        name : CLOSE,
         Component : CloseCircleTwoTone,
         color : '#C70039'
     }
@@ -62,7 +53,7 @@ const List = props => {
     const { loggedUserReducer : loggedUser, poleReducer : poles } = useSelector( state => state)
     const dispatch = useDispatch()
     
-    const role = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
+    const role = useMemo(()=> loggedUser?.role || USER, [loggedUser])
     // const poleList = useMemo(()=>([ ...pole_list, ...pole_list, ...pole_list, ...pole_list]),[])
 
     const onPoleClick = (id = '') =>{
@@ -71,9 +62,9 @@ const List = props => {
     }
 
     const onActionClick = (type = '', poleId = '') => {
-        if(type === 'Edit'){
+        if(type === EDIT){
             onEdit(type, poleId)
-        }else if(type === 'Delete'){
+        }else if(type === DELETE){
             dispatch(DeletePole({ id : poleId}))
         }else{
             const poleIndex = poles?.findIndex(pol => pol?.pole_id === poleId)
@@ -101,17 +92,17 @@ const List = props => {
                                 <span className="is-capitalized is-size-4 has-text-weight-semibold list-label label-ellipsis">{pole_name || `Pole_${index}` }</span>
                             </span>
                             <div>
-                                <span className="is-size-7 has-text-weight-light">Visited by <strong>{visited_by_user?.length || 0} </strong> users</span>
+                                <span className="is-size-7 has-text-weight-light">{VISITED_BY} <strong>{visited_by_user?.length || 0} </strong> {USERS}</span>
                             </div>
                         </div>
                         <div className="list_item_right_content">
 
-                            <div className="action_button_container" style ={{justifyContent : page === 'Open Poles' ? 'space-between' : 'flex-end', marginTop :  page === 'Open Poles' ?'8px' : '4px'}}>
+                            <div className="action_button_container" style ={{justifyContent : page === OPEN_POLES ? 'space-between' : 'flex-end', marginTop :  page === OPEN_POLES ?'8px' : '4px'}}>
                                 {
-                                    role === 'admin' ?
+                                    role === ADMIN ?
                                     <React.Fragment>
                                         {
-                                            page === 'Open Poles' ?
+                                            page === OPEN_POLES ?
                                             <>
                                                 {
                                                     actionButton?.map(({ name , Component, color}, actionIndex)=>(
@@ -123,7 +114,7 @@ const List = props => {
                                             </> : 
                                             <button className="result-button" onClick={()=>onResultClick(pole_id)}>
                                                 <img src={process.env.PUBLIC_URL+'icons/graph_icon.svg'} className="button_icon" width = '20px' height="20px" alt="graph_icon" />
-                                                Result
+                                                {RESULT}
                                             </button>
                                         }
                                     </React.Fragment> 
@@ -132,10 +123,10 @@ const List = props => {
                             </div>
                             <span className="is-size-7 has-text-weight-light">    
                                 {
-                                    page === 'Open Poles'
-                                    ?  'Will expire on ' 
+                                    page === OPEN_POLES
+                                    ?  WILL_EXPIRE_ON 
                                     :
-                                    'Expired on '
+                                    EXPIRED_ON
                                 } 
                                 <strong>{dateStoreToLocal(closing_date) || new Date().toLocaleDateString()} </strong> 
                             </span>

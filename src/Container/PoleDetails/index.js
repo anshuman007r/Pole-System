@@ -4,6 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import './index.css'
 import Tooltip from "antd/es/tooltip";
 import { ModifyPole } from "../../storage/action";
+import constants from "../../Constants";
+const { 
+    POLE_DETAILS,
+    CANCEL,
+    SAVE,
+    ADMIN
+} = constants
 
 const PoleDetails = props => {
     const { match : { params : { poleId }}} = props
@@ -68,7 +75,7 @@ const PoleDetails = props => {
     return (
         <>
             <Header
-                page = "Pole Details"
+                page = {POLE_DETAILS}
                 { ...props}
             />
             <div className="pole-detail-container">
@@ -122,9 +129,9 @@ const PoleDetails = props => {
                     </div> : null
                 }   
             </div> 
-            <div className="pole-detail-footer" style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
-                <Button type = "link" className = "content-button button-font-16px" onClick={onCancel}>Cancel</Button>
-                <Button disabled={disableSave} type = "primary" className = " save-button-pole button-font-16px" onClick={onSave}>Save</Button>
+            <div className="pole-detail-footer" style={{ pointerEvents : role === ADMIN ? 'none' : ''}}>
+                <Button type = "link" className = "content-button button-font-16px" onClick={onCancel}>{CANCEL}</Button>
+                <Button disabled={disableSave} type = "primary" className = " save-button-pole button-font-16px" onClick={onSave}>{SAVE}</Button>
             </div>     
         </>
     )
