@@ -1,6 +1,8 @@
 import React from 'react'
 import { Select, Typography  } from 'antd'
+import './index.css'
 const { Option } = Select
+
 
 const SelectBox = props => {
     const { 
@@ -13,7 +15,7 @@ const SelectBox = props => {
 
     } = props
     return (
-        <div style={{ display : 'flex', height, width, justifyContent : 'space-between', marginTop : '30px',  alignItems : 'center'}}>
+        <div style={{height, width}} className="selectbox-container">
             <Typography>
                 { label || ''}
             </Typography>

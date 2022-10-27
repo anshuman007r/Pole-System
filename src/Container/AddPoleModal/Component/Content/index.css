@@ -48,3 +48,25 @@
 .button-font-12px {
     font-size : 12px
 }
+
+.question-container {
+    overflow : auto; 
+    height : calc(56vh - 200px); 
+    padding : 0 12px
+}
+
+.add-opt-container {
+    width : 100%;
+    margin-top : 34px; 
+    display : flex; 
+    align-items : center; 
+    justify-content : flex-start
+}
+
+.add-ques-container {
+    width : 100%;
+    margin-top : 30px; 
+    display : flex; 
+    align-items : center; 
+    justify-content : flex-end
+}

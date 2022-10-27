@@ -184,7 +184,7 @@ const Content = (props, ref) =>{
             <hr className='horizontal-line'/>
             {
                 questions?.length ? 
-                <div style={{  overflow : 'auto', height : 'calc(56vh - 200px)', padding : '0 12px'}}>
+                <div className='question-container'>
                     {
                         questions?.map(({question, options, question_id}, quesIndex)=>(
                             <React.Fragment>
@@ -261,7 +261,7 @@ const Content = (props, ref) =>{
                                             // offset: 1,
                                         }}
                                     >
-                                        <div style={{ width : '100%',marginTop : '34px', display : 'flex', alignItems : 'center', justifyContent : 'flex-start'}}>
+                                        <div className='add-opt-container'>
                                             <Button disabled={isDisableAddOpt(quesIndex)} type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesIndex)}>+ Add option</Button>
                                         </div>
                                     </Col>    
@@ -269,7 +269,7 @@ const Content = (props, ref) =>{
                             </React.Fragment>
                         ))
                     } 
-                <div style={{ width : '100%',marginTop : '30px', display : 'flex', alignItems : 'center', justifyContent : 'flex-end'}}>
+                <div className='add-ques-container'>
                     <Button disabled={disableAddQues} type = "link" className = "content-button button-font-16px" onClick={onAddQuestion}>+ Add question</Button>
                 </div>
             </div> : null

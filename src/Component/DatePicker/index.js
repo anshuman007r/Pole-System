@@ -1,5 +1,6 @@
 import React from 'react'
 import { DatePicker as DateTimePicker, Typography } from 'antd'
+import './index.css'
 
 const DatePicker = props => {
     const { 
@@ -13,7 +14,7 @@ const DatePicker = props => {
 
     } = props
     return (
-        <div style={{ display : 'flex', height, width, justifyContent : 'space-between', marginTop : '30px',  alignItems : 'center'}}>
+        <div className='datepicker-container' style={{ height , width }}>
             <Typography style={{ ...labelStyle}}>
                 { label || ''}
             </Typography>

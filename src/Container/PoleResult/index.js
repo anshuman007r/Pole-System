@@ -81,7 +81,7 @@ const PoleResult = props => {
                 <hr className='horizontal-line-pole_detail' />
                 {
                     pole?.questions?.length ? 
-                    <div style={{  overflow : 'auto', height : 'calc(100vh - 195px)'}}>
+                    <div className="pole-container">
                         <Row key={`option_containergit_${pole?.pole_id || ''}`} className='option-row' gutter={[60, 10]}>
                         {
                             pole?.questions?.map(({question, options, question_id}, quesIndex)=>(

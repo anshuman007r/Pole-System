@@ -2,3 +2,9 @@
     cursor : not-allowed !important;
     opacity:  0.8 !important;
 }
+
+.inputbox-container {
+    display : flex ;
+    justify-content : space-between;
+    align-items : center
+}

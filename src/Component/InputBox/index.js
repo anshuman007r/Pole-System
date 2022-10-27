@@ -26,7 +26,7 @@ const InputBox = props => {
     const paramFDelete = useMemo(()=> checkType(deleteParams) ? deleteParams : {}, [deleteParams])
 
     return (
-        <div style={{ display : 'flex', height, width, justifyContent : 'space-between', marginTop : marginTop || 0, alignItems : 'center'}}>
+        <div className="inputbox-container" style={{ height, width, marginTop : marginTop || 0}}>
             <Typography style={{ ...labelStyle}}>
                 { label || ''}
             </Typography>

@@ -1,0 +1,6 @@
+.selectbox-container {
+    justify-content : space-between; 
+    margin-top : 30px;  
+    align-items : center;
+    display: flex;
+}
