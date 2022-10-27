@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { LogOutUser } from "../../storage/action"
+import { CloseCircleOutlined } from "@ant-design/icons"
 import './index.css'
 
 const buttons = [
@@ -36,6 +37,17 @@ const Header = props => {
     const { loggedUserReducer : loggedUser } = useSelector( state => state)
     
     const role = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
+
+    useEffect(()=>{
+        function handleWindowResize() {
+            if(window.innerWidth > 1016) setIsActive(false) // closing navbar-burger popover when width is more than 1016
+          } 
+          window.addEventListener('resize', handleWindowResize); // adding event listener on window
+      
+          return () => {
+            window.removeEventListener('resize', handleWindowResize); // removing event listener on window
+          };
+    },[])
 
     const headerButton  = useMemo(()=>{
         if(!page){
@@ -77,7 +89,12 @@ const Header = props => {
 
             <div id="navbarBasicExample" className={`navbar-menu ${isActive ? "is-active" : ""}`}>
                 <div className="navbar-end center">
-                        {/* <div className="buttons">  */}
+                        {
+                            isActive ? 
+                            <div className="close-button-container">
+                                <CloseCircleOutlined onClick={toggleBurger}/>
+                            </div> : null
+                        }
                             {
                                 headerButton?.map(({ label, icon, redirect_link}, index)=>(
                                     <div className="navbar-item end-nav-item"  key={`action_${index}`}>

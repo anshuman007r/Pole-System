@@ -28,3 +28,10 @@
     display : flex;
     padding : 2px 4px
 }
+
+.close-button-container {
+    display : flex; 
+    justify-content : flex-end; 
+    padding : 0 12px;
+    color : #000
+}
