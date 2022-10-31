@@ -9,7 +9,7 @@ const constants = {
     DELETE : "Delete",
     CLOSE : "Close",
     WILL_EXPIRE_ON : "Will expire on ",
-    EXPIRED_ON : "Expired on",
+    EXPIRED_ON : "Expired on ",
     LIST_IS_EMPTY : "Oops! List is empty",
     ADD : 'Add',
     Edit : 'Edit',

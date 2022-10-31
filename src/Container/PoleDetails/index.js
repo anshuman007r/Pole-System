@@ -103,8 +103,14 @@ const PoleDetails = props => {
                                                     // key={`option_${index}`}
                                                     className='option-row-left-col'
                                                     key= {option_id || `option_${index}`}
+                                                    sm = {{
+                                                        span : 24
+                                                      }}
+                                                    md = {{
+                                                        span : 12
+                                                    }}
                                                     xs={{
-                                                        span: 12,
+                                                        span: 24,
                                                         // offset: 1,
                                                     }}
                                                     lg={{

@@ -30,13 +30,8 @@ const PoleResult = props => {
     const { match : { params : { poleId }}} = props
     const { poleReducer : poles } = useSelector(state => state)
     const pole = useMemo(() =>poles?.find(pol => pol?.pole_id === poleId), [poles, poleId])
-    // const  role  = useMemo(()=> loggedUser?.role || 'user', [loggedUser])
+    
     const getOption = (options, question) => ({
-        // title: {
-        //   // text: "某站点用户访问来源",
-        //   // subtext: "纯属虚构",
-        //   x: "left"
-        // },
         tooltip: {
           trigger: "item",
           formatter: "{b} : {c} ({d}%)"
@@ -91,8 +86,14 @@ const PoleResult = props => {
                                         // key={`option_${index}`}
                                         className='option-row-left-col'
                                         key= {question_id|| `option_${quesIndex}`}
+                                        sm = {{
+                                          span : 24
+                                        }}
+                                        md = {{
+                                          span : 12
+                                        }}
                                         xs={{
-                                            span: 12,
+                                            span: 24,
                                             // offset: 1,
                                         }}
                                         lg={{
