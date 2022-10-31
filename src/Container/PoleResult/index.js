@@ -81,7 +81,7 @@ const PoleResult = props => {
                         <Row key={`option_containergit_${pole?.pole_id || ''}`} className='option-row' gutter={[60, 10]}>
                         {
                             pole?.questions?.map(({question, options, question_id}, quesIndex)=>(
-                                <React.Fragment>
+                                <React.Fragment key={`react_frag_${quesIndex}`}>
                                     <Col
                                         // key={`option_${index}`}
                                         className='option-row-left-col'

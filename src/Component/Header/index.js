@@ -110,11 +110,13 @@ const Header = props => {
                                 headerButton?.map(({ label, icon, redirect_link}, index)=>(
                                     <div className="navbar-item end-nav-item"  key={`action_${index}`}>
                                         <button style={{ width : '100%'}} className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
+                                        <div className={icon ? "logout-button-content" : ''}>
                                             { 
                                                 icon && 
                                                 <img src={process.env.PUBLIC_URL+`icons/${icon}`} className="button_icon" width = '20%' height="18px" alt="add_icon" />
                                             }
                                             {label || ''}
+                                        </div>
                                         </button>
                                     </div>
                                 ))

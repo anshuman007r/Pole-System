@@ -91,7 +91,7 @@ const PoleDetails = props => {
                     <div style={{  overflow : 'auto', height : 'calc(100vh - 251px)'}}>
                         {
                             pole?.questions?.map(({question, options, question_id}, quesIndex)=>(
-                                <React.Fragment>
+                                <React.Fragment key={`react_frag_${quesIndex}`}>
                                     { quesIndex ? <hr key={`hr_${question_id}`}  className='horizontal-line-internal'/> : null}
                                     <Tooltip title={question || ''} placement= 'bottomLeft'>
                                         <Typography.Paragraph className="pole-detail-ques label-ellipsis-pole-details">{question || ''}</Typography.Paragraph>
