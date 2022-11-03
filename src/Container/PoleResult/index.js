@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
-import { Header, Typography, Row, Col,} from "../../Component";
+import { Header, Typography, Row, Col, Tooltip } from "../../Component";
 import { useSelector } from "react-redux";
 import './index.css'
-import Tooltip from "antd/es/tooltip";
 import PieChart from "echarts-for-react";
 import 'echarts/lib/component/tooltip'
 import moment from "moment";

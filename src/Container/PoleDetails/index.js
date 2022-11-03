@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Header, Typography, Button, Row, Col, RadioBox  } from "../../Component";
+import { Header, Typography, Button, Row, Col, RadioBox, Tooltip } from "../../Component";
 import { useSelector, useDispatch } from "react-redux";
 import './index.css'
-import Tooltip from "antd/es/tooltip";
 import { ModifyPole } from "../../storage/action";
 import constants from "../../Constants";
 const { 

@@ -34,7 +34,7 @@ const InputBox = props => {
             <Typography style={{ ...labelStyle}}>
                 { label || ''}
             </Typography>
-            <Input { ...rest} style={{ width : inputWidth || '100%'}}/>
+            <Input  { ...rest} style={{ width : inputWidth || '100%'}}/>
             { 
                 showDelIcon 
                 ? 

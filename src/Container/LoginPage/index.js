@@ -22,8 +22,9 @@ const LoginPage = props => {
     })
     const [disableButton, setDisableButton] = useState(true) 
     const [error, setError] = useState('')
-    const userDetails = useSelector(state => state?.usersReducer || [])
-    const dispatch = useDispatch()
+    const userDetails = []
+    // const dispatch = useDispatch()
+    const dispatch = () => {}
 
     useEffect(()=>{
         if(
@@ -83,6 +84,7 @@ const LoginPage = props => {
                 <div className='content-login'>
                     <Typography.Title className='title'>{LOGIN}</Typography.Title>
                     <InputBox
+                        data-testid = {'username'}
                         label = {USERNAME}
                         name = "userName"
                         inputWidth = "calc(100% - 100px)"
@@ -92,17 +94,18 @@ const LoginPage = props => {
                         name= "password"
                         type = "password"
                         label = {PASSWORD}
+                        data-testid = "password"
                         inputWidth = "calc(100% - 100px)"
                         onChange = {onChange}
                     />
                     <div className='login-button-container'>
                         <Button disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>{LOGIN}</Button>
                     </div>
-                    <Link to= "/register">
+                    {/* <Link to= "/register"> */}
                         <Typography.Text ellipsis className='sub-text-login'>
                             {REDIRECT_TO_REGISTER_MESSAGE}
                         </Typography.Text> 
-                    </Link> 
+                    {/* </Link>  */}
             
                 </div>
 
