@@ -1,6 +1,5 @@
 import { fireEvent, render, screen} from "@testing-library/react";
 import SelectBox from "../SelectBox";
-import userEvent from '@testing-library/user-event'
 
 const compSetup = (props = {}) =>  render(<SelectBox { ...props }/>)
 
@@ -30,26 +29,9 @@ describe('rendering of select box',() =>{
     })
     test('on change select box should have the selected value', () => {
         compSetup({ options : optionList })
-        const selectBox = screen.queryByTestId('select-box')
-        userEvent.selectOptions(selectBox, 'test 1')
-        console.log('selectBox',selectBox.select)
-        expect(selectBox.select).toHaveValue(optionList[0]?.value)
-    })
-    describe('render of options', () => {
-        test('no option should be loaded when options is a blank array',() =>{
-            compSetup({ options : []})
-            const optionsNode = screen.queryAllByTestId('select-box-option')
-            expect(optionsNode).toHaveLength(0)
-        })
-        test('correct count of options should be rendered on passing a list of options', () =>{
-            compSetup({ options : optionList})
-            const selectBox = screen.queryByTestId('select-box')
-            const options = selectBox.querySelectorAll('option');
-            console.log('opt',options)
-            const optionsNode = screen.queryAllByTestId('select-box-option')
-
-            expect(optionsNode).toHaveLength(0)
-        })
+        const selectBox = screen.queryByRole('combobox')
+        fireEvent.change(selectBox, {target : { value : 'test 1'}})
+        expect(screen.getByText('test 1')).toBeInTheDocument()
     })
 })
 

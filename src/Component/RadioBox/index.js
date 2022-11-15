@@ -6,8 +6,8 @@ import './index.css'
 const RadioBox = props => {
     const { label, value, ...rest} = props
     return (
-        <Radio value={value} { ...rest }>
-            <Typography className="radio-label">{label || ''}</Typography>
+        <Radio data-testid = "radio-box-container" value={value} { ...rest }>
+            <Typography.Text data-testid = "radio-box-label" className="radio-label">{label || ''}</Typography.Text>
         </Radio>
     )
 }
