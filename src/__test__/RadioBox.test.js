@@ -1,5 +1,5 @@
 import { fireEvent, render, screen} from "@testing-library/react";
-import RadioBox from "../RadioBox";
+import RadioBox from "../Component/RadioBox";
 
 const compSetup = (props = {}) =>  render(<RadioBox { ...props }/>)
 

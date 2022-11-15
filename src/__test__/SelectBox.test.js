@@ -1,5 +1,5 @@
 import { fireEvent, render, screen} from "@testing-library/react";
-import SelectBox from "../SelectBox";
+import SelectBox from "../Component/SelectBox";
 
 const compSetup = (props = {}) =>  render(<SelectBox { ...props }/>)
 
@@ -23,12 +23,13 @@ describe('rendering of select box',() =>{
         }
     ]
     test('by default no value should be selected', () =>{
-        compSetup({ options : []})
+        const { container } = compSetup({ options : []})
         const selectBox = screen.queryByTestId('select-box')
-        expect(selectBox.select).toBeUndefined()
+        const selectedElement = container.getElementsByClassName('ant-select-selection-item')
+        expect(selectedElement).toHaveLength(0)
     })
     test('on change select box should have the selected value', () => {
-        compSetup({ options : optionList })
+        const { container } = compSetup({ options : optionList })
         const selectBox = screen.queryByRole('combobox')
         fireEvent.change(selectBox, {target : { value : 'test 1'}})
         expect(screen.getByText('test 1')).toBeInTheDocument()

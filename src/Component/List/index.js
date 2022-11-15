@@ -80,7 +80,7 @@ const List = props => {
     }
 
     return (
-        <div className="list_container">
+        <div data-testid = "list-container" className="list_container">
             {
                 list?.length ?
                 list?.map(({ pole_name, visited_by_user, closing_date, pole_id}, index)=>(
@@ -140,6 +140,7 @@ const List = props => {
                     className = 'empty-container' 
                     description= "Oops! List is empty"
                     imageStyle={{ width : '150px', height : '140px'}}
+                    data-testid = "empty-container"
                 >
                 </Empty>
             }

@@ -1,15 +1,13 @@
 import React from "react";
-import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux'
-import { store, persistedStore} from '../../storage/store'
+import { storeFactory } from "../../helper";
 
 const StoreWrapper = props => {
-    const { children } = props
+    const { children, initialState = {} } = props
+    const store = storeFactory(initialState)
     return (
-        <Provider store={store}>
-            <PersistGate persistor={persistedStore}>
-                {children}
-            </PersistGate> 
+        <Provider store={store}>                
+            {children}
         </Provider>
     )
 }

@@ -1,4 +1,4 @@
-import { loggedUserReducer, usersReducer, poleReducer } from "../reducer";
+import { loggedUserReducer, usersReducer, poleReducer } from "../storage/reducer";
 import { 
     ADD_POLE, 
     ADD_USER, 
@@ -7,9 +7,9 @@ import {
     LOG_IN_USER, 
     LOG_OUT, 
     MODIFY_POLE 
-} from '../constant'
+} from '../storage/constant'
 
-import poleJSON from '../../JsonData/addPole.json'
+import poleJSON from '../JsonData/addPole.json'
 
 
 describe('test logged user reducer',()=>{

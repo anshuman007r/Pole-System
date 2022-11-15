@@ -84,7 +84,7 @@ const Header = props => {
     }
 
     return (
-        <nav className="navbar is-dark navbar-height"  role="navigation" aria-label="main navigation">
+        <nav data-testid = "header-container" className="navbar is-dark navbar-height"  role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 { page ? <img src={process.env.PUBLIC_URL+"icons/back_arrow_icon.svg"} width = '24px' height="24px"  className="back_image" alt="back_arrow_icon" onClick={()=>props.history.goBack()} />  : null }
                 <span className="navbar-item navbar-brand is-size-5 has-text-weight-semibold">

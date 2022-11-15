@@ -1,4 +1,4 @@
-import DatePicker from "../DatePicker";
+import DatePicker from "../Component/DatePicker";
 import { render, screen } from "@testing-library/react";
 import moment from 'moment'
 

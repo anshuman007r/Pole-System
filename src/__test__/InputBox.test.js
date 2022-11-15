@@ -1,5 +1,5 @@
 import { render, screen} from "@testing-library/react";
-import InputBox from "../InputBox";
+import InputBox from "../Component/InputBox";
 
 const compSetup = (props = {}) =>  render(<InputBox { ...props }/>)
 

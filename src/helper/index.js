@@ -1,4 +1,6 @@
 import moment from "moment"
+import { createStore } from "redux"
+import reducer from "../storage/reducer";
 
 const getTimeStamp = (date) => moment(date, 'YYYY/MM/DD').valueOf() 
 
@@ -13,7 +15,10 @@ const isPoleExpire = ({ closing_date = '', ...rest}) => {
     return true
 }
 
+const storeFactory = (initialState) => createStore(reducer, initialState)
+
 export {
     isPoleExpire,
-    getTimeStamp
+    getTimeStamp,
+    storeFactory
 }
