@@ -1,6 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Login from '../Container/LoginPage/index'
+import Login from '../Container/LoginPage/loginWrapper'
+import { RouterWrapper } from '../Container';
+import { createMemoryHistory } from 'history'
 
 describe('Testing Login Page', () => {
 
@@ -45,6 +48,15 @@ describe('Testing Login Page', () => {
     const password = screen.getByTestId('password')
     userEvent.type(password, '{tab}') 
     expect(loginBtn).toBeDisabled()
+  })
+
+  test('redirect to register link button',()=>{
+      const history = createMemoryHistory()
+      render(
+        <Login/>
+      );
+      history.push('/register')
+      expect(history.location.pathname).toMatch('/register')
   })
   // const linkElement = screen.getByText(/\'\'/i);
   // expect(linkElement).toBeInTheDocument();

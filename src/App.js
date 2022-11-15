@@ -1,19 +1,15 @@
-// import logo from './logo.svg';
-import { PersistGate } from 'redux-persist/integration/react';
+import React from 'react'
 import './App.css';
-import { RouterWrapper} from './Container'
-import { Provider } from 'react-redux'
-import { store, persistedStore} from './storage/store'
+import { Routes, StoreWrapper, RouterWrapper } from './Container'
+
 
 function App() {
   return (
-    // <div className="App">
-      <Provider store={store}>
-        <PersistGate persistor={persistedStore}>
-          <RouterWrapper/>
-        </PersistGate>
-      </Provider>   
-    // </div>
+        <StoreWrapper>
+          <RouterWrapper>
+            <Routes/>
+          </RouterWrapper>
+        </StoreWrapper>
   );
 }
 

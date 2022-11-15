@@ -3,6 +3,7 @@ import { Select, Typography  } from 'antd'
 import './index.css'
 const { Option } = Select
 
+const { Text } = Typography
 
 const SelectBox = props => {
     const { 
@@ -15,14 +16,14 @@ const SelectBox = props => {
 
     } = props
     return (
-        <div style={{height, width}} className="selectbox-container">
-            <Typography>
+        <div style={{height, width}} className="selectbox-container" data-testid = "select-box-container">
+            <Text data-testid = "select-box-label">
                 { label || ''}
-            </Typography>
-            <Select { ...rest} style={{ width : inputWidth || '100%', height : '34px'}} >
+            </Text>
+            <Select data-testid = "select-box" { ...rest} style={{ width : inputWidth || '100%', height : '34px'}} >
                 {
                     options?.map(({id, label , value}, index)=>(
-                        <Option key={id || index} value={value || ''}>{label || ''}</Option>
+                        <Option data-testid = 'select-box-option' key={id || index} value={value || ''}>{label || ''}</Option>
                     ))
                 }
             </Select>

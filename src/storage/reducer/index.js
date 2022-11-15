@@ -9,8 +9,8 @@ import {
     MODIFY_POLE 
 } from '../constant'
 
-const usersReducer = (state = [], action) =>{
-    switch(action.type){
+export const usersReducer = (state = [], action) =>{
+    switch(action?.type){
         case ADD_USER:
             return [ ...state, action?.payload]
         default : 
@@ -18,7 +18,7 @@ const usersReducer = (state = [], action) =>{
     }
 }
 
-const loggedUserReducer = (state = {}, action) =>{
+export const loggedUserReducer = (state = {}, action) =>{
     switch(action?.type){
         case LOG_IN_USER : 
             return action?.payload
@@ -29,7 +29,7 @@ const loggedUserReducer = (state = {}, action) =>{
     }
 }
 
-const poleReducer = ( state = [], action) =>{
+export const poleReducer = ( state = [], action) =>{
     switch(action?.type){
         case ADD_POLE : 
             return [ ...state, action?.payload]

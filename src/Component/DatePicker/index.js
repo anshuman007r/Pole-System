@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useMemo} from 'react'
 import { DatePicker as DateTimePicker, Typography } from 'antd'
 import './index.css'
+import moment from 'moment'
+
+const { Text } = Typography
+
+function isValidDate(d) {
+    return d instanceof moment && !isNaN(d);
+  }
 
 const DatePicker = props => {
     const { 
         label,
         width = '80%',
+        value,
         height,
         options,
         labelStyle,
@@ -13,12 +21,15 @@ const DatePicker = props => {
         ...rest
 
     } = props
+
+    const dateValue = useMemo(() => isValidDate(value) ? value : '', [value])
+
     return (
-        <div className='datepicker-container' style={{ height , width }}>
-            <Typography style={{ ...labelStyle}}>
+        <div data-testid = 'date-picker-container' className='datepicker-container' style={{ height , width }}>
+            <Text data-testid = "date-picker-label" style={{ ...labelStyle}}>
                 { label || ''}
-            </Typography>
-            <DateTimePicker { ...rest} style={{ width : inputWidth || '100%', height : '34px'}} />
+            </Text> 
+            <DateTimePicker value={dateValue} data-testid = "date-picker" { ...rest} style={{ width : inputWidth || '100%', height : '34px'}} />
         </div>
     )
 }
@@ -29,7 +40,8 @@ DatePicker.defaultProps ={
     height : '36px',
     inputWidth : 'calc(100% - 150px)',
     labelStyle : {},
-    options : []
+    options : [],
+    value : moment()
 }
 
 export default DatePicker

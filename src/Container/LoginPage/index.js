@@ -22,9 +22,9 @@ const LoginPage = props => {
     })
     const [disableButton, setDisableButton] = useState(true) 
     const [error, setError] = useState('')
-    const userDetails = []
-    // const dispatch = useDispatch()
-    const dispatch = () => {}
+    const { usersReducer : userDetails } = useSelector(state => state)
+    const dispatch = useDispatch()
+    // const dispatch = () => {}
 
     useEffect(()=>{
         if(
@@ -67,6 +67,8 @@ const LoginPage = props => {
         const { name = '', value = ''} = target || {}
         setState(prevState => ({ ...prevState, [name] : value}))
     }
+
+    const redirectToRegister = () => props.history.push('\register')
     
     return(
         <>
@@ -101,11 +103,11 @@ const LoginPage = props => {
                     <div className='login-button-container'>
                         <Button disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>{LOGIN}</Button>
                     </div>
-                    {/* <Link to= "/register"> */}
-                        <Typography.Text ellipsis className='sub-text-login'>
+                    <Link to= "/register">
+                        <Typography.Text data-testid = "redirect-register" ellipsis className='sub-text-login'>
                             {REDIRECT_TO_REGISTER_MESSAGE}
                         </Typography.Text> 
-                    {/* </Link>  */}
+                    </Link> 
             
                 </div>
 

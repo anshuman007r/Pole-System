@@ -7,6 +7,7 @@ const {
     DELETE
 } = constants
 
+const { Text } = Typography
 
 const checkType = (param) =>{
     return typeof param
@@ -30,16 +31,16 @@ const InputBox = props => {
     const paramFDelete = useMemo(()=> checkType(deleteParams) ? deleteParams : {}, [deleteParams])
 
     return (
-        <div className="inputbox-container" style={{ height, width, marginTop : marginTop || 0}}>
-            <Typography style={{ ...labelStyle}}>
+        <div data-testid = "input-box-container" className="inputbox-container" style={{ height, width, marginTop : marginTop || 0}}>
+            <Text data-testid="input-label" style={{ ...labelStyle}}>
                 { label || ''}
-            </Typography>
+            </Text>
             <Input  { ...rest} style={{ width : inputWidth || '100%'}}/>
             { 
                 showDelIcon 
                 ? 
-                <Tooltip  placement="bottom" title={DELETE}>
-                    <DeleteFilled className={disableDelIcon ? "delete_icon" : ''} disabled={disableDelIcon} onClick={()=>!disableDelIcon ? onDeleteClick(paramFDelete) : null}/>
+                <Tooltip placement="bottom" title={DELETE}>
+                    <DeleteFilled data-testid = "delete-icon" className={disableDelIcon ? "delete_icon" : ''} disabled={disableDelIcon} onClick={()=>!disableDelIcon ? onDeleteClick(paramFDelete) : null}/>
                 </Tooltip> 
                 : null 
             }

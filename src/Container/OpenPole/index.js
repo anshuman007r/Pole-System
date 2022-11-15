@@ -2,21 +2,13 @@ import React, { useState, useMemo } from "react";
 import { List, Header } from '../../Component'
 import { useSelector } from "react-redux";
 import AddPoleModal from "../AddPoleModal";
-import moment from 'moment'
+import { isPoleExpire } from "../../helper";
 import constants from "../../Constants";
 const { 
     OPEN_POLES,
     ADD
 } = constants
 
-const isPoleExpire = ({ closing_date = ''}) => {
-    if(moment(closing_date)?.isValid){
-        const closeDateMillSec = moment(closing_date)?.valueOf()
-        const currentDateMillSec = moment()?.valueOf()
-        return closeDateMillSec <= currentDateMillSec
-    }
-    return true
-}
 
 const OpenPole = props =>{
     const [openModal, setOpenModal] = useState({ type : ADD, state : '', poleId : ''})

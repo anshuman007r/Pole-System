@@ -11,16 +11,10 @@ const {
     ADD_OPTION,
     ADD_QUESTION
  } = constants
-// import poleData from './addPole.json'
-// import questJSON from './quest.json'
 
 const getUniqueNumber = ()=>{
     return Math.random(moment()?.valueOf())*moment().valueOf()
 }
-
-// const autoExpireGen = () => {
-//     return moment().add(5, 'days').format('YYYY/MM/DD')
-// }
 
 const Content = (props, ref) =>{
     const poleData = {
