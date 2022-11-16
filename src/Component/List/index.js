@@ -84,9 +84,8 @@ const List = props => {
             {
                 list?.length ?
                 list?.map(({ pole_name, visited_by_user, closing_date, pole_id}, index)=>(
-                    <div className = {checkForAttemptedPole(visited_by_user, loggedUser) ? 'list-item-alt' :"list-item"} style={{marginTop : index ? '12px' : 0}} key={`$Pole_${index}`}>
-                        <div className="list_item_left_content" onClick={()=> checkForAttemptedPole(visited_by_user, loggedUser) ? null : onPoleClick(pole_id)}
-                        >
+                    <div data-testid="list-item" className = {checkForAttemptedPole(visited_by_user, loggedUser) ? 'list-item-alt' :"list-item"} style={{marginTop : index ? '12px' : 0}} key={`$Pole_${index}`}>
+                        <div data-testid="left-content" className="list_item_left_content" onClick={()=> checkForAttemptedPole(visited_by_user, loggedUser) ? null : onPoleClick(pole_id)}>
                             <span style={{display : 'flex'}}>
                                 <img alt= "pole_image" src= {process.env.PUBLIC_URL+"images/pole_image.png"} width = "40px" height = "40px"/>
                                 <span className="is-capitalized is-size-4 has-text-weight-semibold list-label label-ellipsis">{pole_name || `Pole_${index}` }</span>
@@ -107,12 +106,12 @@ const List = props => {
                                                 {
                                                     actionButton?.map(({ name , Component, color}, actionIndex)=>(
                                                         <Tooltip key={`action_${actionIndex}`} placement="bottom" title={name}>
-                                                            <Component  twoToneColor={color} onClick={()=>onActionClick(name, pole_id)}/>
+                                                            <Component data-testid= 'icon-button' twoToneColor={color} onClick={()=>onActionClick(name, pole_id)}/>
                                                         </Tooltip>
                                                     ))
                                                 }
                                             </> : 
-                                            <button className="result-button" onClick={()=>onResultClick(pole_id)}>
+                                            <button data-testid= 'result-button-container' className="result-button" onClick={()=>onResultClick(pole_id)}>
                                                 <img src={process.env.PUBLIC_URL+'icons/graph_icon.svg'} className="button_icon" width = '20px' height="20px" alt="graph_icon" />
                                                 {RESULT}
                                             </button>
@@ -121,7 +120,7 @@ const List = props => {
                                     : null
                                 }   
                             </div>
-                            <span className="is-size-7 has-text-weight-light">    
+                            <span data-testid = "expire-container" className="is-size-7 has-text-weight-light">    
                                 {
                                     page === OPEN_POLES
                                     ?  WILL_EXPIRE_ON 
@@ -131,7 +130,6 @@ const List = props => {
                                 <strong>{dateStoreToLocal(closing_date) || new Date().toLocaleDateString()} </strong> 
                             </span>
                         </div>
-
                     </div>
                 ))
                 : 
