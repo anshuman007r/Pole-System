@@ -24,7 +24,9 @@ const MainPage = props => {
                         <Typography.Title data-testid="image-label" className='is-capitalized has-text-weight-normal mainpage-label label-ellipsis-main'>{label || ''}</Typography.Title>
                     </Tooltip> : null
                 }
+
             </div>
+
         </div>
     )
 }

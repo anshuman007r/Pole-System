@@ -35,8 +35,17 @@
 
 .label-ellipsis-main {
     white-space: nowrap; 
-    width: calc(55% - 100px); 
+    /* width: calc(55% - 100px);  */
+    width : fit-content;
     display: inline-block;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     text-overflow: ellipsis; 
+}
+
+.label-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;   
 }
