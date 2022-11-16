@@ -86,11 +86,11 @@ const Header = props => {
     return (
         <nav data-testid = "header-container" className="navbar is-dark navbar-height"  role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                { page ? <img src={process.env.PUBLIC_URL+"icons/back_arrow_icon.svg"} width = '24px' height="24px"  className="back_image" alt="back_arrow_icon" onClick={()=>props.history.goBack()} />  : null }
+                { page ? <img data-testid = "back-button" src={process.env.PUBLIC_URL+"icons/back_arrow_icon.svg"} width = '24px' height="24px"  className="back_image" alt="back_arrow_icon" onClick={()=>props.history.goBack()} />  : null }
                 <span className="navbar-item navbar-brand is-size-5 has-text-weight-semibold">
                     {page || POLE_SYSTEM}
                 </span>
-                <div role="button" className="navbar-burger" aria-label="menu"  aria-expanded="false" data-target="navbarBasicExample" onClick={toggleBurger}>
+                <div data-testid = "navbar-burger-button" role="button" className="navbar-burger" aria-label="menu"  aria-expanded="false" data-target="navbarBasicExample" onClick={toggleBurger}>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"> </span>
@@ -98,7 +98,7 @@ const Header = props => {
                 {/* </Popover> */}
             </div>
 
-            <div id="navbarBasicExample" className={`navbar-menu ${isActive ? "is-active" : ""}`}>
+            <div data-testid ="navbar-right" id="navbarBasicExample" className={`navbar-menu ${isActive ? "is-active" : ""}`}>
                 <div className="navbar-end center">
                         {
                             isActive ? 
@@ -108,7 +108,7 @@ const Header = props => {
                         }
                             {
                                 headerButton?.map(({ label, icon, redirect_link}, index)=>(
-                                    <div className="navbar-item end-nav-item"  key={`action_${index}`}>
+                                    <div data-testid="header-button" className="navbar-item end-nav-item"  key={`action_${index}`}>
                                         <button style={{ width : '100%'}} className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
                                         <div className={icon ? "logout-button-content" : ''}>
                                             { 

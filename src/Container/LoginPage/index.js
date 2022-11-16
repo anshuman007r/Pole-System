@@ -23,6 +23,7 @@ const LoginPage = props => {
     const [disableButton, setDisableButton] = useState(true) 
     const [error, setError] = useState('')
     const { usersReducer : userDetails } = useSelector(state => state)
+    console.log('userReducer', userDetails)
     const dispatch = useDispatch()
     // const dispatch = () => {}
 
