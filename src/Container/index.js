@@ -4,6 +4,8 @@ import MainPage from "./MainPage";
 import Routes from './Routes'
 import StoreWrapper from "./StoreWrapper";
 import RouterWrapper from "./RouteWrapper";
+import ClosePole from "./ClosePole";
+import OpenPole from "./OpenPole";
 
 export {
     LoginPage,
@@ -11,5 +13,7 @@ export {
     MainPage,
     Routes,
     StoreWrapper,
-    RouterWrapper
+    RouterWrapper,
+    ClosePole,
+    OpenPole
 }
