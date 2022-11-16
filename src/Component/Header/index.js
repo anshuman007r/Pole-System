@@ -39,7 +39,7 @@ const buttons = [
 const Header = props => {
 
     const { page, onOpenModal } = props
-    const [isActive, setIsActive] = useState(false)
+    const [isActive, setIsActive] = React.useState(false)
 
     const dispatch = useDispatch()
     const onLogoutClick = () =>{
@@ -102,7 +102,7 @@ const Header = props => {
                 <div className="navbar-end center">
                         {
                             isActive ? 
-                            <div className="close-button-container">
+                            <div data-testid="close-icon" className="close-button-container">
                                 <CloseCircleOutlined onClick={toggleBurger}/>
                             </div> : null
                         }
@@ -123,7 +123,7 @@ const Header = props => {
                             }  
                         {/* </div> */}
                     <div className="navbar-item end-nav-item" key="logout">
-                        <button  className="logout-button" onClick={onLogoutClick}>
+                        <button data-testid = "logout-button"  className="logout-button" onClick={onLogoutClick}>
                             <div className="logout-button-content">
                                 <img src={process.env.PUBLIC_URL+"icons/logout_icon.svg"} width = '20px' height="18px" alt="Logout_icon" />
                                 {LOG_OUT}
