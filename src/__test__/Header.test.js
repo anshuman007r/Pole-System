@@ -5,6 +5,17 @@ import { Header } from '../Component'
 import StoreWrapper from "../Container/StoreWrapper";
 import { RouterWrapper } from "../Container";
 import { storeFactory } from "../helper";
+import constants from "../Constants";
+
+const {
+    ADMIN,
+    USER,
+    CLOSE_LIST,
+    ADD_POLE,
+    OPEN_LIST,
+    OPEN_POLES,
+    CLOSE_POLES,
+} = constants
 
 const compSetup = (initialState = {}, props = {}) =>{
     return render(
@@ -85,4 +96,43 @@ describe('rendering of nav bar burger', () =>{
             expect(closeButton).toBeInTheDocument()
         })
     })    
+})
+
+describe('rendering of header button', () => {
+    describe('when page props is not passed', () =>{
+        test('when role is admin both open list and close list button should render', ()=>{
+            compSetup({loggedUserReducer : { role : ADMIN }}, {})
+            const headerButtons = screen.queryAllByTestId('header-button')
+            const attributes = headerButtons.map(o => o.getAttribute('name'))
+            expect(attributes).toEqual([OPEN_LIST, CLOSE_LIST])
+        })
+        test('when role is user only open list button should render', ()=>{
+            compSetup({loggedUserReducer : { role : USER }}, {})
+            const headerButtons = screen.queryAllByTestId('header-button')
+            console.log(headerButtons)
+            expect(headerButtons[0]).toHaveAttribute("name", OPEN_LIST)  
+        })
+    })
+
+    describe('when page props is passed as open poles', () =>{
+        test('when role is admin add pole button should render', ()=>{
+            compSetup({loggedUserReducer : { role : ADMIN }}, { page : OPEN_POLES })
+            const headerButtons = screen.queryAllByTestId('header-button')
+            console.log(headerButtons)
+            expect(headerButtons[0]).toHaveAttribute("name", ADD_POLE)  
+        })
+        test('when role is user header button other than logout should not be render', ()=>{
+            compSetup({loggedUserReducer : { role : USER}}, { page : OPEN_POLES })
+            const headerButtons = screen.queryAllByTestId('header-button')
+            expect(headerButtons).toHaveLength(0)      
+        })
+    })
+
+    describe('when page props is passed other as open poles', () =>{
+        test('when role is user header button other than logout should not be render', ()=>{
+            compSetup({}, { page : CLOSE_POLES })
+            const headerButtons = screen.queryAllByTestId('header-button')
+            expect(headerButtons).toHaveLength(0)
+        })
+    })
 })
