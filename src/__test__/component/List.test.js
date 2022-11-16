@@ -1,9 +1,9 @@
 import { fireEvent, render, screen} from "@testing-library/react";
-import { List } from '../Component'
-import poleJSON from '../JsonData/addPole.json'
-import StoreWrapper from "../Container/StoreWrapper";
-import constants  from "../Constants";
-import { RouterWrapper } from "../Container";
+import { List } from '../../Component'
+import poleJSON from '../../JsonData/addPole.json'
+import StoreWrapper from "../../Container/StoreWrapper";
+import constants  from "../../Constants";
+import { RouterWrapper } from "../../Container";
 
 const { 
     EXPIRED_ON,

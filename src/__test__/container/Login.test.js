@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Login from '../Container/LoginPage/loginWrapper'
-import { RouterWrapper } from '../Container';
+import Login from '../../Container/LoginPage/loginWrapper'
+import { RouterWrapper } from '../../Container';
 import { createMemoryHistory } from 'history'
 
 describe('Testing Login Page', () => {

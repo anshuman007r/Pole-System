@@ -1,5 +1,5 @@
 import { fireEvent, render, screen} from "@testing-library/react";
-import SelectBox from "../Component/SelectBox";
+import SelectBox from "../../Component/SelectBox";
 
 const compSetup = (props = {}) =>  render(<SelectBox { ...props }/>)
 

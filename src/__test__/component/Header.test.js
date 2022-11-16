@@ -1,11 +1,11 @@
 import { fireEvent, render, screen} from "@testing-library/react";
 import '@testing-library/jest-dom'
 import React from 'react'
-import { Header } from '../Component'
-import StoreWrapper from "../Container/StoreWrapper";
-import { RouterWrapper } from "../Container";
-import { storeFactory } from "../helper";
-import constants from "../Constants";
+import { Header } from '../../Component'
+import StoreWrapper from "../../Container/StoreWrapper";
+import { RouterWrapper } from "../../Container";
+import { storeFactory } from "../../helper";
+import constants from "../../Constants";
 
 const {
     ADMIN,
