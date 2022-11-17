@@ -174,7 +174,7 @@ describe('render of footer button', () => {
         test('by default register button should be disabled', () =>{
             compSetup({}, {})
             const registerButton = screen.queryByTestId('register-button')
-            expect(registerButton).toHaveAttribute('disabled', '')  // when disabled is true  
+            expect(registerButton).toBeDisabled()  // when disabled is true  
         })
         test('when all the field are not empty then register button shoud be enabled', () =>{
             compSetup({}, {})   
@@ -191,7 +191,7 @@ describe('render of footer button', () => {
             fireEvent.change(confirmPass, { target : { value : 'welcome@123' }})
             fireEvent.change(role, {target : { value : 'user'}})
             const registerButton = screen.queryByTestId('register-button')
-            expect(registerButton).not.toHaveAttribute('disabled', '')  // when disabled is false
+            expect(registerButton).not.toBeDisabled()  // when disabled is false
         })
         test('when first name and last name has some value but other field does not then register button should be disabled', () =>{
             compSetup({}, {})   
@@ -200,7 +200,7 @@ describe('render of footer button', () => {
             fireEvent.change(firstName, { target : { value : 'Ankit' }})
             fireEvent.change(lastName, { target : { value : 'Kumar' }})
             const registerButton = screen.queryByTestId('register-button')
-            expect(registerButton).toHaveAttribute('disabled', '')  // when disabled is true
+            expect(registerButton).toBeDisabled()   // when disabled is true
         })
         test('when only first name field is empty register button should be disabled', () =>{
             compSetup({}, {})   
@@ -215,7 +215,7 @@ describe('render of footer button', () => {
             fireEvent.change(confirmPass, { target : { value : 'welcome@123' }})
             fireEvent.change(role, {target : { value : 'user'}})
             const registerButton = screen.queryByTestId('register-button')
-            expect(registerButton).toHaveAttribute('disabled', '')  // when disabled is true
+            expect(registerButton).toBeDisabled()  // when disabled is true
         })
     })
 })

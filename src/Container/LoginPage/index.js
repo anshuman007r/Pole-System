@@ -68,14 +68,13 @@ const LoginPage = props => {
         const { name = '', value = ''} = target || {}
         setState(prevState => ({ ...prevState, [name] : value}))
     }
-
-    const redirectToRegister = () => props.history.push('\register')
     
     return(
         <>
             {error &&
                 <Alert
                     message = {error || SOMETHING_WENT_WRONG}
+                    data-testid="login-alert"
                     banner
                     type = "error"
                     closable
@@ -85,7 +84,7 @@ const LoginPage = props => {
             }
             <div data-testid="login-container" className='container-login'>
                 <div className='content-login'>
-                    <Typography.Title className='title'>{LOGIN}</Typography.Title>
+                    <Typography.Title data-testid="login-label" className='title'>{LOGIN}</Typography.Title>
                     <InputBox
                         data-testid = {'username'}
                         label = {USERNAME}
@@ -102,9 +101,9 @@ const LoginPage = props => {
                         onChange = {onChange}
                     />
                     <div className='login-button-container'>
-                        <Button disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>{LOGIN}</Button>
+                        <Button data-testid="login-button" disabled={disableButton} type="primary" className='login-button' onClick={onLoginClick}>{LOGIN}</Button>
                     </div>
-                    <Link to= "/register">
+                    <Link data-testid="register-link" to= "/register">
                         <Typography.Text data-testid = "redirect-register" ellipsis className='sub-text-login'>
                             {REDIRECT_TO_REGISTER_MESSAGE}
                         </Typography.Text> 

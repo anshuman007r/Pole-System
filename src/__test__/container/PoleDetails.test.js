@@ -162,12 +162,12 @@ describe('footer child rendering', () =>{
         test('by default save button should be disabled',() =>{
             compSetup({ poleReducer : list },{ match : { params : { poleId : 'pole_1'}}})
             const saveButton = screen.queryByTestId('pole-detail-save')
-            expect(saveButton).toHaveAttribute('disabled', '') // for false disabled != ""
+            expect(saveButton).toBeDisabled()
         })
         test('cancel button should be enabled',() =>{
             compSetup({ poleReducer : list },{ match : { params : { poleId : 'pole_1'}}})
             const cancelButton = screen.queryByTestId('pole-detail-cancel')
-            expect(cancelButton).not.toHaveAttribute('disabled', '') // for false disabled != ""
+            expect(cancelButton).not.toBeDisabled()
         })
     })
 
@@ -184,12 +184,12 @@ describe('footer child rendering', () =>{
         test('save button should be enabled when all question has some option selected',() =>{
             compSetup({ poleReducer : modifiedList },{ match : { params : { poleId : 'pole_1'}}})
             const saveButton = screen.queryByTestId('pole-detail-save')
-            expect(saveButton).not.toHaveAttribute('disabled', '') // for true disabled = ""
+            expect(saveButton).not.toBeDisabled()
         })
         test('cancel button should be enabled',() =>{
             compSetup({ poleReducer : list },{ match : { params : { poleId : 'pole_1'}}})
             const cancelButton = screen.queryByTestId('pole-detail-cancel')
-            expect(cancelButton).not.toHaveAttribute('disabled', '') // for fale disabled != ""
+            expect(cancelButton).not.toBeDisabled()
         })
     })
 })
