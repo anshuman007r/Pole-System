@@ -72,16 +72,6 @@ const list = [
     },
 ]
 
-Object.defineProperty(window, 'matchMedia', {
-    value: () => {
-      return {
-        matches: false,
-        addListener: () => {},
-        removeListener: () => {}
-      };
-    }
-})
-
 const compSetup = (initialState = {}, props = {}) =>{
     return render(
         <RouterWrapper>

@@ -12,6 +12,7 @@
     "bulma": "^0.9.4",
     "echarts": "4.1.0",
     "echarts-for-react": "2.0.15-beta.0",
+    "jest-canvas-mock": "^2.1.0",
     "jest-preview": "^0.3.1",
     "jsdom": "^20.0.2",
     "moment": "^2.29.4",

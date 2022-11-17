@@ -1,6 +1,5 @@
 import { fireEvent, render, screen} from "@testing-library/react";
 import { OpenPole } from '../../Container'
-import poleJSON from '../../JsonData/addPole.json'
 import StoreWrapper from "../../Container/StoreWrapper";
 import { isPoleExpire } from "../../helper";
 import { RouterWrapper } from "../../Container";
@@ -11,16 +10,6 @@ const {
     EDIT
 } = constants
 
-Object.defineProperty(window, 'matchMedia', {
-    value: () => {
-      return {
-        matches: false,
-        addListener: () => {},
-        removeListener: () => {}
-      };
-    }
-})
-
 const compSetup = (initialState = {}, props = {}) =>{
     return render(
         <RouterWrapper>
@@ -30,8 +19,6 @@ const compSetup = (initialState = {}, props = {}) =>{
         </RouterWrapper>
     )
 }
-
-
 
 test('header component should render without error', () => {
     compSetup({})

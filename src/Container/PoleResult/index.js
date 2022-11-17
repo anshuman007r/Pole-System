@@ -70,7 +70,7 @@ const PoleResult = props => {
                 <div className="sub-header">
                     <img alt= "pole_image" src= {process.env.PUBLIC_URL+"images/pole_image.png"} width = "50px" height = "50px"/>
                     <Tooltip title={pole?.pole_name || ''} placement= 'bottomLeft'>
-                       <Typography.Title className="sub-header-text label-ellipsis-pole-details">{pole?.pole_name || ''}</Typography.Title>
+                       <Typography.Title data-testid="pole-result-pole-name" className="sub-header-text label-ellipsis-pole-details">{pole?.pole_name || ''}</Typography.Title>
                     </Tooltip>
                 </div>
                 <hr className='horizontal-line-pole_detail' />
@@ -80,7 +80,7 @@ const PoleResult = props => {
                         <Row key={`option_containergit_${pole?.pole_id || ''}`} className='option-row' gutter={[60, 10]}>
                         {
                             pole?.questions?.map(({question, options, question_id}, quesIndex)=>(
-                                <React.Fragment key={`react_frag_${quesIndex}`}>
+                                <div data-testid="pole-result-question" key={`react_frag_${quesIndex}`}>
                                     <Col
                                         // key={`option_${index}`}
                                         className='option-row-left-col'
@@ -108,7 +108,7 @@ const PoleResult = props => {
                                           style={{ height: "350px", width: "100%" }}
                                       />
                                     </Col>
-                                </React.Fragment>
+                                </div>
                             ))
                         }    
                         </Row>
