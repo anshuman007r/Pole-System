@@ -5,6 +5,7 @@ import { Header } from '../../Component'
 import StoreWrapper from "../../Container/StoreWrapper";
 import { RouterWrapper } from "../../Container";
 import { storeFactory } from "../../helper";
+import { LogOutUser } from "../../storage/action"
 import constants from "../../Constants";
 
 const {
@@ -44,12 +45,12 @@ describe('rendering of logout button',()=>{
         expect(logOutButton).toBeInTheDocument() 
     })
 
-    test('on logout click it should redirect to login', () => {
+    test('on logout click it should redirect to login', async () => {
         compSetup({loggedUserReducer : { role : 'user', userName : 'test_user' }})
-        const { loggedUserReducer } = store.getState()
         const logOutButton = screen.queryByTestId('logout-button') 
         fireEvent.click(logOutButton)
-        // expect(loggedUserReducer).toStrictEqual({}) Need to check
+        const { loggedUserReducer } = store.getState()
+        expect(loggedUserReducer).toStrictEqual({})
         
     })
 
