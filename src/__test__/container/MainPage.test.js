@@ -3,10 +3,14 @@ import '@testing-library/jest-dom'
 import React from 'react'
 import { MainPage } from "../../Container";
 import StoreWrapper from "../../Container/StoreWrapper";
+import { storeFactory } from "../../helper";
+
+let store
 
 const compSetup = (initialState = {}, props = {}) =>{
+    store = storeFactory(initialState)
     return render(
-        <StoreWrapper initialState = {initialState}>
+        <StoreWrapper store={store} >
             <MainPage { ...props }/>
         </StoreWrapper>
     )

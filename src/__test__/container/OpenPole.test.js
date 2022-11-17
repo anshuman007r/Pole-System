@@ -4,16 +4,20 @@ import StoreWrapper from "../../Container/StoreWrapper";
 import { isPoleExpire } from "../../helper";
 import { RouterWrapper } from "../../Container";
 import constants from "../../Constants";
+import { storeFactory } from "../../helper";
 
 const { 
     ADMIN,
     EDIT
 } = constants
 
+let store
+
 const compSetup = (initialState = {}, props = {}) =>{
+    store=storeFactory(initialState)
     return render(
         <RouterWrapper>
-            <StoreWrapper initialState = {initialState}>
+            <StoreWrapper store={store}>
                 <OpenPole { ...props }/>
             </StoreWrapper>
         </RouterWrapper>

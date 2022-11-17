@@ -83,7 +83,7 @@ const LoginPage = props => {
                     className='error-box'
                 />
             }
-            <div className='container-login'>
+            <div data-testid="login-container" className='container-login'>
                 <div className='content-login'>
                     <Typography.Title className='title'>{LOGIN}</Typography.Title>
                     <InputBox

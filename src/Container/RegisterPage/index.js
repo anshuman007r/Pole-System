@@ -42,7 +42,7 @@ const RegisterPage = props => {
         userName : '',
         password : '',
         confirmPassword : '',
-        role : ''
+        role : USER
     })
     const [alertMessage, setAlertMessage] = useState({
         message : '',
@@ -110,35 +110,40 @@ const RegisterPage = props => {
                 <Alert
                     message = { alertMessage?.message || SOMETHING_WENT_WRONG}
                     banner
+                    data-testid="register-alert"
                     type = {alertMessage?.type}
                     closable
                     afterClose={onClose}
                     className='error-box'
                 />
             }
-            <div className='container-register'>
+            <div data-testid ="register-container" className='container-register'>
                 <div className='content-register'>
-                    <Typography.Title className='title'>{REGISTER}</Typography.Title>
+                    <Typography.Title data-testid="register-label" className='title'>{REGISTER}</Typography.Title>
                     <InputBox
                         label = {FIRST_NAME}
+                        data-testid = 'first-name'
                         name = "firstName"
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <InputBox
                         label = {LAST_NAME}
+                        data-testid = 'last-name'
                         name = "lastName" 
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <InputBox
                         label = {USERNAME}
+                        data-testid = 'user-name'
                         name = "userName" 
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <InputBox
                         label = {PASSWORD}
+                        data-testid = 'password'
                         name = "password"
                         type ="password"
                         inputWidth = "calc(100% - 150px)"
@@ -147,21 +152,23 @@ const RegisterPage = props => {
                     <InputBox
                         label = {CONFIRM_PASSWORD}
                         name = "confirmPassword"
+                        data-testid = 'confirm-password'
                         type ="password"
                         inputWidth = "calc(100% - 150px)"
                         onChange={onChange}
                     />
                     <SelectBox
                         label = {ROLE}
+                        defaultValue = {USER}
                         name = "role"
                         options ={roleOptions}
                         inputWidth = "calc(100% - 150px)"
                         onChange={select => onChange({ target : { name : 'role', value : select || ''}})}
                     />
                     <div className='register-button-container'>
-                        <Button disabled={disableButton} type="primary"  className='register-button' onClick={onRegisterClick}>{REGISTER}</Button>
+                        <Button data-testid="register-button" disabled={disableButton} type="primary"  className='register-button' onClick={onRegisterClick}>{REGISTER}</Button>
                     </div>
-                    <Link to= "/login">
+                    <Link data-testid="register-login-link" to= "/login">
                         <Typography.Text ellipsis className='sub-text-register'>
                             {REDIRECT_TO_LOGIN_MESSAGE}
                         </Typography.Text> 

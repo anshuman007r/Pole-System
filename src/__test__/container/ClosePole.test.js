@@ -4,11 +4,15 @@ import poleJSON from '../../JsonData/addPole.json'
 import StoreWrapper from "../../Container/StoreWrapper";
 import { isPoleExpire } from "../../helper";
 import { RouterWrapper } from "../../Container";
+import { storeFactory } from "../../helper";
+
+let store
 
 const compSetup = (initialState = {}, props = {}) =>{
+    store = storeFactory(initialState)
     return render(
         <RouterWrapper>
-            <StoreWrapper initialState = {initialState}>
+            <StoreWrapper store={store}>
                 <ClosePole { ...props }/>
             </StoreWrapper>
         </RouterWrapper>

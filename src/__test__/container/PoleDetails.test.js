@@ -4,6 +4,7 @@ import poleJSON from '../../JsonData/addPole.json'
 import StoreWrapper from "../../Container/StoreWrapper";
 import { RouterWrapper } from "../../Container";
 import constants from "../../Constants";
+import { storeFactory } from '../../helper';
 
 const { 
     ADMIN,
@@ -72,10 +73,13 @@ const list = [
     },
 ]
 
+let store
+
 const compSetup = (initialState = {}, props = {}) =>{
+    store = storeFactory(initialState)
     return render(
         <RouterWrapper>
-            <StoreWrapper initialState = {initialState}>
+            <StoreWrapper store={store}>
                 <PoleDetails { ...props }/>
             </StoreWrapper>
         </RouterWrapper>
