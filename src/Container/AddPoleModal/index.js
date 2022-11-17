@@ -79,6 +79,7 @@ const AddPoleModal = props =>{
             <Modal
                 open={open?.state}
                 onOk={onSave}
+                data-testid = "modal-container"
                 okText={open?.type === ADD ? ADD : EDIT}
                 cancelButtonProps={{ className : 'cancel-button'}}
                 okButtonProps={{ className : 'save-button', disabled : disableAdd}}

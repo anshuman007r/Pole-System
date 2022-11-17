@@ -74,21 +74,21 @@ const Content = (props, ref) =>{
     },[state, onDisableAdd])
 
 
-    const isDisableAddOpt = (quesIndex = 0) =>{
-        const question = { ...questions[quesIndex]}
+    const isDisableAddOpt = (quesindex = 0) =>{
+        const question = { ...questions[quesindex]}
         const { options = []} = question || {}
         const emptyOption = options?.filter(opt => !opt?.option)
         return emptyOption?.length ? true : false
     }
 
-    const onChange = ({ target }, quesIndex = -1, poleIndex = -1) =>{
+    const onChange = ({ target }, quesindex = -1, poleIndex = -1) =>{
         const { value = '', name = ''} = target || {}
-        if(quesIndex === -1){
+        if(quesindex === -1){
             setState(prevState => ( { ...prevState, [name] : value || ''}))
         }else if( poleIndex === -1){
             setState(prevState=>{
                 let { questions = []} = prevState
-                questions[quesIndex] = { ...questions[quesIndex], question : value || ''}
+                questions[quesindex] = { ...questions[quesindex], question : value || ''}
                 return {
                     ...prevState,
                     questions
@@ -97,9 +97,9 @@ const Content = (props, ref) =>{
         }else {
             setState(prevState=>{
                 let { questions = []} = prevState
-                let { options = [] } = questions?.[quesIndex] || {} 
+                let { options = [] } = questions?.[quesindex] || {} 
                 options[poleIndex] = { ...options[poleIndex], option  : value || ''}
-                questions[quesIndex] = { ...questions[quesIndex], options}
+                questions[quesindex] = { ...questions[quesindex], options}
                 return {
                     ...prevState,
                     questions : [ ...questions ]
@@ -108,12 +108,12 @@ const Content = (props, ref) =>{
         }
     }
 
-    const onAddOption = (quesIndex) =>{
+    const onAddOption = (quesindex) =>{
         setState(prevState => {
             const { questions = []} = prevState || {}
-            let { options = []} = questions[quesIndex]
+            let { options = []} = questions[quesindex]
              options = [ ...options, { option_id : `option_${getUniqueNumber()}`, option : '', vote : '' }]
-            questions[quesIndex].options = options
+            questions[quesindex].options = options
             return {
                 ...prevState,
                 questions
@@ -188,14 +188,14 @@ const Content = (props, ref) =>{
                 questions?.length ? 
                 <div className='question-container'>
                     {
-                        questions?.map(({question, options, question_id}, quesIndex)=>(
-                            <React.Fragment>
-                                { quesIndex ? <hr key={`hr_${question_id}`}  className='horizontal-line-internal'/> : null}
+                        questions?.map(({question, options, question_id}, quesindex)=>(
+                            <div key={`containter_${quesindex}`}>
+                                { quesindex ? <hr key={`hr_${question_id}`}  className='horizontal-line-internal'/> : null}
                                 <InputBox
-                                    label = {`Question ${quesIndex + 1}`}
-                                    key={question_id || `Question_${quesIndex}`}
-                                    name = {question_id || `question_${quesIndex}`}
-                                    quesIndex = {quesIndex}
+                                    label = {`Question ${quesindex + 1}`}
+                                    key={question_id || `Question_${quesindex}`}
+                                    name = {question_id || `question_${quesindex}`}
+                                    quesindex = {quesindex}
                                     value={question || ''}
                                     disableDelIcon = {questions?.length > 1 ? false : true}
                                     deleteParams={{ question_id }}
@@ -209,9 +209,9 @@ const Content = (props, ref) =>{
                                     showDelIcon
                                     onDeleteClick={onDeleteClick}
                                     marginTop = "0px"
-                                    onChange={(event)=>onChange(event, quesIndex)}
+                                    onChange={(event)=>onChange(event, quesindex)}
                                 /> 
-                                <Row key={`option_containergit_${question_id || quesIndex}`} className='option-row' gutter={[60, 0]}>
+                                <Row  className='option-row' gutter={[60, 0]}>
                                     {
                                         options?.map(({ option, option_id}, index)=>(
                                         <Col
@@ -231,10 +231,10 @@ const Content = (props, ref) =>{
                                                 label = {`Option ${index + 1}`}
                                                 name = {`option_${index}`}
                                                 // type ="password"
-                                                quesIndex = {quesIndex}
+                                                quesindex = {quesindex}
                                                 disableDelIcon = {options?.length > 2 ? false : true}
                                                 deleteParams={{ question_id, option_id }}
-                                                optIndex = {index}
+                                                // optIndex = {index}
                                                 value={option || ''}
                                                 showDelIcon 
                                                 onDeleteClick={onDeleteClick}
@@ -245,7 +245,7 @@ const Content = (props, ref) =>{
                                                     fontSize : '12px'
                                                 }}
                                                 // // marginTop = "0px"
-                                                onChange={(event)=>onChange(event, quesIndex, index)}
+                                                onChange={(event)=>onChange(event, quesindex, index)}
                                             />
                                         </Col>              
                                         ))
@@ -264,11 +264,11 @@ const Content = (props, ref) =>{
                                         }}
                                     >
                                         <div className='add-opt-container'>
-                                            <Button disabled={isDisableAddOpt(quesIndex)} type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesIndex)}>{ADD_OPTION}</Button>
+                                            <Button disabled={isDisableAddOpt(quesindex)} type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesindex)}>{ADD_OPTION}</Button>
                                         </div>
                                     </Col>    
                                 </Row>
-                            </React.Fragment>
+                            </div>
                         ))
                     } 
                 <div className='add-ques-container'>

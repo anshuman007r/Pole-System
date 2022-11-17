@@ -109,7 +109,7 @@ const Header = props => {
                             {
                                 headerButton?.map(({ name, label, icon, redirect_link}, index)=>(
                                     <div name={name} data-testid="header-button" className="navbar-item end-nav-item"  key={`action_${index}`}>
-                                        <button style={{ width : '100%'}} className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
+                                        <button data-testid = "head-btn" style={{ width : '100%'}} className="button is-light" onClick={()=>onButtonClick(redirect_link)}>
                                         <div className={icon ? "logout-button-content" : ''}>
                                             { 
                                                 icon && 
