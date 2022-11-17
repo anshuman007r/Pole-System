@@ -106,7 +106,7 @@ const List = props => {
                                                 {
                                                     actionButton?.map(({ name , Component, color}, actionIndex)=>(
                                                         <Tooltip key={`action_${actionIndex}`} placement="bottom" title={name}>
-                                                            <Component data-testid= 'icon-button' twoToneColor={color} onClick={()=>onActionClick(name, pole_id)}/>
+                                                            <Component name={name} data-testid= 'icon-button' twoToneColor={color} onClick={()=>onActionClick(name, pole_id)}/>
                                                         </Tooltip>
                                                     ))
                                                 }

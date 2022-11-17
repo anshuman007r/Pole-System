@@ -6,6 +6,8 @@ import StoreWrapper from "./StoreWrapper";
 import RouterWrapper from "./RouteWrapper";
 import ClosePole from "./ClosePole";
 import OpenPole from "./OpenPole";
+import PoleDetails from "./PoleDetails";
+import PoleResult from "./PoleResult";
 
 export {
     LoginPage,
@@ -15,5 +17,7 @@ export {
     StoreWrapper,
     RouterWrapper,
     ClosePole,
-    OpenPole
+    OpenPole,
+    PoleDetails,
+    PoleResult
 }

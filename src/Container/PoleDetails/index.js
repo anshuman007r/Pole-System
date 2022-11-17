@@ -28,7 +28,7 @@ const PoleDetails = props => {
     },[quesArr])
 
     useEffect(()=>{
-        setQuesArr(pole?.questions?.map(ques =>({ question : ques?.question, optVal : ''})))
+        setQuesArr(pole?.questions?.map(ques =>({ question : ques?.question, optVal : ques?.optVal || ''})))
     },[pole])
 
     const onSave = () => {
@@ -69,7 +69,9 @@ const PoleDetails = props => {
         })
     }
 
-    const onCancel = () =>props.history.goBack()
+    const onCancel = () =>{
+        props.history?.goBack()
+    }
 
     return (
         <>
@@ -77,11 +79,11 @@ const PoleDetails = props => {
                 page = {POLE_DETAILS}
                 { ...props}
             />
-            <div className="pole-detail-container">
+            <div data-testid="pole-detail-content" className="pole-detail-container">
                 <div className="sub-header">
                     <img alt= "pole_image" src= {process.env.PUBLIC_URL+"images/pole_image.png"} width = "50px" height = "50px"/>
                     <Tooltip title={pole?.pole_name || ''} placement= 'bottomLeft'>
-                       <Typography.Title className="sub-header-text label-ellipsis-pole-details">{pole?.pole_name || ''}</Typography.Title>
+                       <Typography.Title data-testid="pole-detail-pole-name" className="sub-header-text label-ellipsis-pole-details">{pole?.pole_name || ''}</Typography.Title>
                     </Tooltip>
                 </div>
                 <hr className='horizontal-line-pole_detail' />
@@ -90,16 +92,17 @@ const PoleDetails = props => {
                     <div style={{  overflow : 'auto', height : 'calc(100vh - 251px)'}}>
                         {
                             pole?.questions?.map(({question, options, question_id}, quesIndex)=>(
-                                <React.Fragment key={`react_frag_${quesIndex}`}>
+                                <div data-testid = "pole-detail-question" key={`react_frag_${quesIndex}`}>
                                     { quesIndex ? <hr key={`hr_${question_id}`}  className='horizontal-line-internal'/> : null}
                                     <Tooltip title={question || ''} placement= 'bottomLeft'>
                                         <Typography.Paragraph className="pole-detail-ques label-ellipsis-pole-details">{question || ''}</Typography.Paragraph>
                                     </Tooltip>
-                                    <Row key={`option_containergit_${question_id || quesIndex}`} className='option-row' gutter={[60, 10]} style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
+                                    <Row data-testid="option-container" key={`option_containergit_${question_id || quesIndex}`} className='option-row' gutter={[60, 10]} style={{ pointerEvents : role === 'admin' ? 'none' : ''}}>
                                             {
                                                 options?.map(({ option, option_id}, index)=>(
                                                 <Col
                                                     // key={`option_${index}`}
+                                                    data-testid = "pole-detail-option"
                                                     className='option-row-left-col'
                                                     key= {option_id || `option_${index}`}
                                                     sm = {{
@@ -128,15 +131,15 @@ const PoleDetails = props => {
                                                 ))
                                             }
                                     </Row>
-                                </React.Fragment>
+                                </div>
                             ))
                         }    
                     </div> : null
                 }   
             </div> 
-            <div className="pole-detail-footer" style={{ pointerEvents : role === ADMIN ? 'none' : ''}}>
-                <Button type = "link" className = "content-button button-font-16px" onClick={onCancel}>{CANCEL}</Button>
-                <Button disabled={disableSave} type = "primary" className = " save-button-pole button-font-16px" onClick={onSave}>{SAVE}</Button>
+            <div data-testid="pole-detail-footer" className="pole-detail-footer">
+                <Button data-testid = "pole-detail-cancel" type = "link" className = "content-button button-font-16px" onClick={onCancel}>{CANCEL}</Button>
+                <Button data-testid = "pole-detail-save" disabled={disableSave} type = "primary" className = " save-button-pole button-font-16px" onClick={onSave}>{SAVE}</Button>
             </div>     
         </>
     )

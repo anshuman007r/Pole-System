@@ -66,7 +66,7 @@ const PoleResult = props => {
                 page = {POLE_RESULT}
                 { ...props}
             />
-            <div className="pole-detail-container">
+            <div data-testid="pole-result-content" className="pole-detail-container">
                 <div className="sub-header">
                     <img alt= "pole_image" src= {process.env.PUBLIC_URL+"images/pole_image.png"} width = "50px" height = "50px"/>
                     <Tooltip title={pole?.pole_name || ''} placement= 'bottomLeft'>

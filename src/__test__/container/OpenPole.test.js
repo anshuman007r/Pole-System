@@ -119,10 +119,10 @@ describe('rendering of list', () => {
         })      
         test('on click of edit modal should render', () => {
             compSetup({ loggedUserReducer : { role : ADMIN }, poleReducer : [ ...list] }, { })
-            const headerButtonNode = screen.queryAllByTestId('icon-button')
-            // const editButton = iconButtonNode.find(o => o.getAttribute('name') === EDIT && o.getAttribute('role') === 'img')
+            const iconButtonNode = screen.queryAllByTestId('icon-button')
+            const editButton = iconButtonNode.find(o => o.getAttribute('name') === EDIT)
             // console.log('Add Pole Button', headerButtonNode)
-            fireEvent.click(headerButtonNode[0])
+            fireEvent.click(editButton)
             const modalContainer = screen.queryByTestId('modal-container')
             expect(modalContainer).toBeInTheDocument()
         })
