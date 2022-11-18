@@ -1,8 +1,9 @@
 
-import React, { useMemo, useState, useEffect, useImperativeHandle, forwardRef} from 'react'
+import React, { useState, useMemo, useEffect, useImperativeHandle, forwardRef} from 'react'
 import { InputBox, Row, Col, Button, DatePicker } from '../../../../Component'
 import './index.css'
 import moment from 'moment'
+import { getUniqueNumber } from '../../../../helper'
 import constants from '../../../../Constants'
 const {
     POLE_NAME,
@@ -12,9 +13,7 @@ const {
     ADD_QUESTION
  } = constants
 
-const getUniqueNumber = ()=>{
-    return Math.random(moment()?.valueOf())*moment().valueOf()
-}
+
 
 const Content = (props, ref) =>{
     const poleData = {
@@ -153,6 +152,7 @@ const Content = (props, ref) =>{
         }
     }
 
+
     useImperativeHandle( ref, ()=> ({
         poleData : state
     }))
@@ -161,6 +161,7 @@ const Content = (props, ref) =>{
         <div data-testid = "modal-content">
             <InputBox
                 label = ''
+                data-testid="pole_name"
                 name = "pole_name"
                 placeholder = {POLE_NAME}
                 inputWidth = "100%"
@@ -168,21 +169,21 @@ const Content = (props, ref) =>{
                 width ="100%"
                 marginTop = "0px"
                 onChange={onChange}
-                />
-                <DatePicker
-                    label = {CLOSING_DATE}
-                    name = "closing_date"
-                    width = "40%"
-                    labelStyle = {{
-                        fontWeight : '500',
-                        fontSize : '15px',
-                        padding : '0 12px'
-                    }}
-                    value={ state?.closing_date ? moment(state?.closing_date , 'YYYY/MM/DD') : ''}
-                    onChange={(date)=>onChange({ target : { name : 'closing_date', value : date ? moment(date)?.format('YYYY/MM/DD') : '' }})}
-                    inputWidth = "calc(100% - 140px)"
+            />
+            <DatePicker
+                label = {CLOSING_DATE}
+                name = "closing_date"
+                width = "40%"
+                labelStyle = {{
+                    fontWeight : '500',
+                    fontSize : '15px',
+                    padding : '0 12px'
+                }}
+                value={ state?.closing_date ? moment(state?.closing_date , 'YYYY/MM/DD') : ''}
+                onChange={(date)=>onChange({ target : { name : 'closing_date', value : date ? moment(date)?.format('YYYY/MM/DD') : '' }})}
+                inputWidth = "calc(100% - 140px)"
 
-                />
+            />
             <hr className='horizontal-line'/>
             {
                 questions?.length ? 
@@ -193,6 +194,7 @@ const Content = (props, ref) =>{
                                 { quesindex ? <hr key={`hr_${question_id}`}  className='horizontal-line-internal'/> : null}
                                 <InputBox
                                     label = {`Question ${quesindex + 1}`}
+                                    data-testid="question"
                                     key={question_id || `Question_${quesindex}`}
                                     name = {question_id || `question_${quesindex}`}
                                     quesindex = {quesindex}
@@ -230,6 +232,7 @@ const Content = (props, ref) =>{
                                             <InputBox
                                                 label = {`Option ${index + 1}`}
                                                 name = {`option_${index}`}
+                                                data-testid="option"
                                                 // type ="password"
                                                 quesindex = {quesindex}
                                                 disableDelIcon = {options?.length > 2 ? false : true}
@@ -264,7 +267,7 @@ const Content = (props, ref) =>{
                                         }}
                                     >
                                         <div className='add-opt-container'>
-                                            <Button disabled={isDisableAddOpt(quesindex)} type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesindex)}>{ADD_OPTION}</Button>
+                                            <Button data-testid = "modal-add-option" disabled={isDisableAddOpt(quesindex)} type = "link" className = "content-button button-font-12px" onClick={() => onAddOption(quesindex)}>{ADD_OPTION}</Button>
                                         </div>
                                     </Col>    
                                 </Row>
@@ -272,7 +275,7 @@ const Content = (props, ref) =>{
                         ))
                     } 
                 <div className='add-ques-container'>
-                    <Button disabled={disableAddQues} type = "link" className = "content-button button-font-16px" onClick={onAddQuestion}>{ADD_QUESTION}</Button>
+                    <Button data-testid = "modal-add-question" disabled={disableAddQues} type = "link" className = "content-button button-font-16px" onClick={onAddQuestion}>{ADD_QUESTION}</Button>
                 </div>
             </div> : null
             }

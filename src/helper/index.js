@@ -15,10 +15,15 @@ const isPoleExpire = ({ closing_date = '', ...rest}) => {
     return true
 }
 
+const getUniqueNumber = ()=>{
+    return Math.random(moment()?.valueOf())*moment().valueOf()
+}
+
 const storeFactory = (initialState) => createStore(reducer, initialState)
 
 export {
     isPoleExpire,
     getTimeStamp,
-    storeFactory
+    storeFactory,
+    getUniqueNumber
 }
