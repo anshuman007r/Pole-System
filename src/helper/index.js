@@ -2,7 +2,7 @@ import moment from "moment"
 import { createStore } from "redux"
 import reducer from "../storage/reducer";
 
-const getTimeStamp = (date) => moment(date, 'YYYY/MM/DD').valueOf() 
+const getTimeStamp = (date = '') => moment(date)?.isValid() ?  moment(date, 'YYYY/MM/DD').valueOf() : 'Invalid date' 
 
 const isPoleExpire = ({ closing_date = '', ...rest}) => {
     const isClosingDateValid = moment(closing_date)?.isValid() ? getTimeStamp(closing_date) !== 'Invalid date' : false

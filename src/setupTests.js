@@ -10,7 +10,8 @@ Object.defineProperty(window, 'matchMedia', {
       return {
         matches: false,
         addListener: () => {},
-        removeListener: () => {}
+        removeListener: () => {},
+        act : () => {}
       };
     }
 })
