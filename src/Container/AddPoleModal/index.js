@@ -75,40 +75,44 @@ const AddPoleModal = props =>{
     
     return(
         <React.Fragment>
+            {
+                open?.state ? 
+                <Modal
+                    open={open?.state}
+                    onOk={onSave}
+                    data-testid = "modal-container"
+                    okText={open?.type === ADD ? ADD : EDIT}
+                    cancelButtonProps={{ className : 'cancel-button'}}
+                    okButtonProps={{ className : 'save-button', disabled : disableAdd}}
+                    bodyStyle={{
+                        height : '56vh',
+                        overflow : 'auto'
+                    }}
+                    destroyOnClose
+                    onCancel={onClose}
+                    width={1000}
+                    // height={10400}
+                    title={open?.type === ADD ? ADD_POLE : EDIT_POLE}
+                >
+                        {error &&
+                            <Alert
+                                message = {error || SOMETHING_WENT_WRONG}
+                                banner
+                                data-testid = "modal-error"
+                                type = "error"
+                                closable
+                                afterClose={onCloseError}
+                                className='error-box-modal'
+                            />
+                        }
+                        <Content
+                            ref={contentRef}
+                            onDisableAdd = {onDisableAdd}
+                            pole = {pole}
+                        />
+                </Modal> : null
+            }
 
-            <Modal
-                open={open?.state}
-                onOk={onSave}
-                data-testid = "modal-container"
-                okText={open?.type === ADD ? ADD : EDIT}
-                cancelButtonProps={{ className : 'cancel-button'}}
-                okButtonProps={{ className : 'save-button', disabled : disableAdd}}
-                bodyStyle={{
-                    height : '56vh',
-                    overflow : 'auto'
-                }}
-                destroyOnClose
-                onCancel={onClose}
-                width={1000}
-                // height={10400}
-                title={open?.type === ADD ? ADD_POLE : EDIT_POLE}
-            >
-                {error &&
-                    <Alert
-                        message = {error || SOMETHING_WENT_WRONG}
-                        banner
-                        type = "error"
-                        closable
-                        afterClose={onCloseError}
-                        className='error-box-modal'
-                    />
-                }
-                <Content
-                    ref={contentRef}
-                    onDisableAdd = {onDisableAdd}
-                    pole = {pole}
-                />
-            </Modal>
         </React.Fragment>
     )
 }

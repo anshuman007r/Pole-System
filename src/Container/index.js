@@ -8,6 +8,7 @@ import ClosePole from "./ClosePole";
 import OpenPole from "./OpenPole";
 import PoleDetails from "./PoleDetails";
 import PoleResult from "./PoleResult";
+import AddPoleModal from "./AddPoleModal";
 
 export {
     LoginPage,
@@ -19,5 +20,6 @@ export {
     ClosePole,
     OpenPole,
     PoleDetails,
-    PoleResult
+    PoleResult,
+    AddPoleModal
 }

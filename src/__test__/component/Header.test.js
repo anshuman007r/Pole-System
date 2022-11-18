@@ -112,7 +112,7 @@ describe('rendering of header button', () => {
         test('when role is user only open list button should render', ()=>{
             compSetup({loggedUserReducer : { role : USER }}, {})
             const headerButtons = screen.queryAllByTestId('header-button')
-            console.log(headerButtons)
+            // console.log(headerButtons)
             expect(headerButtons[0]).toHaveAttribute("name", OPEN_LIST)  
         })
     })
@@ -121,7 +121,7 @@ describe('rendering of header button', () => {
         test('when role is admin add pole button should render', ()=>{
             compSetup({loggedUserReducer : { role : ADMIN }}, { page : OPEN_POLES })
             const headerButtons = screen.queryAllByTestId('header-button')
-            console.log(headerButtons)
+            // console.log(headerButtons)
             expect(headerButtons[0]).toHaveAttribute("name", ADD_POLE)  
         })
         test('when role is user header button other than logout should not be render', ()=>{

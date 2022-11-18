@@ -19,7 +19,7 @@ describe('Pole App testing', () => {
         </StoreWrapper>
       </MemoryRouter> ,
     )
-    console.log(window.location.pathname)
+    // console.log(window.location.pathname)
     expect(history.location.pathname).toMatch('/')
   })
 })
