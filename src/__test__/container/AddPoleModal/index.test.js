@@ -41,6 +41,11 @@ describe('rendering of modal', () =>{
             const footBtn = [cancelButton, saveButton]?.filter(btn => btn)
             expect(footBtn).toHaveLength(0)
         })
+        test('content should not render',() =>{
+            compSetup({},{})
+            const modalContainer = screen.queryByTestId('modal-content')
+            expect(modalContainer).not.toBeInTheDocument()
+        })
     })
     describe('on passing open object in props',() =>{
         test('modal should render', () =>{
@@ -73,6 +78,11 @@ describe('rendering of modal', () =>{
             const footerButton = screen.getAllByRole('button')
             const cancelButton = footerButton.find(o => o.getAttributeNode('class').value === 'ant-btn ant-btn-default cancel-button')
             expect(cancelButton).not.toBeDisabled()
+        })
+        test('content should render',() =>{
+            compSetup({},{open})
+            const modalContainer = screen.queryByTestId('modal-content')
+            expect(modalContainer).toBeInTheDocument()
         })
     })
 })

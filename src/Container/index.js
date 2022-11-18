@@ -9,6 +9,7 @@ import OpenPole from "./OpenPole";
 import PoleDetails from "./PoleDetails";
 import PoleResult from "./PoleResult";
 import AddPoleModal from "./AddPoleModal";
+import ModalContent from './AddPoleModal/Component/Content'
 
 export {
     LoginPage,
@@ -21,5 +22,6 @@ export {
     OpenPole,
     PoleDetails,
     PoleResult,
-    AddPoleModal
+    AddPoleModal,
+    ModalContent
 }

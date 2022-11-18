@@ -158,7 +158,7 @@ const Content = (props, ref) =>{
     }))
 
     return(
-        <React.Fragment>
+        <div data-testid = "modal-content">
             <InputBox
                 label = ''
                 name = "pole_name"
@@ -276,7 +276,7 @@ const Content = (props, ref) =>{
                 </div>
             </div> : null
             }
-        </React.Fragment>
+        </div>
     )
 }
 
