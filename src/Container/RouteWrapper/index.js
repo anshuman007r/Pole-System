@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const RouterWrapper = props => {
-    const { children , history={} } = props
+    const { children } = props
     return (
-        <Router history={history}>
+        <Router>
             {children}
         </Router>
     )

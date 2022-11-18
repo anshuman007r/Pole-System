@@ -2,10 +2,11 @@ import moment from "moment"
 import { createStore } from "redux"
 import reducer from "../storage/reducer";
 
-const getTimeStamp = (date = '') => moment(date)?.isValid() ?  moment(date, 'YYYY/MM/DD').valueOf() : 'Invalid date' 
+const getTimeStamp = (date = '') => moment(moment(date, 'YYYY/MM/DD'),moment.ISO_8601)?.isValid() ?  moment(date, 'YYYY/MM/DD').valueOf() : 'Invalid date' 
 
 const isPoleExpire = ({ closing_date = '', ...rest}) => {
-    const isClosingDateValid = moment(closing_date)?.isValid() ? getTimeStamp(closing_date) !== 'Invalid date' : false
+    const isoFormClosingDate = moment(closing_date, 'YYYY/MM/DD')
+    const isClosingDateValid = moment(isoFormClosingDate,  moment.ISO_8601)?.isValid() ? getTimeStamp(closing_date) !== 'Invalid date' : false
     if(isClosingDateValid){
         const closeDateMillSec = getTimeStamp(closing_date)
         const currentDateMillSec = getTimeStamp(moment().format('YYYY/MM/DD'))
@@ -21,9 +22,14 @@ const getUniqueNumber = ()=>{
 
 const storeFactory = (initialState) => createStore(reducer, initialState)
 
+function isValidDate(d) {
+    return d instanceof moment && !isNaN(d);
+  }
+
 export {
     isPoleExpire,
     getTimeStamp,
     storeFactory,
-    getUniqueNumber
+    getUniqueNumber,
+    isValidDate
 }

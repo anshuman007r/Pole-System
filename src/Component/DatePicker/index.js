@@ -2,12 +2,10 @@ import React, { useMemo} from 'react'
 import { DatePicker as DateTimePicker, Typography } from 'antd'
 import './index.css'
 import moment from 'moment'
+import { isValidDate } from '../../helper'
+
 
 const { Text } = Typography
-
-function isValidDate(d) {
-    return d instanceof moment && !isNaN(d);
-  }
 
 const DatePicker = props => {
     const { 

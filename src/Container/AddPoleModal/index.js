@@ -10,6 +10,7 @@ import {
 import './index.css'
 import moment from 'moment'
 import constants from '../../Constants'
+import { isValidDate } from '../../helper'
 const {
     ADD,
     EDIT,
@@ -23,7 +24,7 @@ const {
  } = constants
 
 const validateDate = (date = '') =>{
-    if(moment(date, 'YYYY/MM/DD')?.isValid()){
+    if(isValidDate(date, 'YYYY/MM/DD')){
         const currentDateMillSec = moment().valueOf()
         const selectedDateMillSec = moment(date, 'YYYY/MM/DD').valueOf()
         if(currentDateMillSec > selectedDateMillSec){

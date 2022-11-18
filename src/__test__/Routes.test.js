@@ -2,27 +2,34 @@ import { screen, render, waitFor } from '@testing-library/react';
 import { Routes, StoreWrapper, RouterWrapper } from '../Container'
 import { createMemoryHistory } from 'history'
 import { storeFactory } from '../helper'
-import { Router } from 'react-router-dom'
+import { Redirect, Router } from 'react-router-dom'
+import { act } from 'react-dom/test-utils'
 
 
 let store
 const history = createMemoryHistory();
 
-const compSetup = (initialState = {}) =>{
+const compSetup = async (initialState = {}) =>{
   store = storeFactory(initialState)
-  render(
+  await act( async () => render(
     <Router history={history}>
       <StoreWrapper store={store}>
         <Routes/>
       </StoreWrapper>
     </Router>
-    // </RouterWrapper> 
-  )
+  ))
 }
 
 describe('Route testing', () => {
   test('by default login link should render',() =>{
-    compSetup({})
+    let storeTest = storeFactory({})
+    render(
+      <Router history={history}>
+        <StoreWrapper store={storeTest}>
+          <Routes/>
+        </StoreWrapper>
+      </Router>
+    )
     expect(history.location.pathname).toMatch('/login')
   })
   test('on pushing register link it should register',() =>{
@@ -30,20 +37,8 @@ describe('Route testing', () => {
     history.push('/register')
     expect(history.location.pathname).toMatch('/register')
   })
-  // test('on pushing main page link it should redirect to login page', async()=>{
-  //   compSetup({})
-  //   history.push('/')
-  //   const path = await waitFor(()=> history.location.pathname)
-  //   expect(path).toMatch('/login')   
-  // })
   test('when user is logged in main page link should render', ()=>{
-    compSetup({ loggedUserReducer : { userName : 'Ankit', role : 'user'}})
+    compSetup({ loggedUserReducer : {}})
     expect(history.location.pathname).toMatch('/')   
   })
-  //  test('on pushing main page link it should redirect to login page', async()=>{
-  //   compSetup({loggedUserReducer : { userName : 'Ankit', role : 'user'}})
-  //   history.push('/login')
-  //   const path = await waitFor(()=> history.location.pathname)
-  //   expect(path).toMatch('/login')   
-  // })
 })
